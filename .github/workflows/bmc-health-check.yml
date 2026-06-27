@@ -1,0 +1,163 @@
+name: BMC Service Health Check
+
+on:
+  schedule:
+    # Runs every 30 minutes
+    - cron: '*/30 * * * *'
+  # Also allows manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check Vercel — Homepage
+        id: vercel_home
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://bmc-website-iota.vercel.app)
+          echo "status=$STATUS" >> $GITHUB_OUTPUT
+          if [ "$STATUS" != "200" ]; then
+            echo "VERCEL_HOME_FAIL=true" >> $GITHUB_ENV
+            echo "::warning::Vercel homepage returned HTTP $STATUS"
+          fi
+
+      - name: Check Vercel — Inventory
+        id: vercel_inventory
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://bmc-website-iota.vercel.app/inventory)
+          echo "status=$STATUS" >> $GITHUB_OUTPUT
+          if [ "$STATUS" != "200" ]; then
+            echo "VERCEL_INV_FAIL=true" >> $GITHUB_ENV
+            echo "::warning::Vercel inventory returned HTTP $STATUS"
+          fi
+
+      - name: Check Sanity API
+        id: sanity
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=*[_type=='vehicle'][0]{_id}")
+          echo "status=$STATUS" >> $GITHUB_OUTPUT
+          if [ "$STATUS" != "200" ]; then
+            echo "SANITY_FAIL=true" >> $GITHUB_ENV
+            echo "::warning::Sanity API returned HTTP $STATUS"
+          fi
+
+      - name: Check Stripe Webhook Endpoint
+        id: stripe_webhook
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -X POST https://bmc-website-iota.vercel.app/api/stripe-webhook)
+          echo "status=$STATUS" >> $GITHUB_OUTPUT
+          # 405 Method Not Allowed is correct — endpoint exists but only accepts POST with valid payload
+          if [ "$STATUS" != "405" ] && [ "$STATUS" != "400" ] && [ "$STATUS" != "200" ]; then
+            echo "STRIPE_FAIL=true" >> $GITHUB_ENV
+            echo "::warning::Stripe webhook endpoint returned HTTP $STATUS"
+          fi
+
+      - name: Check Stripe Reserve Endpoint
+        id: stripe_reserve
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://bmc-website-iota.vercel.app/api/reserve)
+          echo "status=$STATUS" >> $GITHUB_OUTPUT
+          if [ "$STATUS" != "405" ] && [ "$STATUS" != "400" ] && [ "$STATUS" != "200" ]; then
+            echo "STRIPE_RESERVE_FAIL=true" >> $GITHUB_ENV
+            echo "::warning::Stripe reserve endpoint returned HTTP $STATUS"
+          fi
+
+      - name: Check Resend Enquiry Endpoint
+        id: resend
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://bmc-website-iota.vercel.app/api/enquiry)
+          echo "status=$STATUS" >> $GITHUB_OUTPUT
+          if [ "$STATUS" != "405" ] && [ "$STATUS" != "400" ] && [ "$STATUS" != "200" ]; then
+            echo "RESEND_FAIL=true" >> $GITHUB_ENV
+            echo "::warning::Enquiry endpoint returned HTTP $STATUS"
+          fi
+
+      - name: Check CookieYes CDN
+        id: cookieyes
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://cdn-cookieyes.com/client_data/52cf22134bb521a139dc95ccb9b24e42/script.js)
+          echo "status=$STATUS" >> $GITHUB_OUTPUT
+          if [ "$STATUS" != "200" ]; then
+            echo "COOKIEYES_FAIL=true" >> $GITHUB_ENV
+            echo "::warning::CookieYes CDN returned HTTP $STATUS"
+          fi
+
+      - name: Check DigitalOcean Status
+        id: digitalocean
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://status.digitalocean.com)
+          echo "status=$STATUS" >> $GITHUB_OUTPUT
+          if [ "$STATUS" != "200" ]; then
+            echo "DO_FAIL=true" >> $GITHUB_ENV
+            echo "::warning::DigitalOcean status page returned HTTP $STATUS"
+          fi
+
+      - name: Build alert summary
+        id: summary
+        run: |
+          FAILURES=""
+          
+          if [ "$VERCEL_HOME_FAIL" = "true" ]; then
+            FAILURES="$FAILURES\n❌ Vercel Homepage — not responding"
+          fi
+          if [ "$VERCEL_INV_FAIL" = "true" ]; then
+            FAILURES="$FAILURES\n❌ Vercel Inventory — not responding"
+          fi
+          if [ "$SANITY_FAIL" = "true" ]; then
+            FAILURES="$FAILURES\n❌ Sanity API — not responding"
+          fi
+          if [ "$STRIPE_FAIL" = "true" ]; then
+            FAILURES="$FAILURES\n❌ Stripe Webhook Endpoint — not responding"
+          fi
+          if [ "$STRIPE_RESERVE_FAIL" = "true" ]; then
+            FAILURES="$FAILURES\n❌ Stripe Reserve Endpoint — not responding"
+          fi
+          if [ "$RESEND_FAIL" = "true" ]; then
+            FAILURES="$FAILURES\n❌ Enquiry Email Endpoint — not responding"
+          fi
+          if [ "$COOKIEYES_FAIL" = "true" ]; then
+            FAILURES="$FAILURES\n❌ CookieYes CDN — not responding"
+          fi
+          if [ "$DO_FAIL" = "true" ]; then
+            FAILURES="$FAILURES\n❌ DigitalOcean — platform issues detected"
+          fi
+
+          if [ -n "$FAILURES" ]; then
+            echo "has_failures=true" >> $GITHUB_OUTPUT
+            echo "failures<<EOF" >> $GITHUB_OUTPUT
+            echo -e "$FAILURES" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "has_failures=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send alert email via Gmail
+        if: steps.summary.outputs.has_failures == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.ALERT_EMAIL_ADDRESS }}
+          password: ${{ secrets.ALERT_EMAIL_PASSWORD }}
+          to: anthewett@hotmail.com
+          from: BMC Alerts <${{ secrets.ALERT_EMAIL_ADDRESS }}>
+          subject: "⚠️ BMC Service Alert — Issues Detected"
+          body: |
+            BMC Group Service Health Check — Issues Detected
+            
+            The following services are not responding correctly:
+            
+            ${{ steps.summary.outputs.failures }}
+            
+            Checked at: ${{ github.run_id }}
+            
+            View your dashboards:
+            https://bmc-dashboards.netlify.app
+            
+            — BMC Automated Monitoring
+
+      - name: All systems operational
+        if: steps.summary.outputs.has_failures == 'false'
+        run: echo "✅ All BMC services are responding correctly."
