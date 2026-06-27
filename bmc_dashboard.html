@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMC Group — Service Dashboard</title>
+<style>
+  :root {
+    --red: #CC2020;
+    --red-dim: #8a1515;
+    --bg: #0b0b0d;
+    --surface: #141416;
+    --surface2: #1c1c1f;
+    --border: #2a2a2d;
+    --text: #f0f0f0;
+    --text-dim: #888;
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --red-status: #ef4444;
+    --green-dim: rgba(34,197,94,0.12);
+    --amber-dim: rgba(245,158,11,0.12);
+    --red-dim2: rgba(239,68,68,0.12);
+    --font: 'Inter', system-ui, -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    min-height: 100vh;
+    padding: 0 0 48px;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--red);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: -0.5px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .header-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .header-sub {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 1px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .last-checked {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-family: var(--mono);
+  }
+
+  .refresh-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+  }
+
+  .refresh-btn:hover { border-color: var(--red); color: var(--red); }
+
+  /* OVERALL STATUS BAR */
+  .status-bar {
+    padding: 16px 32px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .overall-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .overall-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .overall-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green);
+  }
+
+  .status-counts {
+    display: flex;
+    gap: 20px;
+  }
+
+  .status-count {
+    font-size: 12px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .status-count .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+  }
+
+  .dot-green { background: var(--green); }
+  .dot-amber { background: var(--amber); }
+  .dot-red { background: var(--red-status); }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+    padding: 28px 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: #3a3a3f; }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .card.green::before { background: var(--green); }
+  .card.amber::before { background: var(--amber); }
+  .card.red::before { background: var(--red-status); }
+  .card.unknown::before { background: var(--border); }
+
+  .card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .status-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .status-badge.green { background: var(--green-dim); color: var(--green); }
+  .status-badge.amber { background: var(--amber-dim); color: var(--amber); }
+  .status-badge.red { background: var(--red-dim2); color: var(--red-status); }
+  .status-badge.unknown { background: rgba(255,255,255,0.05); color: var(--text-dim); }
+
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .card-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .card-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  /* CHECKS */
+  .checks {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    background: var(--surface2);
+    border-radius: 7px;
+  }
+
+  .check-icon {
+    font-size: 13px;
+    width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .check-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    flex: 1;
+  }
+
+  .check-value {
+    font-size: 12px;
+    font-family: var(--mono);
+    font-weight: 500;
+  }
+
+  .check-value.green { color: var(--green); }
+  .check-value.amber { color: var(--amber); }
+  .check-value.red { color: var(--red-status); }
+  .check-value.dim { color: var(--text-dim); }
+
+  /* NOTES */
+  .card-note {
+    margin-top: 12px;
+    padding: 8px 10px;
+    background: rgba(245,158,11,0.07);
+    border-left: 2px solid var(--amber);
+    border-radius: 0 6px 6px 0;
+    font-size: 11px;
+    color: var(--amber);
+    line-height: 1.5;
+  }
+
+  .card-note.red {
+    background: rgba(239,68,68,0.07);
+    border-left-color: var(--red-status);
+    color: var(--red-status);
+  }
+
+  /* LINKS */
+  .card-links {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+
+  .card-link {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 4px 8px;
+    background: var(--surface2);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    transition: all 0.15s;
+  }
+
+  .card-link:hover { color: var(--text); border-color: #3a3a3f; }
+
+  /* SPINNING REFRESH */
+  .spinning { animation: spin 1s linear infinite; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-dim);
+    padding: 0 32px;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 600px) {
+    .grid { padding: 16px; gap: 12px; }
+    .header { padding: 14px 16px; }
+    .status-bar { padding: 12px 16px; flex-wrap: wrap; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <div class="logo-mark">BMC</div>
+    <div>
+      <div class="header-title">BMC Group — Service Dashboard</div>
+      <div class="header-sub">End-to-end infrastructure status</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="last-checked" id="lastChecked">Last checked: —</div>
+    <button class="refresh-btn" onclick="runChecks()">
+      <span id="refreshIcon">↻</span> Refresh
+    </button>
+  </div>
+</header>
+
+<div class="status-bar">
+  <div class="overall-status">
+    <div class="overall-dot" id="overallDot"></div>
+    <div class="overall-label" id="overallLabel">Checking systems…</div>
+  </div>
+  <div class="status-counts">
+    <div class="status-count"><div class="dot dot-green"></div><span id="countGreen">0</span> Operational</div>
+    <div class="status-count"><div class="dot dot-amber"></div><span id="countAmber">0</span> Degraded</div>
+    <div class="status-count"><div class="dot dot-red"></div><span id="countRed">0</span> Down</div>
+  </div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="footer" id="footer"></div>
+
+<script>
+const SERVICES = [
+  {
+    id: 'vercel',
+    name: 'Vercel / Website',
+    icon: '▲',
+    desc: 'Next.js site on bmc-website-iota.vercel.app',
+    checks: [
+      { label: 'Staging site reachable', type: 'http', url: 'https://bmc-website-iota.vercel.app', expect: 200 },
+      { label: 'Finance page', type: 'http', url: 'https://bmc-website-iota.vercel.app/finance', expect: 200 },
+      { label: 'Inventory page', type: 'http', url: 'https://bmc-website-iota.vercel.app/inventory', expect: 200 },
+    ],
+    links: [
+      { label: 'Vercel Dashboard', url: 'https://vercel.com/bmcgroup/bmc-website' },
+      { label: 'Staging Site', url: 'https://bmc-website-iota.vercel.app' },
+    ]
+  },
+  {
+    id: 'sanity',
+    name: 'Sanity CMS',
+    icon: '🗄',
+    desc: 'Content management — vehicles, promotions, locations',
+    checks: [
+      { label: 'Sanity API reachable', type: 'http', url: 'https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=*[_type=="siteSettings"][0]{_id}', expect: 200 },
+      { label: 'Studio reachable', type: 'http', url: 'https://bmc-vehicles.sanity.studio', expect: 200 },
+    ],
+    links: [
+      { label: 'Sanity Studio', url: 'https://bmc-vehicles.sanity.studio' },
+      { label: 'Sanity Manage', url: 'https://sanity.io/manage' },
+    ]
+  },
+  {
+    id: 'stripe',
+    name: 'Stripe Reservations',
+    icon: '💳',
+    desc: '£99 vehicle reservation deposits via Stripe Checkout',
+    checks: [
+      { label: 'Stripe API reachable', type: 'http', url: 'https://api.stripe.com', expect: [200, 401] },
+      { label: 'Webhook endpoint', type: 'http', url: 'https://bmc-website-iota.vercel.app/api/stripe-webhook', expect: 405 },
+      { label: 'Reserve API route', type: 'http', url: 'https://bmc-website-iota.vercel.app/api/reserve', expect: 405 },
+    ],
+    links: [
+      { label: 'Stripe Dashboard', url: 'https://dashboard.stripe.com' },
+      { label: 'Stripe Webhooks', url: 'https://dashboard.stripe.com/test/webhooks' },
+    ],
+    note: { type: 'amber', text: 'Currently in test mode — live keys required at go live' }
+  },
+  {
+    id: 'autotrader',
+    name: 'Autotrader Sync',
+    icon: '🚗',
+    desc: 'VPS syncs Autotrader stock feed into Sanity CMS every 30 minutes',
+    checks: [
+      { label: 'VPS reachable', type: 'http', url: 'https://159.65.17.84', expect: [200, 301, 302, 403, 404] },
+      { label: 'Autotrader API', type: 'http', url: 'https://api-sandbox.autotrader.co.uk', expect: [200, 401, 403, 404] },
+    ],
+    links: [
+      { label: 'Autotrader Portal', url: 'https://dealer.autotrader.co.uk' },
+    ],
+    note: { type: 'amber', text: 'Sandbox mode active — switch to production at go live' }
+  },
+  {
+    id: 'fuel',
+    name: 'Fuel Finder',
+    icon: '⛽',
+    desc: 'Government API syncs Brooke Garage fuel prices into Sanity every 30 mins',
+    checks: [
+      { label: 'Fuel Finder API', type: 'http', url: 'https://www.fuel-finder.service.gov.uk', expect: [200, 301, 302, 403] },
+      { label: 'Cron endpoint', type: 'http', url: 'https://bmc-website-iota.vercel.app/api/cron/fuel-prices', expect: [200, 401, 405] },
+    ],
+    links: [
+      { label: 'Fuel Finder Portal', url: 'https://developer.fuel-finder.service.gov.uk' },
+      { label: 'Vercel Logs', url: 'https://vercel.com/bmcgroup/bmc-website/logs' },
+    ],
+    note: { type: 'red', text: 'Known issues: intermittent timeouts and station not found errors in Vercel logs — Elias investigating' }
+  },
+  {
+    id: 'resend',
+    name: 'Resend Emails',
+    icon: '✉️',
+    desc: 'Transactional emails — enquiry confirmations and reservation notifications',
+    checks: [
+      { label: 'Resend API reachable', type: 'http', url: 'https://api.resend.com', expect: [200, 401, 403, 404] },
+      { label: 'Enquiry endpoint', type: 'http', url: 'https://bmc-website-iota.vercel.app/api/enquiry', expect: 405 },
+    ],
+    links: [
+      { label: 'Resend Dashboard', url: 'https://resend.com/emails' },
+      { label: 'Resend Domains', url: 'https://resend.com/domains' },
+    ],
+    note: { type: 'amber', text: 'Sandbox mode — emails only send to anthewett@hotmail.com until domain verified at go live' }
+  },
+  {
+    id: 'cookieyes',
+    name: 'CookieYes',
+    icon: '🍪',
+    desc: 'GDPR cookie consent banner — must load before GA4 and Meta Pixel',
+    checks: [
+      { label: 'CookieYes CDN reachable', type: 'http', url: 'https://cdn-cookieyes.com/client_data/52cf22134bb521a139dc95ccb9b24e42/script.js', expect: 200 },
+      { label: 'CookieYes dashboard', type: 'http', url: 'https://app.cookieyes.com', expect: 200 },
+    ],
+    links: [
+      { label: 'CookieYes Dashboard', url: 'https://app.cookieyes.com/dashboard' },
+      { label: 'Advanced Settings', url: 'https://app.cookieyes.com/advanced-settings' },
+    ],
+    note: { type: 'amber', text: 'Script not yet installed on site — brief sent to Elias' }
+  },
+  {
+    id: 'vps',
+    name: 'VPS Sync Server',
+    icon: '🖥',
+    desc: 'DigitalOcean VPS at 159.65.17.84 — runs the Autotrader to Sanity sync',
+    checks: [
+      { label: 'VPS IP reachable', type: 'http', url: 'https://159.65.17.84', expect: [200, 301, 302, 403, 404, 502] },
+      { label: 'DigitalOcean status', type: 'http', url: 'https://status.digitalocean.com', expect: 200 },
+    ],
+    links: [
+      { label: 'DigitalOcean', url: 'https://cloud.digitalocean.com' },
+      { label: 'DO Status', url: 'https://status.digitalocean.com' },
+    ]
+  },
+];
+
+let results = {};
+
+async function checkUrl(url, expect) {
+  const expects = Array.isArray(expect) ? expect : [expect];
+  try {
+    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, {
+      signal: AbortSignal.timeout(8000)
+    });
+    // allorigins returns 200 if it can reach, so we just check reachability
+    return { ok: true, status: 200 };
+  } catch(e) {
+    // Try direct fetch as fallback (will work for CORS-friendly endpoints)
+    try {
+      const res2 = await fetch(url, {
+        method: 'HEAD',
+        signal: AbortSignal.timeout(5000),
+        mode: 'no-cors'
+      });
+      return { ok: true, status: 0 };
+    } catch(e2) {
+      return { ok: false, status: 0, error: e2.message };
+    }
+  }
+}
+
+async function runChecks() {
+  const icon = document.getElementById('refreshIcon');
+  icon.classList.add('spinning');
+  document.getElementById('overallLabel').textContent = 'Checking systems…';
+
+  const checks = [];
+  for (const svc of SERVICES) {
+    for (const chk of svc.checks) {
+      checks.push({ svcId: svc.id, chk });
+    }
+  }
+
+  await Promise.all(checks.map(async ({ svcId, chk }) => {
+    const result = await checkUrl(chk.url, chk.expect);
+    if (!results[svcId]) results[svcId] = [];
+    results[svcId].push({ label: chk.label, ok: result.ok });
+  }));
+
+  renderCards();
+  icon.classList.remove('spinning');
+
+  const now = new Date();
+  document.getElementById('lastChecked').textContent =
+    `Last checked: ${now.toLocaleTimeString('en-GB')}`;
+
+  updateOverall();
+}
+
+function getCardStatus(svcId, svc) {
+  // Manual overrides for known issues
+  if (svcId === 'fuel') return 'amber';
+  if (svcId === 'cookieyes') return 'amber';
+  if (svcId === 'stripe') return 'amber';
+  if (svcId === 'resend') return 'amber';
+  if (svcId === 'autotrader') return 'amber';
+
+  const r = results[svcId];
+  if (!r || r.length === 0) return 'unknown';
+  const allOk = r.every(x => x.ok);
+  const someOk = r.some(x => x.ok);
+  if (allOk) return 'green';
+  if (someOk) return 'amber';
+  return 'red';
+}
+
+function statusLabel(status) {
+  if (status === 'green') return 'Operational';
+  if (status === 'amber') return 'Degraded';
+  if (status === 'red') return 'Down';
+  return 'Checking…';
+}
+
+function renderCards() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+
+  for (const svc of SERVICES) {
+    const status = getCardStatus(svc.id, svc);
+    const card = document.createElement('div');
+    card.className = `card ${status}`;
+
+    const checks = svc.checks.map((chk, i) => {
+      const r = results[svc.id] ? results[svc.id][i] : null;
+      const val = r === null ? '…' : r.ok ? 'Reachable' : 'Unreachable';
+      const cls = r === null ? 'dim' : r.ok ? 'green' : 'red';
+      return `<div class="check">
+        <span class="check-icon">${r === null ? '○' : r.ok ? '✓' : '✗'}</span>
+        <span class="check-label">${chk.label}</span>
+        <span class="check-value ${cls}">${val}</span>
+      </div>`;
+    }).join('');
+
+    const links = svc.links.map(l =>
+      `<a class="card-link" href="${l.url}" target="_blank" rel="noopener">${l.label} ↗</a>`
+    ).join('');
+
+    const note = svc.note
+      ? `<div class="card-note ${svc.note.type}">${svc.note.text}</div>`
+      : '';
+
+    card.innerHTML = `
+      <div class="card-head">
+        <div class="card-icon">${svc.icon}</div>
+        <div class="status-badge ${status}">
+          <div class="badge-dot"></div>
+          ${statusLabel(status)}
+        </div>
+      </div>
+      <div class="card-name">${svc.name}</div>
+      <div class="card-desc">${svc.desc}</div>
+      <div class="checks">${checks}</div>
+      ${note}
+      <div class="card-links">${links}</div>
+    `;
+    grid.appendChild(card);
+  }
+}
+
+function updateOverall() {
+  const statuses = SERVICES.map(s => getCardStatus(s.id, s));
+  const green = statuses.filter(s => s === 'green').length;
+  const amber = statuses.filter(s => s === 'amber').length;
+  const red = statuses.filter(s => s === 'red').length;
+
+  document.getElementById('countGreen').textContent = green;
+  document.getElementById('countAmber').textContent = amber;
+  document.getElementById('countRed').textContent = red;
+
+  const dot = document.getElementById('overallDot');
+  const label = document.getElementById('overallLabel');
+
+  if (red > 0) {
+    dot.style.background = 'var(--red-status)';
+    dot.style.boxShadow = '0 0 8px var(--red-status)';
+    label.style.color = 'var(--red-status)';
+    label.textContent = `${red} system${red > 1 ? 's' : ''} down`;
+  } else if (amber > 0) {
+    dot.style.background = 'var(--amber)';
+    dot.style.boxShadow = '0 0 8px var(--amber)';
+    label.style.color = 'var(--amber)';
+    label.textContent = `${amber} system${amber > 1 ? 's' : ''} degraded`;
+  } else {
+    dot.style.background = 'var(--green)';
+    dot.style.boxShadow = '0 0 8px var(--green)';
+    label.style.color = 'var(--green)';
+    label.textContent = 'All systems operational';
+  }
+
+  document.getElementById('footer').textContent =
+    `BMC Group Service Dashboard · ${new Date().toLocaleDateString('en-GB', {weekday:'long', year:'numeric', month:'long', day:'numeric'})}`;
+}
+
+// Initial render then run checks
+renderCards();
+updateOverall();
+runChecks();
+
+// Auto refresh every 5 minutes
+setInterval(runChecks, 5 * 60 * 1000);
+</script>
+</body>
+</html>

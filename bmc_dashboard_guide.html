@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMC Group — Dashboard Guide</title>
+<style>
+  :root {
+    --red: #CC2020;
+    --bg: #0b0b0d;
+    --surface: #141416;
+    --surface2: #1c1c1f;
+    --border: #2a2a2d;
+    --text: #f0f0f0;
+    --text-dim: #777;
+    --text-mid: #aaa;
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --red-s: #ef4444;
+    --blue: #3b82f6;
+    --purple: #a855f7;
+    --font: 'Inter', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); min-height: 100vh; padding-bottom: 64px; }
+
+  /* HEADER */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 40px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .logo { width: 40px; height: 40px; background: var(--red); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; color: #fff; flex-shrink: 0; }
+  .header-text h1 { font-size: 20px; font-weight: 700; }
+  .header-text p { font-size: 13px; color: var(--text-dim); margin-top: 3px; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #1a0505 0%, #0b0b0d 60%);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow { font-size: 11px; color: var(--red); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 12px; }
+  .hero-title { font-size: 36px; font-weight: 800; line-height: 1.15; margin-bottom: 16px; }
+  .hero-title span { color: var(--red); }
+  .hero-desc { font-size: 15px; color: var(--text-mid); line-height: 1.7; max-width: 640px; }
+
+  /* DASHBOARD CARDS */
+  .dashboard-links {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    padding: 32px 40px 0; max-width: 1200px; margin: 0 auto;
+  }
+  .dash-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px;
+    position: relative; overflow: hidden; text-decoration: none; color: inherit;
+    transition: border-color 0.2s, transform 0.2s;
+    display: block;
+  }
+  .dash-card:hover { border-color: var(--red); transform: translateY(-2px); }
+  .dash-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--red); border-radius: 14px 14px 0 0; }
+  .dash-card-num { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .dash-card-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .dash-card-desc { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+  .dash-card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .tag { font-size: 10px; padding: 3px 8px; border-radius: 4px; background: var(--surface2); color: var(--text-dim); border: 1px solid var(--border); }
+
+  /* CONTENT */
+  .content { max-width: 1200px; margin: 0 auto; padding: 40px; }
+
+  /* SECTION HEADER */
+  .section-header {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 24px; margin-top: 48px;
+    padding-bottom: 16px; border-bottom: 1px solid var(--border);
+  }
+  .section-header:first-child { margin-top: 0; }
+  .section-num {
+    width: 36px; height: 36px; background: var(--red); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: #fff; flex-shrink: 0;
+  }
+  .section-title { font-size: 20px; font-weight: 700; }
+  .section-sub { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+  /* PANEL */
+  .panel {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    margin-bottom: 16px; overflow: hidden;
+  }
+  .panel-head {
+    padding: 16px 20px; display: flex; align-items: center; gap: 12px;
+    border-bottom: 1px solid var(--border); background: var(--surface2);
+    cursor: pointer; user-select: none;
+  }
+  .panel-head:hover { background: #222224; }
+  .panel-icon { font-size: 20px; width: 36px; height: 36px; background: var(--surface); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .panel-title { font-size: 14px; font-weight: 600; flex: 1; }
+  .panel-badge { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .panel-badge.status { background: rgba(34,197,94,0.12); color: var(--green); }
+  .panel-badge.metrics { background: rgba(59,130,246,0.12); color: var(--blue); }
+  .panel-badge.both { background: rgba(168,85,247,0.12); color: var(--purple); }
+  .panel-chevron { color: var(--text-dim); font-size: 12px; transition: transform 0.2s; }
+  .panel-chevron.open { transform: rotate(180deg); }
+  .panel-body { padding: 20px; display: none; }
+  .panel-body.open { display: block; }
+
+  /* WHAT IT DOES */
+  .what-block { margin-bottom: 20px; }
+  .what-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-dim); font-weight: 600; margin-bottom: 8px; }
+  .what-text { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
+
+  /* LOOKOUT TABLE */
+  .lookout { margin-top: 16px; }
+  .lookout-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-dim); font-weight: 600; margin-bottom: 10px; }
+  .lookout-item {
+    display: flex; gap: 12px; padding: 10px 12px; border-radius: 8px;
+    margin-bottom: 8px; align-items: flex-start;
+  }
+  .lookout-item.green { background: rgba(34,197,94,0.07); border-left: 3px solid var(--green); }
+  .lookout-item.amber { background: rgba(245,158,11,0.07); border-left: 3px solid var(--amber); }
+  .lookout-item.red { background: rgba(239,68,68,0.07); border-left: 3px solid var(--red-s); }
+  .lookout-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+  .lookout-dot.green { background: var(--green); }
+  .lookout-dot.amber { background: var(--amber); }
+  .lookout-dot.red { background: var(--red-s); }
+  .lookout-content { flex: 1; }
+  .lookout-signal { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+  .lookout-action { font-size: 12px; color: var(--text-mid); line-height: 1.5; }
+
+  /* KNOWN ISSUES */
+  .known-issue {
+    background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 8px; padding: 12px 14px; margin-top: 14px;
+    font-size: 12px; color: var(--red-s); line-height: 1.6;
+  }
+  .known-issue strong { display: block; margin-bottom: 4px; }
+
+  /* METRICS LIST */
+  .metrics-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0; }
+  .metric-item { background: var(--surface2); border-radius: 7px; padding: 10px 12px; }
+  .metric-item-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .metric-item-desc { font-size: 12px; color: var(--text-mid); line-height: 1.5; }
+
+  /* QUICK REF */
+  .quick-ref {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-top: 48px;
+  }
+  .quick-ref-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+  .quick-ref-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .qr-item { background: var(--surface2); border-radius: 8px; padding: 12px 14px; }
+  .qr-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .qr-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .qr-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .qr-dot.green { background: var(--green); }
+  .qr-dot.amber { background: var(--amber); }
+  .qr-dot.red { background: var(--red-s); }
+  .qr-text { font-size: 12px; color: var(--text-mid); }
+
+  .divider { height: 1px; background: var(--border); margin: 40px 0; }
+
+  footer { text-align: center; font-size: 11px; color: var(--text-dim); padding: 24px 40px 0; }
+
+  @media (max-width: 768px) {
+    .hero { padding: 32px 20px; }
+    .content { padding: 24px 20px; }
+    .dashboard-links { grid-template-columns: 1fr; padding: 24px 20px 0; }
+    .metrics-list { grid-template-columns: 1fr 1fr; }
+    .quick-ref-grid { grid-template-columns: 1fr; }
+    .header { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">BMC</div>
+  <div class="header-text">
+    <h1>BMC Group Dashboard Guide</h1>
+    <p>How to read and use your monitoring dashboards</p>
+  </div>
+</header>
+
+<div style="max-width:1200px;margin:0 auto">
+  <div class="hero">
+    <div class="hero-eyebrow">Documentation</div>
+    <h2 class="hero-title">Your two dashboards,<br><span>explained simply.</span></h2>
+    <p class="hero-desc">BMC Group runs on a connected set of services — from the website and CMS through to Stripe payments, email and fuel prices. These two dashboards give you visibility of everything in one place. This guide explains what each panel is checking, what good looks like, and what to do when something goes wrong.</p>
+  </div>
+</div>
+
+<div class="dashboard-links">
+  <div class="dash-card">
+    <div class="dash-card-num">Dashboard 01</div>
+    <div class="dash-card-title">Service Status Dashboard</div>
+    <div class="dash-card-desc">Shows whether each service is up and running. Quick green/amber/red status for all 8 components of the BMC infrastructure. Open this first every morning.</div>
+    <div class="dash-card-tags">
+      <span class="tag">bmc_dashboard.html</span>
+      <span class="tag">Live checks</span>
+      <span class="tag">Green / Amber / Red</span>
+      <span class="tag">8 services</span>
+    </div>
+  </div>
+  <div class="dash-card">
+    <div class="dash-card-num">Dashboard 02</div>
+    <div class="dash-card-title">Performance Metrics Dashboard</div>
+    <div class="dash-card-desc">Shows speeds, counts and delivery rates. How fast are pages loading? How many reservations? How many enquiries? Toggle between today, 7 days and 30 days.</div>
+    <div class="dash-card-tags">
+      <span class="tag">bmc_metrics.html</span>
+      <span class="tag">Speeds & counts</span>
+      <span class="tag">Today / 7d / 30d</span>
+      <span class="tag">Live + simulated data</span>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- DASHBOARD 1 -->
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div>
+      <div class="section-title">Service Status Dashboard — Panel by Panel</div>
+      <div class="section-sub">bmc_dashboard.html — what each card is checking and what to look out for</div>
+    </div>
+  </div>
+
+  <!-- VERCEL -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">▲</div>
+      <div class="panel-title">Vercel / Website</div>
+      <span class="panel-badge status">Status Dashboard</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Checks that the BMC Next.js website is live and reachable. It pings three pages — the homepage, inventory listing, and finance page — to confirm all three are responding correctly. Vercel hosts the website and handles all deployments made by Elias.</div>
+      </div>
+      <div class="metrics-list">
+        <div class="metric-item"><div class="metric-item-label">Homepage</div><div class="metric-item-desc">Main entry point — if this is down the whole site is down</div></div>
+        <div class="metric-item"><div class="metric-item-label">Inventory</div><div class="metric-item-desc">Vehicle listings page — most visited page on the site</div></div>
+        <div class="metric-item"><div class="metric-item-label">Finance page</div><div class="metric-item-desc">Codeweavers finance embed — critical for finance enquiries</div></div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to look out for</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">All green — Operational</div><div class="lookout-action">All three pages are responding. No action needed.</div></div></div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Amber — one page not responding</div><div class="lookout-action">Check Vercel dashboard for deployment errors. May be a temporary Vercel outage — try refreshing in 2 minutes. If persisting, contact Elias.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — site completely unreachable</div><div class="lookout-action">Check Vercel status page (vercel.com/status). If Vercel is up but site is down, contact Elias immediately — a deployment may have broken the site.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SANITY -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">🗄</div>
+      <div class="panel-title">Sanity CMS</div>
+      <span class="panel-badge status">Status Dashboard</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Sanity is the content management system that stores all vehicle data, promotions, location information and site settings. The dashboard checks that both the Sanity API (which the website queries for content) and the Sanity Studio (where you manage content) are reachable.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to look out for</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Green — API and Studio both reachable</div><div class="lookout-action">Content is flowing normally. Vehicle pages, promotions and locations are all live.</div></div></div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Amber — Studio unreachable but API working</div><div class="lookout-action">The website will still work as it queries the API directly. You won't be able to edit content in the studio until it recovers. Check sanity-status.com.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — Sanity API down</div><div class="lookout-action">The website may show blank vehicle pages or errors. This is a Sanity platform issue — check sanity-status.com and contact Sanity support if it persists beyond 15 minutes.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRIPE -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">💳</div>
+      <div class="panel-title">Stripe Reservations</div>
+      <span class="panel-badge status">Status Dashboard</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Checks that the Stripe payment infrastructure is working. It verifies the Stripe API is reachable, the reservation webhook endpoint is live at /api/stripe-webhook, and the /api/reserve route that creates checkout sessions is responding. The webhook is critical — it's what marks a vehicle as reserved in Sanity after a payment completes.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to look out for</div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Always amber until go live — Test mode active</div><div class="lookout-action">This is expected. The dashboard will show amber because Stripe is in test mode using sk_test_ keys. No real payments are being processed. This will turn green after go live when live keys are activated.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — webhook endpoint or reserve API down</div><div class="lookout-action">Customers will not be able to complete reservations. Contact Elias immediately. Check Vercel logs for errors on /api/stripe-webhook and /api/reserve.</div></div></div>
+      </div>
+      <div class="known-issue"><strong>Known: Currently in test mode</strong>The Stripe integration is fully built and working but is using test keys (sk_test_). Real payments will only be taken after go live when live keys (sk_live_) are activated in Vercel by Ant.</div>
+    </div>
+  </div>
+
+  <!-- AUTOTRADER -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">🚗</div>
+      <div class="panel-title">Autotrader Sync</div>
+      <span class="panel-badge status">Status Dashboard</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">The VPS (a Digital Ocean server at IP 159.65.17.84) runs a sync script every 30 minutes that pulls the latest vehicle stock from the Autotrader API and pushes it into Sanity. This is what keeps the BMC website stock up to date. The dashboard checks that both the VPS and the Autotrader API are reachable.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to look out for</div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Always amber until go live — Sandbox mode</div><div class="lookout-action">Currently syncing from the Autotrader sandbox (test) API, not the live feed. Vehicle counts may not match the real Autotrader portal. This is expected pre-launch.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — VPS unreachable</div><div class="lookout-action">The sync will have stopped. Vehicles on the BMC site will go stale — prices, stock levels and new arrivals won't update. Contact Elias and check the DigitalOcean dashboard. The VPS may need restarting.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FUEL FINDER -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">⛽</div>
+      <div class="panel-title">Fuel Finder</div>
+      <span class="panel-badge status">Status Dashboard</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">A Vercel cron job runs every 30 minutes and calls the UK Government Fuel Finder API to get the current petrol and diesel prices at Brooke Garage. It stores the prices in Sanity so they display on the BMC website petrol stations page. The dashboard checks that the Fuel Finder API is reachable and the cron endpoint is live.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to look out for</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Green — prices updating correctly</div><div class="lookout-action">Fuel prices on the website are current. No action needed.</div></div></div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Amber — intermittent failures</div><div class="lookout-action">The Government API is unreliable and times out frequently. The prices on the site may be a few hours old. If the site is showing prices that are clearly outdated (more than 24 hours old) contact Elias to investigate the timeout issue.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — station not found or persistent failure</div><div class="lookout-action">The Brooke Garage station ID may have changed in the Government feed. Check the Vercel logs and contact Elias. The last known prices will remain on the site until the sync recovers.</div></div></div>
+      </div>
+      <div class="known-issue"><strong>Known issue — intermittent failures</strong>The Government Fuel Finder API is unreliable and frequently times out or returns HTTP 503 errors. This is outside BMC's control. Elias is investigating improvements to the timeout handling. Expect to see this card amber frequently.</div>
+    </div>
+  </div>
+
+  <!-- RESEND -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">✉️</div>
+      <div class="panel-title">Resend Emails</div>
+      <span class="panel-badge status">Status Dashboard</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Resend is the email delivery service used to send transactional emails — enquiry confirmations to customers and notification emails to the sales team when someone submits a vehicle enquiry or completes a Stripe reservation. The dashboard checks that the Resend API is reachable and the /api/enquiry endpoint is live.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to look out for</div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Always amber until go live — Sandbox mode</div><div class="lookout-action">In sandbox mode emails can only be sent to anthewett@hotmail.com. This is a Resend restriction until the brookemotcentre.co.uk domain is verified. No action needed pre-launch.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red after go live — emails not delivering</div><div class="lookout-action">Sales team will not receive enquiry or reservation notifications. Customers won't get confirmation emails. Check the Resend dashboard for bounce or error reports and contact Elias.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COOKIEYES -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">🍪</div>
+      <div class="panel-title">CookieYes</div>
+      <span class="panel-badge status">Status Dashboard</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">CookieYes is the GDPR cookie consent banner that appears when someone visits the BMC website for the first time. It must load before Google Analytics and the Meta Pixel — CookieYes blocks those tracking tools until the visitor accepts cookies. The dashboard checks that the CookieYes CDN script is reachable and the dashboard is accessible.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to look out for</div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Amber — script not yet installed on site</div><div class="lookout-action">The CookieYes script has not been added to the website yet. Brief has been sent to Elias. This must be resolved before go live — without it the site is not GDPR compliant.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red after installation — CDN unreachable</div><div class="lookout-action">The cookie banner won't appear and GA4/Meta Pixel may fire without consent, which is a GDPR violation. Contact CookieYes support at cookieyes.com.</div></div></div>
+      </div>
+      <div class="known-issue"><strong>Action required — not yet installed</strong>CookieYes has been set up and the script tag is ready but Elias has not yet added it to the website. This is a pre-launch blocker and must be completed before the site goes live.</div>
+    </div>
+  </div>
+
+  <!-- VPS -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">🖥</div>
+      <div class="panel-title">VPS Sync Server</div>
+      <span class="panel-badge status">Status Dashboard</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">The VPS (Virtual Private Server) is a DigitalOcean server hosted at IP address 159.65.17.84. It runs the bmc-sync script that connects to the Autotrader API every 30 minutes and pushes vehicle data into Sanity. Without the VPS the stock on the BMC website would go out of date. The dashboard checks that the server is reachable and that DigitalOcean's platform is operational.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to look out for</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Green — server reachable</div><div class="lookout-action">The sync is running normally. Stock updates every 30 minutes.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — server unreachable</div><div class="lookout-action">The Autotrader sync has stopped. Stock will go stale. Check DigitalOcean dashboard (cloud.digitalocean.com) — the droplet may need restarting. Contact Elias if the droplet is running but the sync has stopped.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- DASHBOARD 2 -->
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div>
+      <div class="section-title">Performance Metrics Dashboard — Panel by Panel</div>
+      <div class="section-sub">bmc_metrics.html — what each metric means and what good looks like</div>
+    </div>
+  </div>
+
+  <!-- PAGE LOAD SPEED -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">⚡</div>
+      <div class="panel-title">Website Page Load Speed</div>
+      <span class="panel-badge metrics">Metrics Dashboard</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Measures how quickly the BMC website responds to requests. It times three key pages — Homepage, Inventory and Finance — and shows the fastest, average and slowest response times. The speed bars fill up as response time increases — a shorter bar means a faster page.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What good looks like</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Under 400ms — Excellent</div><div class="lookout-action">Pages are loading very quickly. Customers will have a smooth experience.</div></div></div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">400ms–1000ms — Acceptable</div><div class="lookout-action">Slightly slower than ideal but still within acceptable range. Monitor over time to see if it improves or worsens.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Over 1000ms — Slow</div><div class="lookout-action">Pages are loading too slowly. This can affect Google search rankings and cause customers to leave before the page loads. Contact Elias to investigate — may be a Vercel issue or a slow Sanity query.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SANITY API SPEED -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">🗄</div>
+      <div class="panel-title">Sanity API Response Time</div>
+      <span class="panel-badge metrics">Metrics Dashboard</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Measures how quickly the Sanity CMS responds to content queries. Every vehicle page, promotion and location on the BMC website requires a Sanity API call. The panel also shows your current Sanity usage against the plan limits — API requests, CDN requests and document count.</div>
+      </div>
+      <div class="metrics-list">
+        <div class="metric-item"><div class="metric-item-label">API Requests</div><div class="metric-item-desc">55.2k of 250k monthly limit — currently at 22%. Plenty of headroom.</div></div>
+        <div class="metric-item"><div class="metric-item-label">CDN Requests</div><div class="metric-item-desc">26.9k of 1m monthly limit — very low. No concern.</div></div>
+        <div class="metric-item"><div class="metric-item-label">Documents</div><div class="metric-item-desc">595 of 25k limit — vehicles, locations, settings etc. Plenty of room.</div></div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to look out for</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Under 500ms — Good</div><div class="lookout-action">Sanity is responding quickly. Vehicle pages will load fast.</div></div></div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">API usage approaching 80% of limit</div><div class="lookout-action">Consider upgrading the Sanity plan or optimising queries to reduce API calls. Contact Elias.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRIPE METRICS -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">💳</div>
+      <div class="panel-title">Stripe Reservations</div>
+      <span class="panel-badge metrics">Metrics Dashboard</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Shows the number of vehicle reservations completed via the £99 Stripe deposit system, total revenue from deposits, and a transaction table showing recent reservations. Use the Today / 7 days / 30 days toggle to see different time periods.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to look out for</div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Data is simulated until go live</div><div class="lookout-action">Real transaction data requires server-side Stripe API access which is not yet connected. Numbers shown are illustrative. After go live connect the Stripe API for real transaction data.</div></div></div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Success rate should always be 100%</div><div class="lookout-action">Stripe only fires the webhook and completes a reservation when payment is fully confirmed. If success rate drops below 100% after go live, check the Stripe dashboard for failed or disputed payments.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VEHICLE INVENTORY -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">🚗</div>
+      <div class="panel-title">Vehicle Inventory Count</div>
+      <span class="panel-badge both">Both Dashboards</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Pulls live vehicle counts directly from Sanity. Shows total live stock, how many are reserved, and a split between Brooke and Norwich branches. Also shows how many vehicles are flagged as Great Value by Autotrader's price indicator. This data is live and accurate.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to look out for</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Count matches your Autotrader portal</div><div class="lookout-action">If the vehicle count on the dashboard matches what you see in the Autotrader dealer portal, the sync is working correctly.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Count significantly lower than Autotrader</div><div class="lookout-action">The Autotrader sync may have stopped or be running in sandbox mode. Check the VPS and Autotrader sync status on Dashboard 1.</div></div></div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Reserved count increasing</div><div class="lookout-action">Good news — more vehicles are being reserved via the website. Remember to manually update those vehicles to Sale in Progress in the Autotrader dealer portal so they also come off the Autotrader listing.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FUEL METRICS -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">⛽</div>
+      <div class="panel-title">Fuel Price Sync Success Rate</div>
+      <span class="panel-badge metrics">Metrics Dashboard</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Shows the current fuel prices stored in Sanity for Brooke Garage (unleaded, premium, diesel) and how reliably the sync is running. The prices shown are pulled live from Sanity so they reflect exactly what the website is displaying to customers.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to look out for</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Prices match the forecourt</div><div class="lookout-action">The sync is working. Prices on the BMC website match what customers see at the pump.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Prices are outdated or incorrect</div><div class="lookout-action">You can manually update prices in Sanity Studio (bmc-vehicles.sanity.studio → Locations → Brooke Garage) while the sync issue is investigated. This is a temporary fix.</div></div></div>
+      </div>
+      <div class="known-issue"><strong>Success rate is currently ~15%</strong>The Government Fuel Finder API is highly unreliable. Despite frequent failures the last successfully synced prices remain on the site. You can always manually update prices in Sanity if needed.</div>
+    </div>
+  </div>
+
+  <!-- RESEND METRICS -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">✉️</div>
+      <div class="panel-title">Resend Email Delivery Rate</div>
+      <span class="panel-badge metrics">Metrics Dashboard</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Shows how many transactional emails have been sent, delivered and failed. This covers both enquiry confirmation emails to customers and reservation notification emails to the sales team. After go live this will show real delivery statistics from the Resend dashboard.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to look out for after go live</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Delivery rate above 95%</div><div class="lookout-action">Emails are delivering reliably. No action needed.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">High failure rate after go live</div><div class="lookout-action">Sales team may be missing enquiry and reservation notifications. Check the Resend dashboard for bounce reports. May indicate a domain DNS or SPF record issue. Contact Elias.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENQUIRY FORMS -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">📋</div>
+      <div class="panel-title">Enquiry Form Submissions</div>
+      <span class="panel-badge metrics">Metrics Dashboard</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Shows how many vehicle enquiry forms have been submitted through the BMC website, split between Brooke and Norwich branches. Brooke enquiries route to sales@brookemotcentre.co.uk and Norwich enquiries route to norwich@bmccarsales.com.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to look out for</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Submissions coming in regularly after go live</div><div class="lookout-action">The website is generating leads. Cross-reference with the email delivery rate to ensure the sales team is receiving them all.</div></div></div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Zero submissions over multiple days after go live</div><div class="lookout-action">May indicate the enquiry form is broken or not visible. Test the form yourself on the live site and check Vercel logs for /api/enquiry errors.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- QUICK REFERENCE -->
+  <div class="quick-ref">
+    <div class="quick-ref-title">Quick Reference — What the Colours Mean</div>
+    <div class="quick-ref-grid">
+      <div class="qr-item">
+        <div class="qr-label">Status Dashboard</div>
+        <div class="qr-row"><div class="qr-dot green"></div><span class="qr-text">Green — Service is up and reachable</span></div>
+        <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Amber — Degraded, known issue or sandbox mode</span></div>
+        <div class="qr-row"><div class="qr-dot red"></div><span class="qr-text">Red — Service is down, action required</span></div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-label">Speed Metrics</div>
+        <div class="qr-row"><div class="qr-dot green"></div><span class="qr-text">Green — Under 400ms, excellent</span></div>
+        <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Amber — 400ms to 1000ms, acceptable</span></div>
+        <div class="qr-row"><div class="qr-dot red"></div><span class="qr-text">Red — Over 1000ms, investigate</span></div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-label">Pre-Launch Ambers (Expected)</div>
+        <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Stripe — test mode, not live keys</span></div>
+        <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Resend — sandbox, domain not verified</span></div>
+        <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Autotrader — sandbox API, not live feed</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>BMC Group Dashboard Guide · June 2026 · Prepared by Ant Hewett</footer>
+
+<script>
+function toggle(head) {
+  const body = head.nextElementSibling;
+  const chevron = head.querySelector('.panel-chevron');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  chevron.classList.toggle('open', !isOpen);
+}
+</script>
+</body>
+</html>
