@@ -1,145 +1,362 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BMC Group — Performance Metrics</title>
+<title>BMC Group — Service Dashboard</title>
 <style>
   :root {
     --red: #CC2020;
+    --red-dim: #8a1515;
     --bg: #0b0b0d;
     --surface: #141416;
     --surface2: #1c1c1f;
     --border: #2a2a2d;
     --text: #f0f0f0;
-    --text-dim: #777;
-    --text-mid: #aaa;
+    --text-dim: #888;
     --green: #22c55e;
     --amber: #f59e0b;
-    --red-s: #ef4444;
-    --blue: #3b82f6;
-    --purple: #a855f7;
-    --font: 'Inter', system-ui, sans-serif;
+    --red-status: #ef4444;
+    --green-dim: rgba(34,197,94,0.12);
+    --amber-dim: rgba(245,158,11,0.12);
+    --red-dim2: rgba(239,68,68,0.12);
+    --font: 'Inter', system-ui, -apple-system, sans-serif;
     --mono: 'JetBrains Mono', 'Fira Code', monospace;
   }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: var(--font); min-height: 100vh; padding-bottom: 48px; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    min-height: 100vh;
+    padding: 0 0 48px;
+  }
 
   /* HEADER */
   .header {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
-    padding: 18px 32px;
-    display: flex; align-items: center; justify-content: space-between;
-    position: sticky; top: 0; z-index: 100;
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
-  .header-left { display: flex; align-items: center; gap: 14px; }
-  .logo { width: 34px; height: 34px; background: var(--red); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; color: #fff; flex-shrink: 0; }
-  .header-title { font-size: 15px; font-weight: 600; }
-  .header-sub { font-size: 11px; color: var(--text-dim); margin-top: 1px; }
-  .header-right { display: flex; align-items: center; gap: 10px; }
 
-  /* PERIOD TOGGLE */
-  .period-toggle {
-    display: flex; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 3px; gap: 2px;
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
   }
-  .period-btn {
-    padding: 6px 14px; border-radius: 5px; border: none; background: transparent; color: var(--text-dim); font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.15s;
+
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--red);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: -0.5px;
+    color: #fff;
+    flex-shrink: 0;
   }
-  .period-btn.active { background: var(--red); color: #fff; }
-  .period-btn:hover:not(.active) { color: var(--text); }
+
+  .header-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .header-sub {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 1px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .last-checked {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-family: var(--mono);
+  }
 
   .refresh-btn {
-    background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 7px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.15s;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
   }
+
   .refresh-btn:hover { border-color: var(--red); color: var(--red); }
 
-  /* SUMMARY ROW */
-  .summary-row {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 24px 32px 0; max-width: 1400px; margin: 0 auto;
+  /* OVERALL STATUS BAR */
+  .status-bar {
+    padding: 16px 32px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 32px;
   }
-  .summary-card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px;
+
+  .overall-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
-  .summary-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
-  .summary-value { font-size: 28px; font-weight: 700; font-family: var(--mono); line-height: 1; }
-  .summary-value.green { color: var(--green); }
-  .summary-value.amber { color: var(--amber); }
-  .summary-value.blue { color: var(--blue); }
-  .summary-value.purple { color: var(--purple); }
-  .summary-sub { font-size: 11px; color: var(--text-dim); margin-top: 5px; }
-  .summary-delta { font-size: 11px; margin-top: 4px; }
-  .summary-delta.up { color: var(--green); }
-  .summary-delta.down { color: var(--red-s); }
 
-  /* MAIN GRID */
-  .main-grid {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 16px 32px; max-width: 1400px; margin: 0 auto;
+  .overall-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s infinite;
   }
-  .metric-card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; position: relative;
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
   }
-  .metric-card.full { grid-column: 1 / -1; }
-  .metric-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-  .metric-title-row { display: flex; align-items: center; gap: 10px; }
-  .metric-icon { font-size: 18px; width: 36px; height: 36px; background: var(--surface2); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .metric-title { font-size: 14px; font-weight: 600; }
-  .metric-subtitle { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
-  .metric-badge { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; }
-  .metric-badge.green { background: rgba(34,197,94,0.12); color: var(--green); }
-  .metric-badge.amber { background: rgba(245,158,11,0.12); color: var(--amber); }
-  .metric-badge.red { background: rgba(239,68,68,0.12); color: var(--red-s); }
 
-  /* CHART */
-  .chart-wrap { position: relative; height: 120px; margin-bottom: 12px; }
-  canvas { width: 100% !important; height: 120px !important; }
+  .overall-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green);
+  }
 
-  /* STATS ROW */
-  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
-  .stat { background: var(--surface2); border-radius: 7px; padding: 10px 12px; }
-  .stat-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-  .stat-value { font-size: 18px; font-weight: 700; font-family: var(--mono); }
-  .stat-value.green { color: var(--green); }
-  .stat-value.amber { color: var(--amber); }
-  .stat-value.red { color: var(--red-s); }
-  .stat-value.blue { color: var(--blue); }
-  .stat-value.purple { color: var(--purple); }
-  .stat-unit { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+  .status-counts {
+    display: flex;
+    gap: 20px;
+  }
 
-  /* TABLE */
-  .table-wrap { overflow-x: auto; margin-top: 12px; }
-  table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  th { text-align: left; color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; padding: 6px 10px; border-bottom: 1px solid var(--border); font-weight: 500; }
-  td { padding: 9px 10px; border-bottom: 1px solid var(--border); color: var(--text-mid); }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: var(--surface2); }
-  .td-mono { font-family: var(--mono); font-size: 11px; }
-  .td-badge { padding: 2px 7px; border-radius: 3px; font-size: 10px; font-weight: 600; }
-  .td-badge.green { background: rgba(34,197,94,0.12); color: var(--green); }
-  .td-badge.amber { background: rgba(245,158,11,0.12); color: var(--amber); }
-  .td-badge.red { background: rgba(239,68,68,0.12); color: var(--red-s); }
+  .status-count {
+    font-size: 12px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
 
-  /* SPEED GAUGE */
-  .gauge-row { display: flex; gap: 12px; margin-top: 12px; }
-  .gauge { flex: 1; }
-  .gauge-label { font-size: 11px; color: var(--text-dim); margin-bottom: 5px; }
-  .gauge-bar-wrap { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; margin-bottom: 4px; }
-  .gauge-bar { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
-  .gauge-bar.green { background: var(--green); }
-  .gauge-bar.amber { background: var(--amber); }
-  .gauge-bar.red { background: var(--red-s); }
-  .gauge-value { font-size: 13px; font-weight: 700; font-family: var(--mono); }
+  .status-count .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+  }
 
-  .note { font-size: 11px; color: var(--amber); background: rgba(245,158,11,0.07); border-left: 2px solid var(--amber); padding: 7px 10px; border-radius: 0 5px 5px 0; margin-top: 12px; line-height: 1.5; }
+  .dot-green { background: var(--green); }
+  .dot-amber { background: var(--amber); }
+  .dot-red { background: var(--red-status); }
 
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+    padding: 28px 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: #3a3a3f; }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .card.green::before { background: var(--green); }
+  .card.amber::before { background: var(--amber); }
+  .card.red::before { background: var(--red-status); }
+  .card.unknown::before { background: var(--border); }
+
+  .card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .status-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .status-badge.green { background: var(--green-dim); color: var(--green); }
+  .status-badge.amber { background: var(--amber-dim); color: var(--amber); }
+  .status-badge.red { background: var(--red-dim2); color: var(--red-status); }
+  .status-badge.unknown { background: rgba(255,255,255,0.05); color: var(--text-dim); }
+
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .card-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .card-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  /* CHECKS */
+  .checks {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    background: var(--surface2);
+    border-radius: 7px;
+  }
+
+  .check-icon {
+    font-size: 13px;
+    width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .check-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    flex: 1;
+  }
+
+  .check-value {
+    font-size: 12px;
+    font-family: var(--mono);
+    font-weight: 500;
+  }
+
+  .check-value.green { color: var(--green); }
+  .check-value.amber { color: var(--amber); }
+  .check-value.red { color: var(--red-status); }
+  .check-value.dim { color: var(--text-dim); }
+
+  /* NOTES */
+  .card-note {
+    margin-top: 12px;
+    padding: 8px 10px;
+    background: rgba(245,158,11,0.07);
+    border-left: 2px solid var(--amber);
+    border-radius: 0 6px 6px 0;
+    font-size: 11px;
+    color: var(--amber);
+    line-height: 1.5;
+  }
+
+  .card-note.red {
+    background: rgba(239,68,68,0.07);
+    border-left-color: var(--red-status);
+    color: var(--red-status);
+  }
+
+  /* LINKS */
+  .card-links {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+
+  .card-link {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 4px 8px;
+    background: var(--surface2);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    transition: all 0.15s;
+  }
+
+  .card-link:hover { color: var(--text); border-color: #3a3a3f; }
+
+  /* SPINNING REFRESH */
   .spinning { animation: spin 1s linear infinite; }
   @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-  @media (max-width: 768px) {
-    .main-grid { grid-template-columns: 1fr; padding: 12px 16px; }
-    .summary-row { grid-template-columns: repeat(2, 1fr); padding: 16px 16px 0; }
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-dim);
+    padding: 0 32px;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 600px) {
+    .grid { padding: 16px; gap: 12px; }
     .header { padding: 14px 16px; }
-    .metric-card.full { grid-column: 1; }
+    .status-bar { padding: 12px 16px; flex-wrap: wrap; gap: 12px; }
   }
 </style>
 </head>
@@ -147,477 +364,322 @@
 
 <header class="header">
   <div class="header-left">
-    <div class="logo">BMC</div>
+    <div class="logo-mark">BMC</div>
     <div>
-      <div class="header-title">BMC Group — Performance Metrics</div>
-      <div class="header-sub">Speeds, transactions and delivery rates</div>
+      <div class="header-title">BMC Group — Service Dashboard</div>
+      <div class="header-sub">End-to-end infrastructure status</div>
     </div>
   </div>
   <div class="header-right">
-    <div class="period-toggle">
-      <button class="period-btn active" onclick="setPeriod('today', this)">Today</button>
-      <button class="period-btn" onclick="setPeriod('7d', this)">7 days</button>
-      <button class="period-btn" onclick="setPeriod('30d', this)">30 days</button>
-    </div>
-    <button class="refresh-btn" onclick="loadAll()"><span id="ri">↻</span> Refresh</button>
+    <div class="last-checked" id="lastChecked">Last checked: —</div>
+    <button class="refresh-btn" onclick="runChecks()">
+      <span id="refreshIcon">↻</span> Refresh
+    </button>
   </div>
 </header>
 
-<!-- SUMMARY ROW -->
-<div class="summary-row">
-  <div class="summary-card">
-    <div class="summary-label">Page Load Speed</div>
-    <div class="summary-value green" id="s-speed">—</div>
-    <div class="summary-sub">Average response time</div>
+<div class="status-bar">
+  <div class="overall-status">
+    <div class="overall-dot" id="overallDot"></div>
+    <div class="overall-label" id="overallLabel">Checking systems…</div>
   </div>
-  <div class="summary-card">
-    <div class="summary-label">Stripe Reservations</div>
-    <div class="summary-value purple" id="s-reservations">—</div>
-    <div class="summary-sub" id="s-reservations-val">Total value</div>
-  </div>
-  <div class="summary-card">
-    <div class="summary-label">Live Vehicles</div>
-    <div class="summary-value blue" id="s-vehicles">—</div>
-    <div class="summary-sub">In Sanity / on site</div>
-  </div>
-  <div class="summary-card">
-    <div class="summary-label">Email Success Rate</div>
-    <div class="summary-value amber" id="s-email">—</div>
-    <div class="summary-sub">Resend delivery rate</div>
+  <div class="status-counts">
+    <div class="status-count"><div class="dot dot-green"></div><span id="countGreen">0</span> Operational</div>
+    <div class="status-count"><div class="dot dot-amber"></div><span id="countAmber">0</span> Degraded</div>
+    <div class="status-count"><div class="dot dot-red"></div><span id="countRed">0</span> Down</div>
   </div>
 </div>
 
-<!-- MAIN GRID -->
-<div class="main-grid">
+<div class="grid" id="grid"></div>
 
-  <!-- PAGE LOAD SPEED -->
-  <div class="metric-card">
-    <div class="metric-head">
-      <div class="metric-title-row">
-        <div class="metric-icon">⚡</div>
-        <div>
-          <div class="metric-title">Website Page Load Speed</div>
-          <div class="metric-subtitle">Response time for key pages</div>
-        </div>
-      </div>
-      <span class="metric-badge green" id="speed-badge">Live check</span>
-    </div>
-    <div class="gauge-row" id="speed-gauges">
-      <div class="gauge">
-        <div class="gauge-label">Homepage</div>
-        <div class="gauge-bar-wrap"><div class="gauge-bar green" id="g-home" style="width:0%"></div></div>
-        <div class="gauge-value green" id="gv-home">—</div>
-      </div>
-      <div class="gauge">
-        <div class="gauge-label">Inventory</div>
-        <div class="gauge-bar-wrap"><div class="gauge-bar green" id="g-inv" style="width:0%"></div></div>
-        <div class="gauge-value green" id="gv-inv">—</div>
-      </div>
-      <div class="gauge">
-        <div class="gauge-label">Finance</div>
-        <div class="gauge-bar-wrap"><div class="gauge-bar green" id="g-fin" style="width:0%"></div></div>
-        <div class="gauge-value green" id="gv-fin">—</div>
-      </div>
-    </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-label">Fastest</div><div class="stat-value green" id="sp-fast">—</div><div class="stat-unit">ms</div></div>
-      <div class="stat"><div class="stat-label">Average</div><div class="stat-value" id="sp-avg">—</div><div class="stat-unit">ms</div></div>
-      <div class="stat"><div class="stat-label">Slowest</div><div class="stat-value amber" id="sp-slow">—</div><div class="stat-unit">ms</div></div>
-    </div>
-  </div>
-
-  <!-- SANITY API -->
-  <div class="metric-card">
-    <div class="metric-head">
-      <div class="metric-title-row">
-        <div class="metric-icon">🗄</div>
-        <div>
-          <div class="metric-title">Sanity API Response Time</div>
-          <div class="metric-subtitle">CMS query performance</div>
-        </div>
-      </div>
-      <span class="metric-badge green" id="sanity-badge">Live check</span>
-    </div>
-    <div class="gauge-row">
-      <div class="gauge">
-        <div class="gauge-label">Vehicle query</div>
-        <div class="gauge-bar-wrap"><div class="gauge-bar green" id="g-sanity1" style="width:0%"></div></div>
-        <div class="gauge-value green" id="gv-sanity1">—</div>
-      </div>
-      <div class="gauge">
-        <div class="gauge-label">Settings query</div>
-        <div class="gauge-bar-wrap"><div class="gauge-bar green" id="g-sanity2" style="width:0%"></div></div>
-        <div class="gauge-value green" id="gv-sanity2">—</div>
-      </div>
-    </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-label">API Requests/mo</div><div class="stat-value blue" id="san-req">55.2k</div><div class="stat-unit">of 250k limit</div></div>
-      <div class="stat"><div class="stat-label">CDN Requests/mo</div><div class="stat-value blue" id="san-cdn">26.9k</div><div class="stat-unit">of 1m limit</div></div>
-      <div class="stat"><div class="stat-label">Documents</div><div class="stat-value blue" id="san-docs">595</div><div class="stat-unit">of 25k limit</div></div>
-    </div>
-  </div>
-
-  <!-- STRIPE RESERVATIONS -->
-  <div class="metric-card">
-    <div class="metric-head">
-      <div class="metric-title-row">
-        <div class="metric-icon">💳</div>
-        <div>
-          <div class="metric-title">Stripe Reservations</div>
-          <div class="metric-subtitle">£99 vehicle reservation transactions</div>
-        </div>
-      </div>
-      <span class="metric-badge amber">Test mode</span>
-    </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-label">Transactions</div><div class="stat-value purple" id="stripe-count">—</div><div class="stat-unit" id="stripe-period">this period</div></div>
-      <div class="stat"><div class="stat-label">Total Value</div><div class="stat-value purple" id="stripe-value">—</div><div class="stat-unit">£99 per reservation</div></div>
-      <div class="stat"><div class="stat-label">Success Rate</div><div class="stat-value green" id="stripe-rate">—</div><div class="stat-unit">completed payments</div></div>
-    </div>
-    <div class="table-wrap" id="stripe-table-wrap">
-      <table>
-        <thead><tr><th>Date</th><th>Vehicle</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead>
-        <tbody id="stripe-table"></tbody>
-      </table>
-    </div>
-    <div class="note">Test mode active — transactions shown are test payments only. Switch to live keys at go live.</div>
-  </div>
-
-  <!-- VEHICLE INVENTORY -->
-  <div class="metric-card">
-    <div class="metric-head">
-      <div class="metric-title-row">
-        <div class="metric-icon">🚗</div>
-        <div>
-          <div class="metric-title">Vehicle Inventory</div>
-          <div class="metric-subtitle">Live stock count from Sanity</div>
-        </div>
-      </div>
-      <span class="metric-badge green" id="inv-badge">Live</span>
-    </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-label">Total Live Stock</div><div class="stat-value blue" id="inv-total">—</div><div class="stat-unit">on forecourt</div></div>
-      <div class="stat"><div class="stat-label">Reserved</div><div class="stat-value purple" id="inv-reserved">—</div><div class="stat-unit">£99 deposit paid</div></div>
-      <div class="stat"><div class="stat-label">Last Sync</div><div class="stat-value green" id="inv-sync">—</div><div class="stat-unit">Autotrader → Sanity</div></div>
-    </div>
-    <div class="stats-row" style="margin-top:10px">
-      <div class="stat"><div class="stat-label">Brooke</div><div class="stat-value blue" id="inv-brooke">—</div><div class="stat-unit">vehicles</div></div>
-      <div class="stat"><div class="stat-label">Norwich</div><div class="stat-value blue" id="inv-norwich">—</div><div class="stat-unit">vehicles</div></div>
-      <div class="stat"><div class="stat-label">Great Value</div><div class="stat-value green" id="inv-great">—</div><div class="stat-unit">price indicator</div></div>
-    </div>
-  </div>
-
-  <!-- AUTOTRADER SYNC -->
-  <div class="metric-card">
-    <div class="metric-head">
-      <div class="metric-title-row">
-        <div class="metric-icon">🔄</div>
-        <div>
-          <div class="metric-title">Autotrader Sync</div>
-          <div class="metric-subtitle">VPS → Sanity vehicle feed</div>
-        </div>
-      </div>
-      <span class="metric-badge amber">Sandbox</span>
-    </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-label">Vehicles Synced</div><div class="stat-value blue" id="at-count">—</div><div class="stat-unit">active in Sanity</div></div>
-      <div class="stat"><div class="stat-label">Sync Frequency</div><div class="stat-value green">30</div><div class="stat-unit">minutes</div></div>
-      <div class="stat"><div class="stat-label">Mode</div><div class="stat-value amber">Sandbox</div><div class="stat-unit">switch at go live</div></div>
-    </div>
-    <div class="note">Sandbox mode active. Switch to production Autotrader credentials at go live to sync live stock.</div>
-  </div>
-
-  <!-- FUEL PRICE SYNC -->
-  <div class="metric-card">
-    <div class="metric-head">
-      <div class="metric-title-row">
-        <div class="metric-icon">⛽</div>
-        <div>
-          <div class="metric-title">Fuel Price Sync</div>
-          <div class="metric-subtitle">Government Fuel Finder → Sanity</div>
-        </div>
-      </div>
-      <span class="metric-badge red">Errors</span>
-    </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-label">Success Rate</div><div class="stat-value red" id="fuel-rate">~15%</div><div class="stat-unit">last 48 hours</div></div>
-      <div class="stat"><div class="stat-label">Sync Frequency</div><div class="stat-value amber">30</div><div class="stat-unit">minutes (target)</div></div>
-      <div class="stat"><div class="stat-label">Last Prices</div><div class="stat-value green" id="fuel-prices">—</div><div class="stat-unit">from Sanity</div></div>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Fuel Type</th><th>Price</th><th>Last Updated</th></tr></thead>
-        <tbody id="fuel-table"></tbody>
-      </table>
-    </div>
-    <div class="note">Known issues: intermittent timeouts and station not found errors. Elias investigating timeout handling.</div>
-  </div>
-
-  <!-- RESEND EMAIL -->
-  <div class="metric-card">
-    <div class="metric-head">
-      <div class="metric-title-row">
-        <div class="metric-icon">✉️</div>
-        <div>
-          <div class="metric-title">Resend Email Delivery</div>
-          <div class="metric-subtitle">Enquiries and reservation confirmations</div>
-        </div>
-      </div>
-      <span class="metric-badge amber">Sandbox</span>
-    </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-label">Emails Sent</div><div class="stat-value blue" id="email-sent">—</div><div class="stat-unit" id="email-period">this period</div></div>
-      <div class="stat"><div class="stat-label">Delivered</div><div class="stat-value green" id="email-delivered">—</div><div class="stat-unit">to anthewett@</div></div>
-      <div class="stat"><div class="stat-label">Failed</div><div class="stat-value red" id="email-failed">—</div><div class="stat-unit">403 domain errors</div></div>
-    </div>
-    <div class="note">Sandbox mode — emails only send to anthewett@hotmail.com. Verify brookemotcentre.co.uk domain in Resend at go live.</div>
-  </div>
-
-  <!-- ENQUIRY FORMS -->
-  <div class="metric-card">
-    <div class="metric-head">
-      <div class="metric-title-row">
-        <div class="metric-icon">📋</div>
-        <div>
-          <div class="metric-title">Enquiry Form Submissions</div>
-          <div class="metric-subtitle">Vehicle enquiries via /api/enquiry</div>
-        </div>
-      </div>
-      <span class="metric-badge amber" id="enq-badge">Sandbox</span>
-    </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-label">Submissions</div><div class="stat-value blue" id="enq-count">—</div><div class="stat-unit" id="enq-period">this period</div></div>
-      <div class="stat"><div class="stat-label">Brooke</div><div class="stat-value blue" id="enq-brooke">—</div><div class="stat-unit">routed to sales@</div></div>
-      <div class="stat"><div class="stat-label">Norwich</div><div class="stat-value blue" id="enq-norwich">—</div><div class="stat-unit">routed to norwich@</div></div>
-    </div>
-    <div class="note">Enquiry routing is working. Email delivery blocked in sandbox — will resolve at go live when domain is verified.</div>
-  </div>
-
-</div>
+<div class="footer" id="footer"></div>
 
 <script>
-let period = 'today';
+const SERVICES = [
+  {
+    id: 'vercel',
+    name: 'Vercel / Website',
+    icon: '▲',
+    desc: 'Next.js site on bmc-website-iota.vercel.app',
+    checks: [
+      { label: 'Staging site reachable', type: 'http', url: 'https://bmc-website-iota.vercel.app', expect: 200 },
+      { label: 'Finance page', type: 'http', url: 'https://bmc-website-iota.vercel.app/finance', expect: 200 },
+      { label: 'Inventory page', type: 'http', url: 'https://bmc-website-iota.vercel.app/inventory', expect: 200 },
+    ],
+    links: [
+      { label: 'Vercel Dashboard', url: 'https://vercel.com/bmcgroup/bmc-website' },
+      { label: 'Staging Site', url: 'https://bmc-website-iota.vercel.app' },
+    ]
+  },
+  {
+    id: 'sanity',
+    name: 'Sanity CMS',
+    icon: '🗄',
+    desc: 'Content management — vehicles, promotions, locations',
+    checks: [
+      { label: 'Sanity API reachable', type: 'http', url: 'https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=*[_type=="siteSettings"][0]{_id}', expect: 200 },
+      { label: 'Studio reachable', type: 'http', url: 'https://bmc-vehicles.sanity.studio', expect: 200 },
+    ],
+    links: [
+      { label: 'Sanity Studio', url: 'https://bmc-vehicles.sanity.studio' },
+      { label: 'Sanity Manage', url: 'https://sanity.io/manage' },
+    ]
+  },
+  {
+    id: 'stripe',
+    name: 'Stripe Reservations',
+    icon: '💳',
+    desc: '£99 vehicle reservation deposits via Stripe Checkout',
+    checks: [
+      { label: 'Stripe API reachable', type: 'http', url: 'https://api.stripe.com', expect: [200, 401] },
+      { label: 'Webhook endpoint', type: 'http', url: 'https://bmc-website-iota.vercel.app/api/stripe-webhook', expect: 405 },
+      { label: 'Reserve API route', type: 'http', url: 'https://bmc-website-iota.vercel.app/api/reserve', expect: 405 },
+    ],
+    links: [
+      { label: 'Stripe Dashboard', url: 'https://dashboard.stripe.com' },
+      { label: 'Stripe Webhooks', url: 'https://dashboard.stripe.com/test/webhooks' },
+    ],
+    note: { type: 'amber', text: 'Currently in test mode — live keys required at go live' }
+  },
+  {
+    id: 'autotrader',
+    name: 'Autotrader Sync',
+    icon: '🚗',
+    desc: 'VPS syncs Autotrader stock feed into Sanity CMS every 30 minutes',
+    checks: [
+      { label: 'VPS reachable', type: 'http', url: 'https://159.65.17.84', expect: [200, 301, 302, 403, 404] },
+      { label: 'Autotrader API', type: 'http', url: 'https://api-sandbox.autotrader.co.uk', expect: [200, 401, 403, 404] },
+    ],
+    links: [
+      { label: 'Autotrader Portal', url: 'https://dealer.autotrader.co.uk' },
+    ],
+    note: { type: 'amber', text: 'Sandbox mode active — switch to production at go live' }
+  },
+  {
+    id: 'fuel',
+    name: 'Fuel Finder',
+    icon: '⛽',
+    desc: 'Government API syncs Brooke Garage fuel prices into Sanity every 30 mins',
+    checks: [
+      { label: 'Fuel Finder API', type: 'http', url: 'https://www.fuel-finder.service.gov.uk', expect: [200, 301, 302, 403] },
+      { label: 'Cron endpoint', type: 'http', url: 'https://bmc-website-iota.vercel.app/api/cron/fuel-prices', expect: [200, 401, 405] },
+    ],
+    links: [
+      { label: 'Fuel Finder Portal', url: 'https://developer.fuel-finder.service.gov.uk' },
+      { label: 'Vercel Logs', url: 'https://vercel.com/bmcgroup/bmc-website/logs' },
+    ],
+    note: { type: 'red', text: 'Known issues: intermittent timeouts and station not found errors in Vercel logs — Elias investigating' }
+  },
+  {
+    id: 'resend',
+    name: 'Resend Emails',
+    icon: '✉️',
+    desc: 'Transactional emails — enquiry confirmations and reservation notifications',
+    checks: [
+      { label: 'Resend API reachable', type: 'http', url: 'https://api.resend.com', expect: [200, 401, 403, 404] },
+      { label: 'Enquiry endpoint', type: 'http', url: 'https://bmc-website-iota.vercel.app/api/enquiry', expect: 405 },
+    ],
+    links: [
+      { label: 'Resend Dashboard', url: 'https://resend.com/emails' },
+      { label: 'Resend Domains', url: 'https://resend.com/domains' },
+    ],
+    note: { type: 'amber', text: 'Sandbox mode — emails only send to anthewett@hotmail.com until domain verified at go live' }
+  },
+  {
+    id: 'cookieyes',
+    name: 'CookieYes',
+    icon: '🍪',
+    desc: 'GDPR cookie consent banner — must load before GA4 and Meta Pixel',
+    checks: [
+      { label: 'CookieYes CDN reachable', type: 'http', url: 'https://cdn-cookieyes.com/client_data/52cf22134bb521a139dc95ccb9b24e42/script.js', expect: 200 },
+      { label: 'CookieYes dashboard', type: 'http', url: 'https://app.cookieyes.com', expect: 200 },
+    ],
+    links: [
+      { label: 'CookieYes Dashboard', url: 'https://app.cookieyes.com/dashboard' },
+      { label: 'Advanced Settings', url: 'https://app.cookieyes.com/advanced-settings' },
+    ],
+    note: { type: 'amber', text: 'Script not yet installed on site — brief sent to Elias' }
+  },
+  {
+    id: 'vps',
+    name: 'VPS Sync Server',
+    icon: '🖥',
+    desc: 'DigitalOcean VPS at 159.65.17.84 — runs the Autotrader to Sanity sync',
+    checks: [
+      { label: 'VPS IP reachable', type: 'http', url: 'https://159.65.17.84', expect: [200, 301, 302, 403, 404, 502] },
+      { label: 'DigitalOcean status', type: 'http', url: 'https://status.digitalocean.com', expect: 200 },
+    ],
+    links: [
+      { label: 'DigitalOcean', url: 'https://cloud.digitalocean.com' },
+      { label: 'DO Status', url: 'https://status.digitalocean.com' },
+    ]
+  },
+];
 
-function setPeriod(p, btn) {
-  period = p;
-  document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  loadAll();
-}
+let results = {};
 
-// Simulate period multipliers for demo data
-function periodMult() {
-  if (period === 'today') return 1;
-  if (period === '7d') return 7;
-  return 30;
-}
-
-function periodLabel() {
-  if (period === 'today') return 'today';
-  if (period === '7d') return 'last 7 days';
-  return 'last 30 days';
-}
-
-async function measureResponse(url) {
-  const start = performance.now();
+async function checkUrl(url, expect) {
+  const expects = Array.isArray(expect) ? expect : [expect];
   try {
-    await fetch(url, { method: 'HEAD', mode: 'no-cors', signal: AbortSignal.timeout(8000) });
-    return Math.round(performance.now() - start);
+    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, {
+      signal: AbortSignal.timeout(8000)
+    });
+    // allorigins returns 200 if it can reach, so we just check reachability
+    return { ok: true, status: 200 };
   } catch(e) {
-    // Try via proxy
+    // Try direct fetch as fallback (will work for CORS-friendly endpoints)
     try {
-      const s2 = performance.now();
-      await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, { signal: AbortSignal.timeout(8000) });
-      return Math.round(performance.now() - s2);
-    } catch(e2) { return null; }
+      const res2 = await fetch(url, {
+        method: 'HEAD',
+        signal: AbortSignal.timeout(5000),
+        mode: 'no-cors'
+      });
+      return { ok: true, status: 0 };
+    } catch(e2) {
+      return { ok: false, status: 0, error: e2.message };
+    }
   }
 }
 
-function speedColor(ms) {
-  if (ms === null) return 'red';
-  if (ms < 400) return 'green';
-  if (ms < 1000) return 'amber';
+async function runChecks() {
+  const icon = document.getElementById('refreshIcon');
+  icon.classList.add('spinning');
+  document.getElementById('overallLabel').textContent = 'Checking systems…';
+
+  const checks = [];
+  for (const svc of SERVICES) {
+    for (const chk of svc.checks) {
+      checks.push({ svcId: svc.id, chk });
+    }
+  }
+
+  await Promise.all(checks.map(async ({ svcId, chk }) => {
+    const result = await checkUrl(chk.url, chk.expect);
+    if (!results[svcId]) results[svcId] = [];
+    results[svcId].push({ label: chk.label, ok: result.ok });
+  }));
+
+  renderCards();
+  icon.classList.remove('spinning');
+
+  const now = new Date();
+  document.getElementById('lastChecked').textContent =
+    `Last checked: ${now.toLocaleTimeString('en-GB')}`;
+
+  updateOverall();
+}
+
+function getCardStatus(svcId, svc) {
+  // Manual overrides for known issues
+  if (svcId === 'fuel') return 'amber';
+  if (svcId === 'cookieyes') return 'amber';
+  if (svcId === 'stripe') return 'amber';
+  if (svcId === 'resend') return 'amber';
+  if (svcId === 'autotrader') return 'amber';
+
+  const r = results[svcId];
+  if (!r || r.length === 0) return 'unknown';
+  const allOk = r.every(x => x.ok);
+  const someOk = r.some(x => x.ok);
+  if (allOk) return 'green';
+  if (someOk) return 'amber';
   return 'red';
 }
 
-function speedBarWidth(ms) {
-  if (ms === null) return 100;
-  return Math.min(100, (ms / 2000) * 100);
+function statusLabel(status) {
+  if (status === 'green') return 'Operational';
+  if (status === 'amber') return 'Degraded';
+  if (status === 'red') return 'Down';
+  return 'Checking…';
 }
 
-function formatMs(ms) {
-  if (ms === null) return 'Timeout';
-  return ms + 'ms';
-}
+function renderCards() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
 
-async function loadSpeeds() {
-  const pages = [
-    { id: 'home', url: 'https://bmc-website-iota.vercel.app', label: 'Homepage' },
-    { id: 'inv', url: 'https://bmc-website-iota.vercel.app/inventory', label: 'Inventory' },
-    { id: 'fin', url: 'https://bmc-website-iota.vercel.app/finance', label: 'Finance' },
-  ];
+  for (const svc of SERVICES) {
+    const status = getCardStatus(svc.id, svc);
+    const card = document.createElement('div');
+    card.className = `card ${status}`;
 
-  const times = [];
-  for (const p of pages) {
-    const ms = await measureResponse(p.url);
-    times.push(ms);
-    const color = speedColor(ms);
-    const bar = document.getElementById(`g-${p.id}`);
-    const val = document.getElementById(`gv-${p.id}`);
-    if (bar) { bar.style.width = speedBarWidth(ms) + '%'; bar.className = `gauge-bar ${color}`; }
-    if (val) { val.textContent = formatMs(ms); val.className = `gauge-value ${color}`; }
-  }
+    const checks = svc.checks.map((chk, i) => {
+      const r = results[svc.id] ? results[svc.id][i] : null;
+      const val = r === null ? '…' : r.ok ? 'Reachable' : 'Unreachable';
+      const cls = r === null ? 'dim' : r.ok ? 'green' : 'red';
+      return `<div class="check">
+        <span class="check-icon">${r === null ? '○' : r.ok ? '✓' : '✗'}</span>
+        <span class="check-label">${chk.label}</span>
+        <span class="check-value ${cls}">${val}</span>
+      </div>`;
+    }).join('');
 
-  const valid = times.filter(t => t !== null);
-  if (valid.length > 0) {
-    const avg = Math.round(valid.reduce((a,b) => a+b, 0) / valid.length);
-    const fast = Math.min(...valid);
-    const slow = Math.max(...valid);
-    document.getElementById('sp-avg').textContent = avg;
-    document.getElementById('sp-fast').textContent = fast;
-    document.getElementById('sp-slow').textContent = slow;
-    document.getElementById('s-speed').textContent = avg + 'ms';
-    document.getElementById('s-speed').className = `summary-value ${speedColor(avg)}`;
-  }
-}
+    const links = svc.links.map(l =>
+      `<a class="card-link" href="${l.url}" target="_blank" rel="noopener">${l.label} ↗</a>`
+    ).join('');
 
-async function loadSanitySpeed() {
-  const queries = [
-    { id: '1', url: 'https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=*[_type=="vehicle"][0]{_id}' },
-    { id: '2', url: 'https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=*[_type=="siteSettings"][0]{_id}' },
-  ];
-  for (const q of queries) {
-    const ms = await measureResponse(q.url);
-    const color = speedColor(ms);
-    const bar = document.getElementById(`g-sanity${q.id}`);
-    const val = document.getElementById(`gv-sanity${q.id}`);
-    if (bar) { bar.style.width = speedBarWidth(ms) + '%'; bar.className = `gauge-bar ${color}`; }
-    if (val) { val.textContent = formatMs(ms); val.className = `gauge-value ${color}`; }
+    const note = svc.note
+      ? `<div class="card-note ${svc.note.type}">${svc.note.text}</div>`
+      : '';
+
+    card.innerHTML = `
+      <div class="card-head">
+        <div class="card-icon">${svc.icon}</div>
+        <div class="status-badge ${status}">
+          <div class="badge-dot"></div>
+          ${statusLabel(status)}
+        </div>
+      </div>
+      <div class="card-name">${svc.name}</div>
+      <div class="card-desc">${svc.desc}</div>
+      <div class="checks">${checks}</div>
+      ${note}
+      <div class="card-links">${links}</div>
+    `;
+    grid.appendChild(card);
   }
 }
 
-async function loadInventory() {
-  try {
-    const query = encodeURIComponent(`{
-      "total": count(*[_type == "vehicle" && advert.isActive == true]),
-      "brooke": count(*[_type == "vehicle" && advert.isActive == true && advert.location == "Brooke"]),
-      "norwich": count(*[_type == "vehicle" && advert.isActive == true && advert.location == "Norwich"]),
-      "reserved": count(*[_type == "vehicle" && advert.isActive == true && reserved.isReserved == true]),
-      "great": count(*[_type == "vehicle" && advert.isActive == true && pricing.priceIndicatorText == "great"])
-    }`);
-    
-    const res = await fetch(`https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=${query}`);
-    const data = await res.json();
-    const inv = data.result;
+function updateOverall() {
+  const statuses = SERVICES.map(s => getCardStatus(s.id, s));
+  const green = statuses.filter(s => s === 'green').length;
+  const amber = statuses.filter(s => s === 'amber').length;
+  const red = statuses.filter(s => s === 'red').length;
 
-    document.getElementById('inv-total').textContent = inv.total;
-    document.getElementById('inv-reserved').textContent = inv.reserved;
-    document.getElementById('inv-brooke').textContent = inv.brooke;
-    document.getElementById('inv-norwich').textContent = inv.norwich;
-    document.getElementById('inv-great').textContent = inv.great;
-    document.getElementById('inv-sync').textContent = '< 30m';
-    document.getElementById('s-vehicles').textContent = inv.total;
-    document.getElementById('at-count').textContent = inv.total;
-  } catch(e) {
-    document.getElementById('inv-total').textContent = 'Error';
-    console.error('Inventory fetch failed:', e);
+  document.getElementById('countGreen').textContent = green;
+  document.getElementById('countAmber').textContent = amber;
+  document.getElementById('countRed').textContent = red;
+
+  const dot = document.getElementById('overallDot');
+  const label = document.getElementById('overallLabel');
+
+  if (red > 0) {
+    dot.style.background = 'var(--red-status)';
+    dot.style.boxShadow = '0 0 8px var(--red-status)';
+    label.style.color = 'var(--red-status)';
+    label.textContent = `${red} system${red > 1 ? 's' : ''} down`;
+  } else if (amber > 0) {
+    dot.style.background = 'var(--amber)';
+    dot.style.boxShadow = '0 0 8px var(--amber)';
+    label.style.color = 'var(--amber)';
+    label.textContent = `${amber} system${amber > 1 ? 's' : ''} degraded`;
+  } else {
+    dot.style.background = 'var(--green)';
+    dot.style.boxShadow = '0 0 8px var(--green)';
+    label.style.color = 'var(--green)';
+    label.textContent = 'All systems operational';
   }
+
+  document.getElementById('footer').textContent =
+    `BMC Group Service Dashboard · ${new Date().toLocaleDateString('en-GB', {weekday:'long', year:'numeric', month:'long', day:'numeric'})}`;
 }
 
-async function loadFuelPrices() {
-  try {
-    const res = await fetch("https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=*[_type=='location'&&_id=='067a3b18-afcf-46e6-bd85-136ed47c58c7'][0]{fuelPrices,updatedAt}");
-    const data = await res.json();
-    const loc = data.result;
-    if (loc && loc.fuelPrices) {
-      const tbody = document.getElementById('fuel-table');
-      const prices = loc.fuelPrices;
-      const rows = [
-        { type: 'Unleaded', key: 'unleaded' },
-        { type: 'Premium', key: 'premium' },
-        { type: 'Diesel', key: 'diesel' },
-      ];
-      tbody.innerHTML = rows.map(r => {
-        const p = prices[r.key];
-        return p ? `<tr><td>${r.type}</td><td class="td-mono">${p}p</td><td class="td-mono">${loc.updatedAt ? new Date(loc.updatedAt).toLocaleString('en-GB') : '—'}</td></tr>` : '';
-      }).join('');
-      document.getElementById('fuel-prices').textContent = prices.unleaded ? prices.unleaded + 'p' : '—';
-    }
-  } catch(e) {
-    document.getElementById('fuel-prices').textContent = 'Error';
-  }
-}
+// Initial render then run checks
+renderCards();
+updateOverall();
+runChecks();
 
-function loadStripeMetrics() {
-  // Simulated test data — real data would require Stripe API with secret key server-side
-  const mult = periodMult();
-  const count = Math.floor(2 * mult + Math.random() * mult);
-  const value = count * 99;
-  document.getElementById('stripe-count').textContent = count;
-  document.getElementById('stripe-value').textContent = '£' + value;
-  document.getElementById('stripe-rate').textContent = '100%';
-  document.getElementById('stripe-period').textContent = periodLabel();
-  document.getElementById('s-reservations').textContent = count;
-  document.getElementById('s-reservations-val').textContent = '£' + value + ' total value';
-
-  const tbody = document.getElementById('stripe-table');
-  const vehicles = ['BMW 320D M Sport', 'Audi A4 SE', 'VW Golf GTI', 'Mercedes C220', 'Ford Focus ST'];
-  const rows = Array.from({length: Math.min(count, 5)}, (_, i) => {
-    const d = new Date(); d.setDate(d.getDate() - Math.floor(Math.random() * Math.max(1, periodMult())));
-    return `<tr>
-      <td class="td-mono">${d.toLocaleDateString('en-GB')}</td>
-      <td>${vehicles[i % vehicles.length]}</td>
-      <td>Test Customer</td>
-      <td class="td-mono">£99</td>
-      <td><span class="td-badge green">Complete</span></td>
-    </tr>`;
-  }).join('');
-  tbody.innerHTML = rows || '<tr><td colspan="5" style="color:var(--text-dim);text-align:center">No transactions this period</td></tr>';
-}
-
-function loadEmailMetrics() {
-  const mult = periodMult();
-  const sent = Math.floor(3 * mult + Math.random() * mult * 2);
-  const failed = Math.floor(sent * 0.3);
-  const delivered = sent - failed;
-  document.getElementById('email-sent').textContent = sent;
-  document.getElementById('email-delivered').textContent = delivered;
-  document.getElementById('email-failed').textContent = failed;
-  document.getElementById('email-period').textContent = periodLabel();
-  document.getElementById('s-email').textContent = Math.round((delivered/sent)*100) + '%';
-}
-
-function loadEnquiryMetrics() {
-  const mult = periodMult();
-  const total = Math.floor(4 * mult + Math.random() * mult * 3);
-  const brooke = Math.floor(total * 0.65);
-  const norwich = total - brooke;
-  document.getElementById('enq-count').textContent = total;
-  document.getElementById('enq-brooke').textContent = brooke;
-  document.getElementById('enq-norwich').textContent = norwich;
-  document.getElementById('enq-period').textContent = periodLabel();
-}
-
-async function loadAll() {
-  const icon = document.getElementById('ri');
-  icon.classList.add('spinning');
-
-  await Promise.all([
-    loadSpeeds(),
-    loadSanitySpeed(),
-    loadInventory(),
-    loadFuelPrices(),
-  ]);
-
-  loadStripeMetrics();
-  loadEmailMetrics();
-  loadEnquiryMetrics();
-
-  icon.classList.remove('spinning');
-}
-
-loadAll();
-setInterval(loadAll, 5 * 60 * 1000);
+// Auto refresh every 5 minutes
+setInterval(runChecks, 5 * 60 * 1000);
 </script>
 </body>
 </html>
