@@ -498,25 +498,29 @@ async function loadSanitySpeed() {
 
 async function loadInventory() {
   try {
-    const res = await fetch('https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=*[_type=="vehicle"]{lifecycleState,location,pricing,reserved}');
+    const query = encodeURIComponent(`{
+      "total": count(*[_type == "vehicle" && advert.isActive == true]),
+      "brooke": count(*[_type == "vehicle" && advert.isActive == true && advert.location == "Brooke"]),
+      "norwich": count(*[_type == "vehicle" && advert.isActive == true && advert.location == "Norwich"]),
+      "reserved": count(*[_type == "vehicle" && advert.isActive == true && reserved.isReserved == true]),
+      "great": count(*[_type == "vehicle" && advert.isActive == true && pricing.priceIndicatorText == "great"])
+    }`);
+    
+    const res = await fetch(`https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=${query}`);
     const data = await res.json();
-    const vehicles = data.result || [];
-    const live = vehicles.filter(v => v.lifecycleState === 'FORECOURT' || !v.lifecycleState);
-    const reserved = vehicles.filter(v => v.reserved && v.reserved.isReserved);
-    const brooke = live.filter(v => !v.location || v.location === 'brooke');
-    const norwich = live.filter(v => v.location === 'norwich');
-    const great = live.filter(v => v.pricing && v.pricing.priceIndicatorText === 'great');
+    const inv = data.result;
 
-    document.getElementById('inv-total').textContent = live.length || vehicles.length;
-    document.getElementById('inv-reserved').textContent = reserved.length;
-    document.getElementById('inv-brooke').textContent = brooke.length;
-    document.getElementById('inv-norwich').textContent = norwich.length;
-    document.getElementById('inv-great').textContent = great.length;
+    document.getElementById('inv-total').textContent = inv.total;
+    document.getElementById('inv-reserved').textContent = inv.reserved;
+    document.getElementById('inv-brooke').textContent = inv.brooke;
+    document.getElementById('inv-norwich').textContent = inv.norwich;
+    document.getElementById('inv-great').textContent = inv.great;
     document.getElementById('inv-sync').textContent = '< 30m';
-    document.getElementById('s-vehicles').textContent = live.length || vehicles.length;
-    document.getElementById('at-count').textContent = live.length || vehicles.length;
+    document.getElementById('s-vehicles').textContent = inv.total;
+    document.getElementById('at-count').textContent = inv.total;
   } catch(e) {
     document.getElementById('inv-total').textContent = 'Error';
+    console.error('Inventory fetch failed:', e);
   }
 }
 
