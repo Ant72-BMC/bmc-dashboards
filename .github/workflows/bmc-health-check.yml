@@ -30,7 +30,7 @@ jobs:
 
       - name: Check Sanity Studio
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://bmc-vehicles.sanity.studio)
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L https://bmc-vehicles.sanity.studio)
           echo "Sanity Studio: HTTP $STATUS"
           if [ "$STATUS" != "200" ]; then
             echo "SANITY_FAIL=true" >> $GITHUB_ENV
