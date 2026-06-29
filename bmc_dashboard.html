@@ -467,7 +467,7 @@ const SERVICES = [
       { label: 'Fuel Finder Portal', url: 'https://developer.fuel-finder.service.gov.uk' },
       { label: 'Vercel Logs', url: 'https://vercel.com/bmcgroup/bmc-website/logs' },
     ],
-    note: { type: 'red', text: 'Known issues: intermittent timeouts and station not found errors in Vercel logs — Elias investigating' }
+    note: { type: 'amber', text: 'Fuel sync resolved and operational as of 29 Jun 2026.' }
   },
   {
     id: 'resend',
@@ -570,7 +570,7 @@ async function runChecks() {
 
 function getCardStatus(svcId, svc) {
   // Manual overrides for known issues
-  if (svcId === 'fuel') return 'amber';
+  if (svcId === 'fuel') return 'green';
   if (svcId === 'cookieyes') return 'amber';
   if (svcId === 'stripe') return 'amber';
   if (svcId === 'resend') return 'amber';
