@@ -70,7 +70,7 @@ jobs:
 
       - name: Check DigitalOcean Status
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://status.digitalocean.com)
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L https://status.digitalocean.com)
           echo "DigitalOcean Status: HTTP $STATUS"
           if [ "$STATUS" != "200" ]; then
             echo "DO_FAIL=true" >> $GITHUB_ENV
