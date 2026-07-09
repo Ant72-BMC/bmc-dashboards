@@ -414,14 +414,7 @@ const SERVICES = [
       { label: 'Sanity Studio', url: 'https://bmc-vehicles.sanity.studio' },
       { label: 'Sanity Manage', url: 'https://sanity.io/manage' },
     ]
-  },
-  {
-    id: 'stripe',
-    name: 'Stripe Reservations',
-    icon: '💳',
-    desc: '£99 vehicle reservation deposits via Stripe Checkout',
-    checks: [
-      { label: 'Stripe API reachable', type: 'http', url: 'https://api.stripe.com', expect: [200, 401] },
+  }
       { label: 'Webhook endpoint', type: 'http', url: 'https://brookemotcentre.co.uk/api/stripe-webhook', expect: 405 },
       { label: 'Reserve API route', type: 'http', url: 'https://brookemotcentre.co.uk/api/reserve', expect: 405 },
     ],
@@ -430,14 +423,7 @@ const SERVICES = [
       { label: 'Stripe Webhooks', url: 'https://dashboard.stripe.com/webhooks' },
     ],
     note: null
-  },
-  {
-    id: 'autotrader',
-    name: 'Autotrader Sync',
-    icon: '🚗',
-    desc: 'VPS syncs Autotrader live stock feed into Sanity CMS — weekly full sync plus real-time webhooks',
-    checks: [
-      { label: 'VPS reachable', type: 'http', url: 'https://159.65.17.84', expect: [200, 301, 302, 403, 404] },
+  }
       { label: 'Autotrader API', type: 'http', url: 'https://api.autotrader.co.uk', expect: [200, 401, 403, 404] },
     ],
     links: [
@@ -460,14 +446,7 @@ const SERVICES = [
       { label: 'Vercel Logs', url: 'https://vercel.com/bmcgroup/bmc-website/logs' },
     ],
     note: null
-  },
-  {
-    id: 'resend',
-    name: 'Resend Emails',
-    icon: '✉️',
-    desc: 'Transactional emails — enquiry confirmations, reservation notifications and sales alerts',
-    checks: [
-      { label: 'Resend API reachable', type: 'http', url: 'https://api.resend.com', expect: [200, 401, 403, 404] },
+  }
       { label: 'Enquiry endpoint', type: 'http', url: 'https://brookemotcentre.co.uk/api/enquiry', expect: 405 },
     ],
     links: [
@@ -475,14 +454,7 @@ const SERVICES = [
       { label: 'Resend Domains', url: 'https://resend.com/domains' },
     ],
     note: null
-  },
-  {
-    id: 'cookieyes',
-    name: 'CookieYes',
-    icon: '🍪',
-    desc: 'GDPR cookie consent banner — must load before GA4 and Meta Pixel',
-    checks: [
-      { label: 'CookieYes CDN reachable', type: 'http', url: 'https://cdn-cookieyes.com/client_data/52cf22134bb521a139dc95ccb9b24e42/script.js', expect: 200 },
+  }
       { label: 'CookieYes dashboard', type: 'http', url: 'https://app.cookieyes.com', expect: 200 },
     ],
     links: [
@@ -559,10 +531,6 @@ async function runChecks() {
 
 function getCardStatus(svcId, svc) {
   if (svcId === 'fuel') return 'green';
-  if (svcId === 'cookieyes') return 'green';
-  if (svcId === 'stripe') return 'green';
-  if (svcId === 'resend') return 'green';
-  if (svcId === 'autotrader') return 'green';
 
   const r = results[svcId];
   if (!r || r.length === 0) return 'unknown';
