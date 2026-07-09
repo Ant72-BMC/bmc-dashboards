@@ -53,7 +53,7 @@
   .refresh-btn:hover { border-color: var(--red); color: var(--red); }
 
   .summary-row {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 24px 32px 0; max-width: 1400px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 24px 32px 0; max-width: 1400px; margin: 0 auto;
   }
   .summary-card {
     background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px;
@@ -154,19 +154,9 @@
     <div class="summary-sub">Average response time</div>
   </div>
   <div class="summary-card">
-    <div class="summary-label">Stripe Reservations</div>
-    <div class="summary-value purple" id="s-reservations">—</div>
-    <div class="summary-sub" id="s-reservations-val">Total value</div>
-  </div>
-  <div class="summary-card">
     <div class="summary-label">Live Vehicles</div>
     <div class="summary-value blue" id="s-vehicles">—</div>
     <div class="summary-sub">In Sanity / on site</div>
-  </div>
-  <div class="summary-card">
-    <div class="summary-label">Email Success Rate</div>
-    <div class="summary-value green" id="s-email">—</div>
-    <div class="summary-sub">Resend delivery rate</div>
   </div>
 </div>
 
@@ -239,31 +229,6 @@
     </div>
   </div>
 
-  <!-- STRIPE RESERVATIONS -->
-  <div class="metric-card">
-    <div class="metric-head">
-      <div class="metric-title-row">
-        <div class="metric-icon">💳</div>
-        <div>
-          <div class="metric-title">Stripe Reservations</div>
-          <div class="metric-subtitle">£99 vehicle reservation transactions</div>
-        </div>
-      </div>
-      <span class="metric-badge green">Live</span>
-    </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-label">Transactions</div><div class="stat-value purple" id="stripe-count">—</div><div class="stat-unit" id="stripe-period">this period</div></div>
-      <div class="stat"><div class="stat-label">Total Value</div><div class="stat-value purple" id="stripe-value">—</div><div class="stat-unit">£99 per reservation</div></div>
-      <div class="stat"><div class="stat-label">Success Rate</div><div class="stat-value green" id="stripe-rate">—</div><div class="stat-unit">completed payments</div></div>
-    </div>
-    <div class="table-wrap" id="stripe-table-wrap">
-      <table>
-        <thead><tr><th>Date</th><th>Vehicle</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead>
-        <tbody id="stripe-table"><tr><td colspan="5" style="color:var(--text-dim);text-align:center">Live reservation data via Stripe Dashboard</td></tr></tbody>
-      </table>
-    </div>
-  </div>
-
   <!-- VEHICLE INVENTORY -->
   <div class="metric-card">
     <div class="metric-head">
@@ -285,25 +250,6 @@
       <div class="stat"><div class="stat-label">Brooke</div><div class="stat-value blue" id="inv-brooke">—</div><div class="stat-unit">vehicles</div></div>
       <div class="stat"><div class="stat-label">Norwich</div><div class="stat-value blue" id="inv-norwich">—</div><div class="stat-unit">vehicles</div></div>
       <div class="stat"><div class="stat-label">Great Value</div><div class="stat-value green" id="inv-great">—</div><div class="stat-unit">price indicator</div></div>
-    </div>
-  </div>
-
-  <!-- AUTOTRADER SYNC -->
-  <div class="metric-card">
-    <div class="metric-head">
-      <div class="metric-title-row">
-        <div class="metric-icon">🔄</div>
-        <div>
-          <div class="metric-title">Autotrader Sync</div>
-          <div class="metric-subtitle">VPS → Sanity vehicle feed</div>
-        </div>
-      </div>
-      <span class="metric-badge green">Live</span>
-    </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-label">Vehicles Synced</div><div class="stat-value blue" id="at-count">—</div><div class="stat-unit">active in Sanity</div></div>
-      <div class="stat"><div class="stat-label">Full Sync</div><div class="stat-value green">Weekly</div><div class="stat-unit">every Monday 9am</div></div>
-      <div class="stat"><div class="stat-label">Mode</div><div class="stat-value green">Live</div><div class="stat-unit">production feed</div></div>
     </div>
   </div>
 
@@ -329,44 +275,6 @@
         <thead><tr><th>Fuel Type</th><th>Price</th><th>Last Updated</th></tr></thead>
         <tbody id="fuel-table"></tbody>
       </table>
-    </div>
-  </div>
-
-  <!-- RESEND EMAIL -->
-  <div class="metric-card">
-    <div class="metric-head">
-      <div class="metric-title-row">
-        <div class="metric-icon">✉️</div>
-        <div>
-          <div class="metric-title">Resend Email Delivery</div>
-          <div class="metric-subtitle">Enquiries and reservation confirmations</div>
-        </div>
-      </div>
-      <span class="metric-badge green">Live</span>
-    </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-label">Emails Sent</div><div class="stat-value blue" id="email-sent">—</div><div class="stat-unit" id="email-period">this period</div></div>
-      <div class="stat"><div class="stat-label">Delivered</div><div class="stat-value green" id="email-delivered">—</div><div class="stat-unit">confirmed delivery</div></div>
-      <div class="stat"><div class="stat-label">Failed</div><div class="stat-value red" id="email-failed">—</div><div class="stat-unit">delivery errors</div></div>
-    </div>
-  </div>
-
-  <!-- ENQUIRY FORMS -->
-  <div class="metric-card">
-    <div class="metric-head">
-      <div class="metric-title-row">
-        <div class="metric-icon">📋</div>
-        <div>
-          <div class="metric-title">Enquiry Form Submissions</div>
-          <div class="metric-subtitle">Vehicle enquiries via /api/enquiry</div>
-        </div>
-      </div>
-      <span class="metric-badge green" id="enq-badge">Live</span>
-    </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-label">Submissions</div><div class="stat-value blue" id="enq-count">—</div><div class="stat-unit" id="enq-period">this period</div></div>
-      <div class="stat"><div class="stat-label">Brooke</div><div class="stat-value blue" id="enq-brooke">—</div><div class="stat-unit">routed to sales@</div></div>
-      <div class="stat"><div class="stat-label">Norwich</div><div class="stat-value blue" id="enq-norwich">—</div><div class="stat-unit">routed to norwich@</div></div>
     </div>
   </div>
 
@@ -518,21 +426,6 @@ async function loadFuelPrices() {
   }
 }
 
-function loadEmailMetrics() {
-  document.getElementById('email-sent').textContent = '—';
-  document.getElementById('email-delivered').textContent = '—';
-  document.getElementById('email-failed').textContent = '—';
-  document.getElementById('email-period').textContent = periodLabel();
-  document.getElementById('s-email').textContent = '—';
-}
-
-function loadEnquiryMetrics() {
-  document.getElementById('enq-count').textContent = '—';
-  document.getElementById('enq-brooke').textContent = '—';
-  document.getElementById('enq-norwich').textContent = '—';
-  document.getElementById('enq-period').textContent = periodLabel();
-}
-
 async function loadAll() {
   const icon = document.getElementById('ri');
   icon.classList.add('spinning');
@@ -544,8 +437,6 @@ async function loadAll() {
     loadFuelPrices(),
   ]);
 
-  loadEmailMetrics();
-  loadEnquiryMetrics();
 
   icon.classList.remove('spinning');
 }
