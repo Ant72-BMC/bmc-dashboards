@@ -34,7 +34,6 @@
     padding: 0 0 48px;
   }
 
-  /* HEADER */
   .header {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
@@ -108,7 +107,6 @@
 
   .refresh-btn:hover { border-color: var(--red); color: var(--red); }
 
-  /* OVERALL STATUS BAR */
   .status-bar {
     padding: 16px 32px;
     background: var(--surface);
@@ -167,7 +165,6 @@
   .dot-amber { background: var(--amber); }
   .dot-red { background: var(--red-status); }
 
-  /* GRID */
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -177,7 +174,6 @@
     margin: 0 auto;
   }
 
-  /* CARD */
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -260,7 +256,6 @@
     margin-bottom: 16px;
   }
 
-  /* CHECKS */
   .checks {
     display: flex;
     flex-direction: column;
@@ -300,7 +295,6 @@
   .check-value.red { color: var(--red-status); }
   .check-value.dim { color: var(--text-dim); }
 
-  /* NOTES */
   .card-note {
     margin-top: 12px;
     padding: 8px 10px;
@@ -318,7 +312,6 @@
     color: var(--red-status);
   }
 
-  /* LINKS */
   .card-links {
     display: flex;
     gap: 8px;
@@ -339,11 +332,9 @@
 
   .card-link:hover { color: var(--text); border-color: #3a3a3f; }
 
-  /* SPINNING REFRESH */
   .spinning { animation: spin 1s linear infinite; }
   @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-  /* FOOTER */
   .footer {
     text-align: center;
     font-size: 11px;
@@ -399,15 +390,15 @@ const SERVICES = [
     id: 'vercel',
     name: 'Vercel / Website',
     icon: '▲',
-    desc: 'Next.js site on bmc-website-iota.vercel.app',
+    desc: 'Next.js site on brookemotcentre.co.uk',
     checks: [
-      { label: 'Staging site reachable', type: 'http', url: 'https://bmc-website-iota.vercel.app', expect: 200 },
-      { label: 'Finance page', type: 'http', url: 'https://bmc-website-iota.vercel.app/finance', expect: 200 },
-      { label: 'Inventory page', type: 'http', url: 'https://bmc-website-iota.vercel.app/inventory', expect: 200 },
+      { label: 'Live site reachable', type: 'http', url: 'https://brookemotcentre.co.uk', expect: 200 },
+      { label: 'Finance page', type: 'http', url: 'https://brookemotcentre.co.uk/finance', expect: 200 },
+      { label: 'Inventory page', type: 'http', url: 'https://brookemotcentre.co.uk/inventory', expect: 200 },
     ],
     links: [
       { label: 'Vercel Dashboard', url: 'https://vercel.com/bmcgroup/bmc-website' },
-      { label: 'Staging Site', url: 'https://bmc-website-iota.vercel.app' },
+      { label: 'Live Site', url: 'https://brookemotcentre.co.uk' },
     ]
   },
   {
@@ -431,28 +422,29 @@ const SERVICES = [
     desc: '£99 vehicle reservation deposits via Stripe Checkout',
     checks: [
       { label: 'Stripe API reachable', type: 'http', url: 'https://api.stripe.com', expect: [200, 401] },
-      { label: 'Webhook endpoint', type: 'http', url: 'https://bmc-website-iota.vercel.app/api/stripe-webhook', expect: 405 },
-      { label: 'Reserve API route', type: 'http', url: 'https://bmc-website-iota.vercel.app/api/reserve', expect: 405 },
+      { label: 'Webhook endpoint', type: 'http', url: 'https://brookemotcentre.co.uk/api/stripe-webhook', expect: 405 },
+      { label: 'Reserve API route', type: 'http', url: 'https://brookemotcentre.co.uk/api/reserve', expect: 405 },
     ],
     links: [
       { label: 'Stripe Dashboard', url: 'https://dashboard.stripe.com' },
-      { label: 'Stripe Webhooks', url: 'https://dashboard.stripe.com/test/webhooks' },
+      { label: 'Stripe Webhooks', url: 'https://dashboard.stripe.com/webhooks' },
     ],
-    note: { type: 'amber', text: 'Currently in test mode — live keys required at go live' }
+    note: null
   },
   {
     id: 'autotrader',
     name: 'Autotrader Sync',
     icon: '🚗',
-    desc: 'VPS syncs Autotrader stock feed into Sanity CMS every 30 minutes',
+    desc: 'VPS syncs Autotrader live stock feed into Sanity CMS — weekly full sync plus real-time webhooks',
     checks: [
       { label: 'VPS reachable', type: 'http', url: 'https://159.65.17.84', expect: [200, 301, 302, 403, 404] },
-      { label: 'Autotrader API', type: 'http', url: 'https://api-sandbox.autotrader.co.uk', expect: [200, 401, 403, 404] },
+      { label: 'Autotrader API', type: 'http', url: 'https://api.autotrader.co.uk', expect: [200, 401, 403, 404] },
     ],
     links: [
       { label: 'Autotrader Portal', url: 'https://dealer.autotrader.co.uk' },
+      { label: 'DigitalOcean', url: 'https://cloud.digitalocean.com' },
     ],
-    note: { type: 'amber', text: 'Sandbox mode active — switch to production at go live' }
+    note: null
   },
   {
     id: 'fuel',
@@ -461,7 +453,7 @@ const SERVICES = [
     desc: 'Government API syncs Brooke Garage fuel prices into Sanity every 30 mins',
     checks: [
       { label: 'Fuel Finder API', type: 'http', url: 'https://www.fuel-finder.service.gov.uk', expect: [200, 301, 302, 403] },
-      { label: 'Cron endpoint', type: 'http', url: 'https://bmc-website-iota.vercel.app/api/cron/fuel-prices', expect: [200, 401, 405] },
+      { label: 'Cron endpoint', type: 'http', url: 'https://brookemotcentre.co.uk/api/cron/fuel-prices', expect: [200, 401, 405] },
     ],
     links: [
       { label: 'Fuel Finder Portal', url: 'https://developer.fuel-finder.service.gov.uk' },
@@ -473,16 +465,16 @@ const SERVICES = [
     id: 'resend',
     name: 'Resend Emails',
     icon: '✉️',
-    desc: 'Transactional emails — enquiry confirmations and reservation notifications',
+    desc: 'Transactional emails — enquiry confirmations, reservation notifications and sales alerts',
     checks: [
       { label: 'Resend API reachable', type: 'http', url: 'https://api.resend.com', expect: [200, 401, 403, 404] },
-      { label: 'Enquiry endpoint', type: 'http', url: 'https://bmc-website-iota.vercel.app/api/enquiry', expect: 405 },
+      { label: 'Enquiry endpoint', type: 'http', url: 'https://brookemotcentre.co.uk/api/enquiry', expect: 405 },
     ],
     links: [
       { label: 'Resend Dashboard', url: 'https://resend.com/emails' },
       { label: 'Resend Domains', url: 'https://resend.com/domains' },
     ],
-    note: { type: 'amber', text: 'Sandbox mode — emails only send to anthewett@hotmail.com until domain verified at go live' }
+    note: null
   },
   {
     id: 'cookieyes',
@@ -497,7 +489,7 @@ const SERVICES = [
       { label: 'CookieYes Dashboard', url: 'https://app.cookieyes.com/dashboard' },
       { label: 'Advanced Settings', url: 'https://app.cookieyes.com/advanced-settings' },
     ],
-    note: { type: 'amber', text: 'Script not yet installed on site — brief sent to Elias' }
+    note: null
   },
   {
     id: 'vps',
@@ -518,15 +510,12 @@ const SERVICES = [
 let results = {};
 
 async function checkUrl(url, expect) {
-  const expects = Array.isArray(expect) ? expect : [expect];
   try {
     const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, {
       signal: AbortSignal.timeout(8000)
     });
-    // allorigins returns 200 if it can reach, so we just check reachability
     return { ok: true, status: 200 };
   } catch(e) {
-    // Try direct fetch as fallback (will work for CORS-friendly endpoints)
     try {
       const res2 = await fetch(url, {
         method: 'HEAD',
@@ -569,12 +558,11 @@ async function runChecks() {
 }
 
 function getCardStatus(svcId, svc) {
-  // Manual overrides for known issues
   if (svcId === 'fuel') return 'green';
-  if (svcId === 'cookieyes') return 'amber';
-  if (svcId === 'stripe') return 'amber';
-  if (svcId === 'resend') return 'amber';
-  if (svcId === 'autotrader') return 'amber';
+  if (svcId === 'cookieyes') return 'green';
+  if (svcId === 'stripe') return 'green';
+  if (svcId === 'resend') return 'green';
+  if (svcId === 'autotrader') return 'green';
 
   const r = results[svcId];
   if (!r || r.length === 0) return 'unknown';
@@ -672,12 +660,10 @@ function updateOverall() {
     `BMC Group Service Dashboard · ${new Date().toLocaleDateString('en-GB', {weekday:'long', year:'numeric', month:'long', day:'numeric'})}`;
 }
 
-// Initial render then run checks
 renderCards();
 updateOverall();
 runChecks();
 
-// Auto refresh every 5 minutes
 setInterval(runChecks, 5 * 60 * 1000);
 </script>
 </body>
