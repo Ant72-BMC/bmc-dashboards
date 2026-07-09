@@ -65,9 +65,6 @@
   .summary-value.blue { color: var(--blue); }
   .summary-value.purple { color: var(--purple); }
   .summary-sub { font-size: 11px; color: var(--text-dim); margin-top: 5px; }
-  .summary-delta { font-size: 11px; margin-top: 4px; }
-  .summary-delta.up { color: var(--green); }
-  .summary-delta.down { color: var(--red-s); }
 
   .main-grid {
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 16px 32px; max-width: 1400px; margin: 0 auto;
@@ -86,8 +83,15 @@
   .metric-badge.amber { background: rgba(245,158,11,0.12); color: var(--amber); }
   .metric-badge.red { background: rgba(239,68,68,0.12); color: var(--red-s); }
 
-  .chart-wrap { position: relative; height: 120px; margin-bottom: 12px; }
-  canvas { width: 100% !important; height: 120px !important; }
+  .gauge-row { display: flex; gap: 12px; margin-top: 12px; }
+  .gauge { flex: 1; }
+  .gauge-label { font-size: 11px; color: var(--text-dim); margin-bottom: 5px; }
+  .gauge-bar-wrap { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; margin-bottom: 4px; }
+  .gauge-bar { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+  .gauge-bar.green { background: var(--green); }
+  .gauge-bar.amber { background: var(--amber); }
+  .gauge-bar.red { background: var(--red-s); }
+  .gauge-value { font-size: 13px; font-weight: 700; font-family: var(--mono); }
 
   .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
   .stat { background: var(--surface2); border-radius: 7px; padding: 10px 12px; }
@@ -111,18 +115,6 @@
   .td-badge.green { background: rgba(34,197,94,0.12); color: var(--green); }
   .td-badge.amber { background: rgba(245,158,11,0.12); color: var(--amber); }
   .td-badge.red { background: rgba(239,68,68,0.12); color: var(--red-s); }
-
-  .gauge-row { display: flex; gap: 12px; margin-top: 12px; }
-  .gauge { flex: 1; }
-  .gauge-label { font-size: 11px; color: var(--text-dim); margin-bottom: 5px; }
-  .gauge-bar-wrap { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; margin-bottom: 4px; }
-  .gauge-bar { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
-  .gauge-bar.green { background: var(--green); }
-  .gauge-bar.amber { background: var(--amber); }
-  .gauge-bar.red { background: var(--red-s); }
-  .gauge-value { font-size: 13px; font-weight: 700; font-family: var(--mono); }
-
-  .note { font-size: 11px; color: var(--amber); background: rgba(245,158,11,0.07); border-left: 2px solid var(--amber); padding: 7px 10px; border-radius: 0 5px 5px 0; margin-top: 12px; line-height: 1.5; }
 
   .spinning { animation: spin 1s linear infinite; }
   @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -173,7 +165,7 @@
   </div>
   <div class="summary-card">
     <div class="summary-label">Email Success Rate</div>
-    <div class="summary-value amber" id="s-email">—</div>
+    <div class="summary-value green" id="s-email">—</div>
     <div class="summary-sub">Resend delivery rate</div>
   </div>
 </div>
@@ -241,9 +233,9 @@
       </div>
     </div>
     <div class="stats-row">
-      <div class="stat"><div class="stat-label">API Requests/mo</div><div class="stat-value blue" id="san-req">55.2k</div><div class="stat-unit">of 250k limit</div></div>
-      <div class="stat"><div class="stat-label">CDN Requests/mo</div><div class="stat-value blue" id="san-cdn">26.9k</div><div class="stat-unit">of 1m limit</div></div>
-      <div class="stat"><div class="stat-label">Documents</div><div class="stat-value blue" id="san-docs">595</div><div class="stat-unit">of 25k limit</div></div>
+      <div class="stat"><div class="stat-label">API Requests/mo</div><div class="stat-value blue" id="san-req">—</div><div class="stat-unit">of 250k limit</div></div>
+      <div class="stat"><div class="stat-label">CDN Requests/mo</div><div class="stat-value blue" id="san-cdn">—</div><div class="stat-unit">of 1m limit</div></div>
+      <div class="stat"><div class="stat-label">Documents</div><div class="stat-value blue" id="san-docs">—</div><div class="stat-unit">of 25k limit</div></div>
     </div>
   </div>
 
@@ -257,7 +249,7 @@
           <div class="metric-subtitle">£99 vehicle reservation transactions</div>
         </div>
       </div>
-      <span class="metric-badge amber">Test mode</span>
+      <span class="metric-badge green">Live</span>
     </div>
     <div class="stats-row">
       <div class="stat"><div class="stat-label">Transactions</div><div class="stat-value purple" id="stripe-count">—</div><div class="stat-unit" id="stripe-period">this period</div></div>
@@ -267,10 +259,9 @@
     <div class="table-wrap" id="stripe-table-wrap">
       <table>
         <thead><tr><th>Date</th><th>Vehicle</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead>
-        <tbody id="stripe-table"></tbody>
+        <tbody id="stripe-table"><tr><td colspan="5" style="color:var(--text-dim);text-align:center">Live reservation data via Stripe Dashboard</td></tr></tbody>
       </table>
     </div>
-    <div class="note">Test mode active — transactions shown are test payments only. Switch to live keys at go live.</div>
   </div>
 
   <!-- VEHICLE INVENTORY -->
@@ -307,14 +298,13 @@
           <div class="metric-subtitle">VPS → Sanity vehicle feed</div>
         </div>
       </div>
-      <span class="metric-badge amber">Sandbox</span>
+      <span class="metric-badge green">Live</span>
     </div>
     <div class="stats-row">
       <div class="stat"><div class="stat-label">Vehicles Synced</div><div class="stat-value blue" id="at-count">—</div><div class="stat-unit">active in Sanity</div></div>
-      <div class="stat"><div class="stat-label">Sync Frequency</div><div class="stat-value green">30</div><div class="stat-unit">minutes</div></div>
-      <div class="stat"><div class="stat-label">Mode</div><div class="stat-value amber">Sandbox</div><div class="stat-unit">switch at go live</div></div>
+      <div class="stat"><div class="stat-label">Full Sync</div><div class="stat-value green">Weekly</div><div class="stat-unit">every Monday 9am</div></div>
+      <div class="stat"><div class="stat-label">Mode</div><div class="stat-value green">Live</div><div class="stat-unit">production feed</div></div>
     </div>
-    <div class="note">Sandbox mode active. Switch to production Autotrader credentials at go live to sync live stock.</div>
   </div>
 
   <!-- FUEL PRICE SYNC -->
@@ -330,7 +320,7 @@
       <span class="metric-badge green">Operational</span>
     </div>
     <div class="stats-row">
-      <div class="stat"><div class="stat-label">Success Rate</div><div class="stat-value green" id="fuel-rate">Syncing</div><div class="stat-unit">every 30 minutes</div></div>
+      <div class="stat"><div class="stat-label">Status</div><div class="stat-value green" id="fuel-rate">Syncing</div><div class="stat-unit">every 30 minutes</div></div>
       <div class="stat"><div class="stat-label">Sync Frequency</div><div class="stat-value green">30</div><div class="stat-unit">minutes</div></div>
       <div class="stat"><div class="stat-label">Last Prices</div><div class="stat-value green" id="fuel-prices">—</div><div class="stat-unit">from Sanity</div></div>
     </div>
@@ -352,14 +342,13 @@
           <div class="metric-subtitle">Enquiries and reservation confirmations</div>
         </div>
       </div>
-      <span class="metric-badge amber">Sandbox</span>
+      <span class="metric-badge green">Live</span>
     </div>
     <div class="stats-row">
       <div class="stat"><div class="stat-label">Emails Sent</div><div class="stat-value blue" id="email-sent">—</div><div class="stat-unit" id="email-period">this period</div></div>
-      <div class="stat"><div class="stat-label">Delivered</div><div class="stat-value green" id="email-delivered">—</div><div class="stat-unit">to anthewett@</div></div>
-      <div class="stat"><div class="stat-label">Failed</div><div class="stat-value red" id="email-failed">—</div><div class="stat-unit">403 domain errors</div></div>
+      <div class="stat"><div class="stat-label">Delivered</div><div class="stat-value green" id="email-delivered">—</div><div class="stat-unit">confirmed delivery</div></div>
+      <div class="stat"><div class="stat-label">Failed</div><div class="stat-value red" id="email-failed">—</div><div class="stat-unit">delivery errors</div></div>
     </div>
-    <div class="note">Sandbox mode — emails only send to anthewett@hotmail.com. Verify brookemotcentre.co.uk domain in Resend at go live.</div>
   </div>
 
   <!-- ENQUIRY FORMS -->
@@ -372,14 +361,13 @@
           <div class="metric-subtitle">Vehicle enquiries via /api/enquiry</div>
         </div>
       </div>
-      <span class="metric-badge amber" id="enq-badge">Sandbox</span>
+      <span class="metric-badge green" id="enq-badge">Live</span>
     </div>
     <div class="stats-row">
       <div class="stat"><div class="stat-label">Submissions</div><div class="stat-value blue" id="enq-count">—</div><div class="stat-unit" id="enq-period">this period</div></div>
       <div class="stat"><div class="stat-label">Brooke</div><div class="stat-value blue" id="enq-brooke">—</div><div class="stat-unit">routed to sales@</div></div>
       <div class="stat"><div class="stat-label">Norwich</div><div class="stat-value blue" id="enq-norwich">—</div><div class="stat-unit">routed to norwich@</div></div>
     </div>
-    <div class="note">Enquiry routing is working. Email delivery blocked in sandbox — will resolve at go live when domain is verified.</div>
   </div>
 
 </div>
@@ -392,12 +380,6 @@ function setPeriod(p, btn) {
   document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   loadAll();
-}
-
-function periodMult() {
-  if (period === 'today') return 1;
-  if (period === '7d') return 7;
-  return 30;
 }
 
 function periodLabel() {
@@ -439,9 +421,9 @@ function formatMs(ms) {
 
 async function loadSpeeds() {
   const pages = [
-    { id: 'home', url: 'https://bmc-website-iota.vercel.app', label: 'Homepage' },
-    { id: 'inv', url: 'https://bmc-website-iota.vercel.app/inventory', label: 'Inventory' },
-    { id: 'fin', url: 'https://bmc-website-iota.vercel.app/finance', label: 'Finance' },
+    { id: 'home', url: 'https://brookemotcentre.co.uk' },
+    { id: 'inv', url: 'https://brookemotcentre.co.uk/inventory' },
+    { id: 'fin', url: 'https://brookemotcentre.co.uk/finance' },
   ];
 
   const times = [];
@@ -487,8 +469,8 @@ async function loadInventory() {
   try {
     const query = encodeURIComponent(`{
       "total": count(*[_type == "vehicle" && advert.isActive == true]),
-      "brooke": count(*[_type == "vehicle" && advert.isActive == true && advert.location == "Brooke"]),
-      "norwich": count(*[_type == "vehicle" && advert.isActive == true && advert.location == "Norwich"]),
+      "brooke": count(*[_type == "vehicle" && advert.isActive == true && coalesce(advert.manualLocation, advert.location) == "Brooke"]),
+      "norwich": count(*[_type == "vehicle" && advert.isActive == true && coalesce(advert.manualLocation, advert.location) == "Norwich"]),
       "reserved": count(*[_type == "vehicle" && advert.isActive == true && reserved.isReserved == true]),
       "great": count(*[_type == "vehicle" && advert.isActive == true && pricing.priceIndicatorText == "great"])
     }`);
@@ -502,7 +484,7 @@ async function loadInventory() {
     document.getElementById('inv-brooke').textContent = inv.brooke;
     document.getElementById('inv-norwich').textContent = inv.norwich;
     document.getElementById('inv-great').textContent = inv.great;
-    document.getElementById('inv-sync').textContent = '< 30m';
+    document.getElementById('inv-sync').textContent = '< 7d';
     document.getElementById('s-vehicles').textContent = inv.total;
     document.getElementById('at-count').textContent = inv.total;
   } catch(e) {
@@ -513,20 +495,21 @@ async function loadInventory() {
 
 async function loadFuelPrices() {
   try {
-    const res = await fetch("https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=*[_type=='location'&&_id=='067a3b18-afcf-46e6-bd85-136ed47c58c7'][0]{fuelPrices,updatedAt}");
+    const res = await fetch("https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=*[_type=='petrolStation'][0]{fuelPrices}");
     const data = await res.json();
-    const loc = data.result;
-    if (loc && loc.fuelPrices) {
+    const station = data.result;
+    if (station && station.fuelPrices) {
       const tbody = document.getElementById('fuel-table');
-      const prices = loc.fuelPrices;
+      const prices = station.fuelPrices;
       const rows = [
         { type: 'Unleaded', key: 'unleaded' },
         { type: 'Premium Unleaded', key: 'premiumUnleaded' },
         { type: 'Diesel', key: 'diesel' },
+        { type: 'Premium Diesel', key: 'premiumDiesel' },
       ];
       tbody.innerHTML = rows.map(r => {
         const p = prices[r.key];
-        return p ? `<tr><td>${r.type}</td><td class="td-mono">${p}p</td><td class="td-mono">${prices.lastUpdated ? new Date(prices.lastUpdated).toLocaleString('en-GB') : loc.updatedAt ? new Date(loc.updatedAt).toLocaleString('en-GB') : '—'}</td></tr>` : '';
+        return p ? `<tr><td>${r.type}</td><td class="td-mono">${p}p</td><td class="td-mono">${prices.lastUpdated ? new Date(prices.lastUpdated).toLocaleString('en-GB') : '—'}</td></tr>` : '';
       }).join('');
       document.getElementById('fuel-prices').textContent = prices.unleaded ? prices.unleaded + 'p' : '—';
     }
@@ -535,52 +518,18 @@ async function loadFuelPrices() {
   }
 }
 
-function loadStripeMetrics() {
-  const mult = periodMult();
-  const count = Math.floor(2 * mult + Math.random() * mult);
-  const value = count * 99;
-  document.getElementById('stripe-count').textContent = count;
-  document.getElementById('stripe-value').textContent = '£' + value;
-  document.getElementById('stripe-rate').textContent = '100%';
-  document.getElementById('stripe-period').textContent = periodLabel();
-  document.getElementById('s-reservations').textContent = count;
-  document.getElementById('s-reservations-val').textContent = '£' + value + ' total value';
-
-  const tbody = document.getElementById('stripe-table');
-  const vehicles = ['BMW 320D M Sport', 'Audi A4 SE', 'VW Golf GTI', 'Mercedes C220', 'Ford Focus ST'];
-  const rows = Array.from({length: Math.min(count, 5)}, (_, i) => {
-    const d = new Date(); d.setDate(d.getDate() - Math.floor(Math.random() * Math.max(1, periodMult())));
-    return `<tr>
-      <td class="td-mono">${d.toLocaleDateString('en-GB')}</td>
-      <td>${vehicles[i % vehicles.length]}</td>
-      <td>Test Customer</td>
-      <td class="td-mono">£99</td>
-      <td><span class="td-badge green">Complete</span></td>
-    </tr>`;
-  }).join('');
-  tbody.innerHTML = rows || '<tr><td colspan="5" style="color:var(--text-dim);text-align:center">No transactions this period</td></tr>';
-}
-
 function loadEmailMetrics() {
-  const mult = periodMult();
-  const sent = Math.floor(3 * mult + Math.random() * mult * 2);
-  const failed = Math.floor(sent * 0.3);
-  const delivered = sent - failed;
-  document.getElementById('email-sent').textContent = sent;
-  document.getElementById('email-delivered').textContent = delivered;
-  document.getElementById('email-failed').textContent = failed;
+  document.getElementById('email-sent').textContent = '—';
+  document.getElementById('email-delivered').textContent = '—';
+  document.getElementById('email-failed').textContent = '—';
   document.getElementById('email-period').textContent = periodLabel();
-  document.getElementById('s-email').textContent = Math.round((delivered/sent)*100) + '%';
+  document.getElementById('s-email').textContent = '—';
 }
 
 function loadEnquiryMetrics() {
-  const mult = periodMult();
-  const total = Math.floor(4 * mult + Math.random() * mult * 3);
-  const brooke = Math.floor(total * 0.65);
-  const norwich = total - brooke;
-  document.getElementById('enq-count').textContent = total;
-  document.getElementById('enq-brooke').textContent = brooke;
-  document.getElementById('enq-norwich').textContent = norwich;
+  document.getElementById('enq-count').textContent = '—';
+  document.getElementById('enq-brooke').textContent = '—';
+  document.getElementById('enq-norwich').textContent = '—';
   document.getElementById('enq-period').textContent = periodLabel();
 }
 
@@ -595,7 +544,6 @@ async function loadAll() {
     loadFuelPrices(),
   ]);
 
-  loadStripeMetrics();
   loadEmailMetrics();
   loadEnquiryMetrics();
 
@@ -607,4 +555,3 @@ setInterval(loadAll, 5 * 60 * 1000);
 </script>
 </body>
 </html>
-
