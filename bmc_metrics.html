@@ -394,7 +394,6 @@ async function loadInventory() {
     document.getElementById('inv-great').textContent = inv.great;
     document.getElementById('inv-sync').textContent = '< 7d';
     document.getElementById('s-vehicles').textContent = inv.total;
-    document.getElementById('at-count').textContent = inv.total;
   } catch(e) {
     document.getElementById('inv-total').textContent = 'Error';
     console.error('Inventory fetch failed:', e);
