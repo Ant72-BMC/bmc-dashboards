@@ -92,14 +92,6 @@ jobs:
             echo "FUEL_FAIL=true" >> $GITHUB_ENV
           fi
 
-      - name: Check VPS Sync Server
-        run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L https://159.65.17.84 -k)
-          echo "VPS: HTTP $STATUS"
-          if [ "$STATUS" = "000" ]; then
-            echo "VPS_FAIL=true" >> $GITHUB_ENV
-          fi
-
       - name: Check DigitalOcean Status
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L https://status.digitalocean.com)
@@ -141,9 +133,6 @@ jobs:
           fi
           if [ "$FUEL_FAIL" = "true" ]; then
             FAILURES="$FAILURES\n- Fuel price cron endpoint is not responding"
-          fi
-          if [ "$VPS_FAIL" = "true" ]; then
-            FAILURES="$FAILURES\n- VPS Sync Server (159.65.17.84) is unreachable"
           fi
           if [ "$DO_FAIL" = "true" ]; then
             FAILURES="$FAILURES\n- DigitalOcean platform issues detected"
