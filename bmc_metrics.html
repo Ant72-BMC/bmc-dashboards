@@ -104,6 +104,15 @@
   .stat-value.purple { color: var(--purple); }
   .stat-unit { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
 
+  .speed-legend {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
   .table-wrap { overflow-x: auto; margin-top: 12px; }
   table { width: 100%; border-collapse: collapse; font-size: 12px; }
   th { text-align: left; color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; padding: 6px 10px; border-bottom: 1px solid var(--border); font-weight: 500; }
@@ -196,6 +205,7 @@
       <div class="stat"><div class="stat-label">Average</div><div class="stat-value" id="sp-avg">—</div><div class="stat-unit">ms</div></div>
       <div class="stat"><div class="stat-label">Slowest</div><div class="stat-value amber" id="sp-slow">—</div><div class="stat-unit">ms</div></div>
     </div>
+    <div class="speed-legend">Good: under 500ms &middot; Typical: 500&ndash;1500ms &middot; Slow: over 2000ms</div>
   </div>
 
   <!-- SANITY API -->
