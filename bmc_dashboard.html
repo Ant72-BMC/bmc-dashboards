@@ -414,23 +414,6 @@ const SERVICES = [
       { label: 'Sanity Studio', url: 'https://bmc-vehicles.sanity.studio' },
       { label: 'Sanity Manage', url: 'https://sanity.io/manage' },
     ]
-  }
-      { label: 'Webhook endpoint', type: 'http', url: 'https://brookemotcentre.co.uk/api/stripe-webhook', expect: 405 },
-      { label: 'Reserve API route', type: 'http', url: 'https://brookemotcentre.co.uk/api/reserve', expect: 405 },
-    ],
-    links: [
-      { label: 'Stripe Dashboard', url: 'https://dashboard.stripe.com' },
-      { label: 'Stripe Webhooks', url: 'https://dashboard.stripe.com/webhooks' },
-    ],
-    note: null
-  }
-      { label: 'Autotrader API', type: 'http', url: 'https://api.autotrader.co.uk', expect: [200, 401, 403, 404] },
-    ],
-    links: [
-      { label: 'Autotrader Portal', url: 'https://dealer.autotrader.co.uk' },
-      { label: 'DigitalOcean', url: 'https://cloud.digitalocean.com' },
-    ],
-    note: null
   },
   {
     id: 'fuel',
@@ -444,22 +427,6 @@ const SERVICES = [
     links: [
       { label: 'Fuel Finder Portal', url: 'https://developer.fuel-finder.service.gov.uk' },
       { label: 'Vercel Logs', url: 'https://vercel.com/bmcgroup/bmc-website/logs' },
-    ],
-    note: null
-  }
-      { label: 'Enquiry endpoint', type: 'http', url: 'https://brookemotcentre.co.uk/api/enquiry', expect: 405 },
-    ],
-    links: [
-      { label: 'Resend Dashboard', url: 'https://resend.com/emails' },
-      { label: 'Resend Domains', url: 'https://resend.com/domains' },
-    ],
-    note: null
-  }
-      { label: 'CookieYes dashboard', type: 'http', url: 'https://app.cookieyes.com', expect: 200 },
-    ],
-    links: [
-      { label: 'CookieYes Dashboard', url: 'https://app.cookieyes.com/dashboard' },
-      { label: 'Advanced Settings', url: 'https://app.cookieyes.com/advanced-settings' },
     ],
     note: null
   },
@@ -625,7 +592,7 @@ function updateOverall() {
   }
 
   document.getElementById('footer').textContent =
-    `BMC Group Service Dashboard · ${new Date().toLocaleDateString('en-GB', {weekday:'long', year:'numeric', month:'long', day:'numeric'})}`;
+    `BMC Group Services Dashboard · ${new Date().toLocaleDateString('en-GB', {weekday:'long', year:'numeric', month:'long', day:'numeric'})}`;
 }
 
 renderCards();
