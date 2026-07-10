@@ -10,22 +10,30 @@ on:
 jobs:
   health-check:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Check Vercel — Homepage
+      - name: Check Live Site — Homepage
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://bmc-website-iota.vercel.app)
-          echo "Vercel Homepage: HTTP $STATUS"
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L https://www.brookemotcentre.co.uk)
+          echo "Live Homepage: HTTP $STATUS"
           if [ "$STATUS" != "200" ]; then
             echo "VERCEL_HOME_FAIL=true" >> $GITHUB_ENV
           fi
 
-      - name: Check Vercel — Inventory
+      - name: Check Live Site — Inventory
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://bmc-website-iota.vercel.app/inventory)
-          echo "Vercel Inventory: HTTP $STATUS"
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L https://www.brookemotcentre.co.uk/inventory)
+          echo "Live Inventory: HTTP $STATUS"
           if [ "$STATUS" != "200" ]; then
             echo "VERCEL_INV_FAIL=true" >> $GITHUB_ENV
+          fi
+
+      - name: Check Live Site — Finance
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L https://www.brookemotcentre.co.uk/finance)
+          echo "Live Finance: HTTP $STATUS"
+          if [ "$STATUS" != "200" ]; then
+            echo "VERCEL_FIN_FAIL=true" >> $GITHUB_ENV
           fi
 
       - name: Check Sanity Studio
@@ -36,9 +44,17 @@ jobs:
             echo "SANITY_FAIL=true" >> $GITHUB_ENV
           fi
 
+      - name: Check Sanity API
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 'https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=*[_type=="siteSettings"][0]{_id}')
+          echo "Sanity API: HTTP $STATUS"
+          if [ "$STATUS" != "200" ]; then
+            echo "SANITY_API_FAIL=true" >> $GITHUB_ENV
+          fi
+
       - name: Check Stripe Webhook Endpoint
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -X POST https://bmc-website-iota.vercel.app/api/stripe-webhook)
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -X POST https://www.brookemotcentre.co.uk/api/stripe-webhook)
           echo "Stripe Webhook: HTTP $STATUS"
           if [ "$STATUS" != "405" ] && [ "$STATUS" != "400" ] && [ "$STATUS" != "200" ]; then
             echo "STRIPE_FAIL=true" >> $GITHUB_ENV
@@ -46,7 +62,7 @@ jobs:
 
       - name: Check Stripe Reserve Endpoint
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://bmc-website-iota.vercel.app/api/reserve)
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://www.brookemotcentre.co.uk/api/reserve)
           echo "Stripe Reserve: HTTP $STATUS"
           if [ "$STATUS" != "405" ] && [ "$STATUS" != "400" ] && [ "$STATUS" != "200" ]; then
             echo "STRIPE_RESERVE_FAIL=true" >> $GITHUB_ENV
@@ -54,7 +70,7 @@ jobs:
 
       - name: Check Enquiry Endpoint
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://bmc-website-iota.vercel.app/api/enquiry)
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://www.brookemotcentre.co.uk/api/enquiry)
           echo "Enquiry Endpoint: HTTP $STATUS"
           if [ "$STATUS" != "405" ] && [ "$STATUS" != "400" ] && [ "$STATUS" != "200" ]; then
             echo "RESEND_FAIL=true" >> $GITHUB_ENV
@@ -66,6 +82,22 @@ jobs:
           echo "CookieYes CDN: HTTP $STATUS"
           if [ "$STATUS" != "200" ]; then
             echo "COOKIEYES_FAIL=true" >> $GITHUB_ENV
+          fi
+
+      - name: Check Fuel Price Cron Endpoint
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://www.brookemotcentre.co.uk/api/cron/fuel-prices)
+          echo "Fuel Cron: HTTP $STATUS"
+          if [ "$STATUS" != "200" ] && [ "$STATUS" != "401" ] && [ "$STATUS" != "405" ]; then
+            echo "FUEL_FAIL=true" >> $GITHUB_ENV
+          fi
+
+      - name: Check VPS Sync Server
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L https://159.65.17.84 -k)
+          echo "VPS: HTTP $STATUS"
+          if [ "$STATUS" = "000" ]; then
+            echo "VPS_FAIL=true" >> $GITHUB_ENV
           fi
 
       - name: Check DigitalOcean Status
@@ -81,13 +113,19 @@ jobs:
         run: |
           FAILURES=""
           if [ "$VERCEL_HOME_FAIL" = "true" ]; then
-            FAILURES="$FAILURES\n- Vercel Homepage is not responding"
+            FAILURES="$FAILURES\n- Live site homepage is not responding (brookemotcentre.co.uk)"
           fi
           if [ "$VERCEL_INV_FAIL" = "true" ]; then
-            FAILURES="$FAILURES\n- Vercel Inventory page is not responding"
+            FAILURES="$FAILURES\n- Live site Inventory page is not responding"
+          fi
+          if [ "$VERCEL_FIN_FAIL" = "true" ]; then
+            FAILURES="$FAILURES\n- Live site Finance page is not responding"
           fi
           if [ "$SANITY_FAIL" = "true" ]; then
             FAILURES="$FAILURES\n- Sanity Studio is not responding"
+          fi
+          if [ "$SANITY_API_FAIL" = "true" ]; then
+            FAILURES="$FAILURES\n- Sanity API is not responding"
           fi
           if [ "$STRIPE_FAIL" = "true" ]; then
             FAILURES="$FAILURES\n- Stripe Webhook Endpoint is not responding"
@@ -100,6 +138,12 @@ jobs:
           fi
           if [ "$COOKIEYES_FAIL" = "true" ]; then
             FAILURES="$FAILURES\n- CookieYes CDN is not responding"
+          fi
+          if [ "$FUEL_FAIL" = "true" ]; then
+            FAILURES="$FAILURES\n- Fuel price cron endpoint is not responding"
+          fi
+          if [ "$VPS_FAIL" = "true" ]; then
+            FAILURES="$FAILURES\n- VPS Sync Server (159.65.17.84) is unreachable"
           fi
           if [ "$DO_FAIL" = "true" ]; then
             FAILURES="$FAILURES\n- DigitalOcean platform issues detected"
@@ -130,14 +174,14 @@ jobs:
           subject: "BMC Service Alert - Issues Detected"
           body: |
             BMC Group Service Health Check - Issues Detected
-            
+
             The following services are not responding correctly:
-            
+
             ${{ steps.summary.outputs.failures }}
-            
+
             View your dashboards:
             https://bmc-dashboards.netlify.app
-            
+
             --- BMC Automated Monitoring
 
       - name: All systems operational
