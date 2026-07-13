@@ -6,6 +6,10 @@
 // advert.isActive counts, and writes the result to reconcile-status.json
 // for the bmc-dashboards site to render as a tile.
 //
+// Also surfaces any Sanity "failedSync" documents (added by Elias's write-retry
+// fix on 13 July) - queried generically since the exact field schema wasn't
+// confirmed, so this reports whatever fields actually exist on each record.
+//
 // This does NOT write anything to Sanity or AutoTrader - it only reads.
 //
 // Mirrors the exact logic in bmc-sync/sync.js so the numbers this produces
@@ -155,6 +159,8 @@ async function main() {
     autotraderTotal: null,
     sanityTotal: null,
     byAdvertiser: {},
+    failedSyncCount: null,
+    failedSyncRecords: [],
     error: null,
   };
 
@@ -199,6 +205,16 @@ async function main() {
     result.autotraderTotal = autotraderTotal;
     result.sanityTotal = sanityTotal;
     result.match = autotraderTotal === sanityTotal;
+
+    // 4. failedSync records - queried generically (no assumed field names beyond
+    // _type == "failedSync", since the exact schema wasn't confirmed with Elias).
+    // This surfaces whatever fields actually exist rather than silently returning
+    // nothing if a guessed field name is wrong.
+    result.failedSyncCount = await sanityCount(`count(*[_type == "failedSync"])`);
+    result.failedSyncRecords = await sanityCount(
+      `*[_type == "failedSync"] | order(_updatedAt desc) [0...20]`
+    );
+
     result.ok = true;
   } catch (err) {
     result.error = err.message || String(err);
