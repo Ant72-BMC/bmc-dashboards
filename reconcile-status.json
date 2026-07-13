@@ -1,9 +1,24 @@
 {
-  "timestamp": null,
-  "ok": false,
-  "match": null,
-  "autotraderTotal": null,
-  "sanityTotal": null,
-  "byAdvertiser": {},
-  "error": "Not yet run - waiting for first scheduled check"
+  "timestamp": "2026-07-13T13:21:10.448Z",
+  "ok": true,
+  "match": true,
+  "autotraderTotal": 406,
+  "sanityTotal": 406,
+  "byAdvertiser": {
+    "833349": {
+      "location": "Brooke",
+      "autotrader": 311,
+      "sanity": 313,
+      "match": false,
+      "diff": 2
+    },
+    "10043362": {
+      "location": "Norwich",
+      "autotrader": 95,
+      "sanity": 93,
+      "match": false,
+      "diff": -2
+    }
+  },
+  "error": null
 }
