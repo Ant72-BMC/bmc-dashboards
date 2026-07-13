@@ -500,8 +500,21 @@ async function checkReconcile(svc) {
     results['reconcile'] = checks;
 
     const mismatches = Object.values(data.byAdvertiser).filter(a => !a.match);
-    svc.note = mismatches.length
-      ? { type: 'amber', text: `Location split mismatch — ${mismatches.map(a => `${a.location} diff ${a.diff > 0 ? '+' : ''}${a.diff}`).join(' · ')}. Checked ${new Date(data.timestamp).toLocaleString('en-GB')}.` }
+    const hasFailedSync = data.failedSyncCount && data.failedSyncCount > 0;
+
+    if (hasFailedSync) {
+      checks.push({ label: 'Failed Sanity writes (failedSync)', ok: false, value: `${data.failedSyncCount}` });
+    }
+
+    const noteParts = [];
+    if (mismatches.length) {
+      noteParts.push(`Location split mismatch — ${mismatches.map(a => `${a.location} diff ${a.diff > 0 ? '+' : ''}${a.diff}`).join(' · ')}`);
+    }
+    if (hasFailedSync) {
+      noteParts.push(`${data.failedSyncCount} vehicle(s) failed to sync to Sanity even after retries — check the failedSync records in Sanity Vision`);
+    }
+    svc.note = noteParts.length
+      ? { type: hasFailedSync ? 'red' : 'amber', text: `${noteParts.join('. ')}. Checked ${new Date(data.timestamp).toLocaleString('en-GB')}.` }
       : null;
   } catch (e) {
     results['reconcile'] = [{ label: 'Status file', ok: false, value: 'Unreachable' }];
