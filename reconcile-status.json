@@ -1,0 +1,9 @@
+{
+  "timestamp": null,
+  "ok": false,
+  "match": null,
+  "autotraderTotal": null,
+  "sanityTotal": null,
+  "byAdvertiser": {},
+  "error": "Not yet run - waiting for first scheduled check"
+}
