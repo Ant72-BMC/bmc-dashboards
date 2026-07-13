@@ -431,6 +431,17 @@ const SERVICES = [
     note: null
   },
   {
+    id: 'reconcile',
+    name: 'Stock Reconciliation',
+    icon: '🔄',
+    desc: 'Compares live Autotrader stock counts against Sanity active vehicle counts (Brooke & Norwich), checked twice daily.',
+    checks: [], // populated dynamically by checkReconcile(), not the generic HTTP checker
+    links: [
+      { label: 'Reconciliation Workflow', url: 'https://github.com/Ant72-BMC/bmc-dashboards/actions/workflows/reconcile-check.yml' },
+      { label: 'Raw Status JSON', url: 'reconcile-status.json' },
+    ]
+  },
+  {
     id: 'vps',
     name: 'VPS Sync Server',
     icon: '🖥',
@@ -468,6 +479,36 @@ async function checkUrl(url, expect) {
   }
 }
 
+async function checkReconcile(svc) {
+  try {
+    const res = await fetch('reconcile-status.json?t=' + Date.now(), { signal: AbortSignal.timeout(8000) });
+    if (!res.ok) throw new Error('status file unreachable');
+    const data = await res.json();
+
+    if (!data.ok) {
+      results['reconcile'] = [{ label: 'Last check', ok: false, value: 'Failed' }];
+      svc.note = { type: 'red', text: `Reconciliation check failed: ${data.error || 'unknown error'}` };
+      return;
+    }
+
+    const checks = [
+      { label: 'Total (Autotrader / Sanity)', ok: data.match, value: `${data.autotraderTotal} / ${data.sanityTotal}` }
+    ];
+    for (const a of Object.values(data.byAdvertiser)) {
+      checks.push({ label: `${a.location} (AT / Sanity)`, ok: a.match, value: `${a.autotrader} / ${a.sanity}` });
+    }
+    results['reconcile'] = checks;
+
+    const mismatches = Object.values(data.byAdvertiser).filter(a => !a.match);
+    svc.note = mismatches.length
+      ? { type: 'amber', text: `Location split mismatch — ${mismatches.map(a => `${a.location} diff ${a.diff > 0 ? '+' : ''}${a.diff}`).join(' · ')}. Checked ${new Date(data.timestamp).toLocaleString('en-GB')}.` }
+      : null;
+  } catch (e) {
+    results['reconcile'] = [{ label: 'Status file', ok: false, value: 'Unreachable' }];
+    svc.note = { type: 'red', text: 'Could not load reconcile-status.json' };
+  }
+}
+
 async function runChecks() {
   const icon = document.getElementById('refreshIcon');
   icon.classList.add('spinning');
@@ -475,16 +516,20 @@ async function runChecks() {
 
   const checks = [];
   for (const svc of SERVICES) {
+    if (svc.id === 'reconcile') continue;
     for (const chk of svc.checks) {
       checks.push({ svcId: svc.id, chk });
     }
   }
 
-  await Promise.all(checks.map(async ({ svcId, chk }) => {
-    const result = await checkUrl(chk.url, chk.expect);
-    if (!results[svcId]) results[svcId] = [];
-    results[svcId].push({ label: chk.label, ok: result.ok });
-  }));
+  await Promise.all([
+    ...checks.map(async ({ svcId, chk }) => {
+      const result = await checkUrl(chk.url, chk.expect);
+      if (!results[svcId]) results[svcId] = [];
+      results[svcId].push({ label: chk.label, ok: result.ok });
+    }),
+    ...SERVICES.filter(s => s.id === 'reconcile').map(svc => checkReconcile(svc))
+  ]);
 
   renderCards();
   icon.classList.remove('spinning');
@@ -524,13 +569,15 @@ function renderCards() {
     const card = document.createElement('div');
     card.className = `card ${status}`;
 
-    const checks = svc.checks.map((chk, i) => {
-      const r = results[svc.id] ? results[svc.id][i] : null;
-      const val = r === null ? '…' : r.ok ? 'Reachable' : 'Unreachable';
+    const checkList = (svc.id === 'reconcile' ? (results[svc.id] || []) : svc.checks);
+    const checks = checkList.map((chk, i) => {
+      const r = svc.id === 'reconcile' ? chk : (results[svc.id] ? results[svc.id][i] : null);
+      const label = svc.id === 'reconcile' ? r.label : chk.label;
+      const val = r === null ? '…' : (r.value !== undefined ? r.value : (r.ok ? 'Reachable' : 'Unreachable'));
       const cls = r === null ? 'dim' : r.ok ? 'green' : 'red';
       return `<div class="check">
         <span class="check-icon">${r === null ? '○' : r.ok ? '✓' : '✗'}</span>
-        <span class="check-label">${chk.label}</span>
+        <span class="check-label">${label}</span>
         <span class="check-value ${cls}">${val}</span>
       </div>`;
     }).join('');
