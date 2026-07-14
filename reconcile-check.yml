@@ -1,0 +1,38 @@
+name: AutoTrader / Sanity Reconciliation Check
+
+on:
+  schedule:
+    # 06:00 and 18:00 UTC daily. Adjust times if you'd prefer different hours.
+    - cron: "0 6 * * *"
+    - cron: "0 18 * * *"
+  workflow_dispatch: {} # allows manual "Run workflow" trigger from GitHub UI
+
+permissions:
+  contents: write # needed to commit the updated reconcile-status.json back to the repo
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run reconciliation check
+        env:
+          AUTOTRADER_CLIENT_ID: ${{ secrets.AUTOTRADER_CLIENT_ID }}
+          AUTOTRADER_CLIENT_SECRET: ${{ secrets.AUTOTRADER_CLIENT_SECRET }}
+          SANITY_READ_TOKEN: ${{ secrets.SANITY_READ_TOKEN }}
+        run: node reconcile-check.js
+
+      - name: Commit updated status file
+        run: |
+          git config user.name "bmc-reconcile-bot"
+          git config user.email "actions@github.com"
+          git add reconcile-status.json
+          git diff --staged --quiet && echo "No changes to commit" || git commit -m "Update reconciliation status"
+          git push
