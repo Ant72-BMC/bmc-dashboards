@@ -34,5 +34,5 @@ jobs:
           git config user.name "bmc-reconcile-bot"
           git config user.email "actions@github.com"
           git add reconcile-status.json
-          git diff --staged --quiet && echo "No changes to commit" || git commit -m "Update reconciliation status [skip ci]"
+          git diff --staged --quiet && echo "No changes to commit" || git commit -m "Update reconciliation status"
           git push
