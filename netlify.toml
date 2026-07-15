@@ -1,0 +1,16 @@
+[build]
+  # Skip a full site rebuild/deploy when the only file that changed is
+  # reconcile-status.json (the automated stock reconciliation check).
+  #
+  # Without this, EVERY commit to this repo triggers a full production
+  # deploy on Netlify's credit-based plan (~15 credits each) - even a
+  # one-line JSON update. Running the reconciliation check frequently
+  # (e.g. every 30 min or hourly) would burn through the monthly credit
+  # allowance very fast without this.
+  #
+  # How it works: `git diff --quiet` exits 0 (no differences) if nothing
+  # OTHER than reconcile-status.json changed between the last two commits -
+  # in that case this whole command is true, telling Netlify to SKIP the
+  # build. If any other file changed, it exits 1, and Netlify builds as
+  # normal.
+  ignore = "git diff --quiet HEAD^ HEAD -- . ':!reconcile-status.json'"
