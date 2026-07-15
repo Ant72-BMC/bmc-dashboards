@@ -434,7 +434,7 @@ const SERVICES = [
     id: 'reconcile',
     name: 'Stock Reconciliation',
     icon: '🔄',
-    desc: 'Compares live Autotrader stock counts against Sanity active vehicle counts (Brooke & Norwich), checked twice daily.',
+    desc: 'Compares live Autotrader stock counts against Sanity active vehicle counts (Brooke & Norwich), checked every 15 minutes.',
     checks: [], // populated dynamically by checkReconcile(), not the generic HTTP checker
     links: [
       { label: 'Reconciliation Workflow', url: 'https://github.com/Ant72-BMC/bmc-dashboards/actions/workflows/reconcile-check.yml' },
