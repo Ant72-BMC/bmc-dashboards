@@ -2,9 +2,8 @@ name: AutoTrader / Sanity Reconciliation Check
 
 on:
   schedule:
-    # 06:00 and 18:00 UTC daily. Adjust times if you'd prefer different hours.
-    - cron: "0 6 * * *"
-    - cron: "0 18 * * *"
+    # Every 5 minutes.
+    - cron: "*/5 * * * *"
   workflow_dispatch: {} # allows manual "Run workflow" trigger from GitHub UI
 
 permissions:
