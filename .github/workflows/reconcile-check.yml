@@ -1,10 +1,7 @@
 name: AutoTrader / Sanity Reconciliation Check
 
 on:
-  schedule:
-    # Every 15 minutes.
-    - cron: "*/15 * * * *"
-  workflow_dispatch: {} # allows manual "Run workflow" trigger from GitHub UI
+  workflow_dispatch: {} # allows manual "Run workflow" trigger from GitHub UI, or via the VPS cron
 
 permissions:
   contents: write # needed to commit the updated reconcile-status.json back to the repo
