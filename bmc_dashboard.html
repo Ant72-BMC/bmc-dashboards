@@ -481,7 +481,7 @@ async function checkUrl(url, expect) {
 
 async function checkReconcile(svc) {
   try {
-    const res = await fetch('reconcile-status.json?t=' + Date.now(), { signal: AbortSignal.timeout(8000) });
+    const res = await fetch('https://raw.githubusercontent.com/Ant72-BMC/bmc-dashboards/main/reconcile-status.json?t=' + Date.now(), { signal: AbortSignal.timeout(8000) });
     if (!res.ok) throw new Error('status file unreachable');
     const data = await res.json();
 
