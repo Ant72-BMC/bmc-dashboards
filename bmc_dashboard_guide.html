@@ -186,9 +186,9 @@
 
 <div style="max-width:1200px;margin:0 auto">
   <div class="hero">
-    <div class="hero-eyebrow">Documentation</div>
+    <div class="hero-eyebrow">Documentation · Updated for live production</div>
     <h2 class="hero-title">Your two dashboards,<br><span>explained simply.</span></h2>
-    <p class="hero-desc">BMC Group runs on a connected set of services — from the website and CMS through to Stripe payments, email and fuel prices. These two dashboards give you visibility of everything in one place. This guide explains what each panel is checking, what good looks like, and what to do when something goes wrong.</p>
+    <p class="hero-desc">BMC Group runs on a connected set of services — the website, Sanity CMS, the Autotrader stock pipeline, and fuel-price sync — with a dedicated reconciliation check confirming Autotrader and Sanity agree. These two dashboards give you visibility of everything in one place. This guide explains what each panel is checking, what good looks like, and what to do when something goes wrong. Panels covering services now monitored elsewhere (Stripe, Resend, CookieYes) or superseded by better checks (the old simple Autotrader reachability check) have been retired from the dashboards themselves — this guide has been updated to match.</p>
   </div>
 </div>
 
@@ -196,23 +196,23 @@
   <div class="dash-card">
     <div class="dash-card-num">Dashboard 01</div>
     <div class="dash-card-title">Service Status Dashboard</div>
-    <div class="dash-card-desc">Shows whether each service is up and running. Quick green/amber/red status for all 8 components of the BMC infrastructure. Open this first every morning.</div>
+    <div class="dash-card-desc">Shows whether each core service is up and running, plus whether Autotrader and Sanity stock counts currently agree. Quick green/amber/red status for all 5 components. Open this first every morning.</div>
     <div class="dash-card-tags">
       <span class="tag">bmc_dashboard.html</span>
       <span class="tag">Live checks</span>
       <span class="tag">Green / Amber / Red</span>
-      <span class="tag">8 services</span>
+      <span class="tag">5 services</span>
     </div>
   </div>
   <div class="dash-card">
     <div class="dash-card-num">Dashboard 02</div>
     <div class="dash-card-title">Performance Metrics Dashboard</div>
-    <div class="dash-card-desc">Shows speeds, counts and delivery rates. How fast are pages loading? How many reservations? How many enquiries? Toggle between today, 7 days and 30 days.</div>
+    <div class="dash-card-desc">Shows speeds and live counts. How fast are pages loading? How is Sanity responding? What's the current vehicle inventory and fuel price sync status? Toggle between today, 7 days and 30 days.</div>
     <div class="dash-card-tags">
       <span class="tag">bmc_metrics.html</span>
       <span class="tag">Speeds & counts</span>
       <span class="tag">Today / 7d / 30d</span>
-      <span class="tag">Live + simulated data</span>
+      <span class="tag">All live data</span>
     </div>
   </div>
 </div>
@@ -239,7 +239,7 @@
     <div class="panel-body">
       <div class="what-block">
         <div class="what-label">What it does</div>
-        <div class="what-text">Checks that the BMC Next.js website is live and reachable. It pings three pages — the homepage, inventory listing, and finance page — to confirm all three are responding correctly. Vercel hosts the website and handles all deployments made by Elias.</div>
+        <div class="what-text">Checks that the BMC Next.js website is live and reachable. It pings three pages — the homepage, inventory listing, and finance page — to confirm all three are responding correctly. Vercel hosts the website and handles all deployments to it.</div>
       </div>
       <div class="metrics-list">
         <div class="metric-item"><div class="metric-item-label">Homepage</div><div class="metric-item-desc">Main entry point — if this is down the whole site is down</div></div>
@@ -249,8 +249,8 @@
       <div class="lookout">
         <div class="lookout-title">What to look out for</div>
         <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">All green — Operational</div><div class="lookout-action">All three pages are responding. No action needed.</div></div></div>
-        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Amber — one page not responding</div><div class="lookout-action">Check Vercel dashboard for deployment errors. May be a temporary Vercel outage — try refreshing in 2 minutes. If persisting, contact Elias.</div></div></div>
-        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — site completely unreachable</div><div class="lookout-action">Check Vercel status page (vercel.com/status). If Vercel is up but site is down, contact Elias immediately — a deployment may have broken the site.</div></div></div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Amber — one page not responding</div><div class="lookout-action">Check Vercel dashboard for deployment errors. May be a temporary Vercel outage — try refreshing in 2 minutes. If persisting, contact IT Support.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — site completely unreachable</div><div class="lookout-action">Check Vercel status page (vercel.com/status). If Vercel is up but site is down, contact IT Support immediately — a deployment may have broken the site.</div></div></div>
       </div>
     </div>
   </div>
@@ -277,49 +277,6 @@
     </div>
   </div>
 
-  <!-- STRIPE -->
-  <div class="panel">
-    <div class="panel-head" onclick="toggle(this)">
-      <div class="panel-icon">💳</div>
-      <div class="panel-title">Stripe Reservations</div>
-      <span class="panel-badge status">Status Dashboard</span>
-      <span class="panel-chevron">▼</span>
-    </div>
-    <div class="panel-body">
-      <div class="what-block">
-        <div class="what-label">What it does</div>
-        <div class="what-text">Checks that the Stripe payment infrastructure is working. It verifies the Stripe API is reachable, the reservation webhook endpoint is live at /api/stripe-webhook, and the /api/reserve route that creates checkout sessions is responding. The webhook is critical — it's what marks a vehicle as reserved in Sanity after a payment completes.</div>
-      </div>
-      <div class="lookout">
-        <div class="lookout-title">What to look out for</div>
-        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Always amber until go live — Test mode active</div><div class="lookout-action">This is expected. The dashboard will show amber because Stripe is in test mode using sk_test_ keys. No real payments are being processed. This will turn green after go live when live keys are activated.</div></div></div>
-        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — webhook endpoint or reserve API down</div><div class="lookout-action">Customers will not be able to complete reservations. Contact Elias immediately. Check Vercel logs for errors on /api/stripe-webhook and /api/reserve.</div></div></div>
-      </div>
-      <div class="known-issue"><strong>Known: Currently in test mode</strong>The Stripe integration is fully built and working but is using test keys (sk_test_). Real payments will only be taken after go live when live keys (sk_live_) are activated in Vercel by Ant.</div>
-    </div>
-  </div>
-
-  <!-- AUTOTRADER -->
-  <div class="panel">
-    <div class="panel-head" onclick="toggle(this)">
-      <div class="panel-icon">🚗</div>
-      <div class="panel-title">Autotrader Sync</div>
-      <span class="panel-badge status">Status Dashboard</span>
-      <span class="panel-chevron">▼</span>
-    </div>
-    <div class="panel-body">
-      <div class="what-block">
-        <div class="what-label">What it does</div>
-        <div class="what-text">The VPS (a Digital Ocean server at IP 159.65.17.84) runs a sync script every 30 minutes that pulls the latest vehicle stock from the Autotrader API and pushes it into Sanity. This is what keeps the BMC website stock up to date. The dashboard checks that both the VPS and the Autotrader API are reachable.</div>
-      </div>
-      <div class="lookout">
-        <div class="lookout-title">What to look out for</div>
-        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Always amber until go live — Sandbox mode</div><div class="lookout-action">Currently syncing from the Autotrader sandbox (test) API, not the live feed. Vehicle counts may not match the real Autotrader portal. This is expected pre-launch.</div></div></div>
-        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — VPS unreachable</div><div class="lookout-action">The sync will have stopped. Vehicles on the BMC site will go stale — prices, stock levels and new arrivals won't update. Contact Elias and check the DigitalOcean dashboard. The VPS may need restarting.</div></div></div>
-      </div>
-    </div>
-  </div>
-
   <!-- FUEL FINDER -->
   <div class="panel">
     <div class="panel-head" onclick="toggle(this)">
@@ -336,53 +293,33 @@
       <div class="lookout">
         <div class="lookout-title">What to look out for</div>
         <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Green — prices updating correctly</div><div class="lookout-action">Fuel prices on the website are current. No action needed.</div></div></div>
-        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Amber — intermittent failures</div><div class="lookout-action">The Government API is unreliable and times out frequently. The prices on the site may be a few hours old. If the site is showing prices that are clearly outdated (more than 24 hours old) contact Elias to investigate the timeout issue.</div></div></div>
-        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — station not found or persistent failure</div><div class="lookout-action">The Brooke Garage station ID may have changed in the Government feed. Check the Vercel logs and contact Elias. The last known prices will remain on the site until the sync recovers.</div></div></div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Amber — intermittent failures</div><div class="lookout-action">The Government API is unreliable and times out frequently. The prices on the site may be a few hours old. If the site is showing prices that are clearly outdated (more than 24 hours old) check Sanity directly and update manually if needed.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — station not found or persistent failure</div><div class="lookout-action">The Brooke Garage station ID may have changed in the Government feed. Check the Vercel logs. The last known prices will remain on the site until the sync recovers.</div></div></div>
       </div>
-      <div class="known-issue"><strong>Known issue — intermittent failures</strong>The Government Fuel Finder API is unreliable and frequently times out or returns HTTP 503 errors. This is outside BMC's control. Elias is investigating improvements to the timeout handling. Expect to see this card amber frequently.</div>
+      <div class="known-issue"><strong>Known issue — intermittent failures</strong>The Government Fuel Finder API has a history of unreliability and frequent timeouts. This is outside BMC's control. Expect to see this card amber from time to time — the last successfully synced prices always remain on the site in the meantime.</div>
     </div>
   </div>
 
-  <!-- RESEND -->
+  <!-- STOCK RECONCILIATION (NEW) -->
   <div class="panel">
     <div class="panel-head" onclick="toggle(this)">
-      <div class="panel-icon">✉️</div>
-      <div class="panel-title">Resend Emails</div>
+      <div class="panel-icon">🔄</div>
+      <div class="panel-title">Stock Reconciliation</div>
       <span class="panel-badge status">Status Dashboard</span>
       <span class="panel-chevron">▼</span>
     </div>
     <div class="panel-body">
       <div class="what-block">
         <div class="what-label">What it does</div>
-        <div class="what-text">Resend is the email delivery service used to send transactional emails — enquiry confirmations to customers and notification emails to the sales team when someone submits a vehicle enquiry or completes a Stripe reservation. The dashboard checks that the Resend API is reachable and the /api/enquiry endpoint is live.</div>
+        <div class="what-text">This card replaced the old simple "Autotrader Sync" reachability check. Rather than just confirming the Autotrader API responds, it does something far more useful: it pulls the live Autotrader stock count and the live Sanity active-vehicle count, per advertiser (Brooke 833349 and Norwich 10043362), and confirms they actually match. It also surfaces any currently outstanding failedSync trace documents — vehicles whose last content write to Sanity failed and hasn't yet self-corrected. A scheduled check refreshes this roughly every 15 minutes.</div>
       </div>
       <div class="lookout">
         <div class="lookout-title">What to look out for</div>
-        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Always amber until go live — Sandbox mode</div><div class="lookout-action">In sandbox mode emails can only be sent to anthewett@hotmail.com. This is a Resend restriction until the brookemotcentre.co.uk domain is verified. No action needed pre-launch.</div></div></div>
-        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red after go live — emails not delivering</div><div class="lookout-action">Sales team will not receive enquiry or reservation notifications. Customers won't get confirmation emails. Check the Resend dashboard for bounce or error reports and contact Elias.</div></div></div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Green — counts match, zero failedSync records</div><div class="lookout-action">Autotrader and Sanity agree for both Brooke and Norwich. No action needed.</div></div></div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Amber — small count mismatch</div><div class="lookout-action">A handful of vehicles are out of step, most often a transfer between Brooke and Norwich still working through, or the batch sync's next run hasn't caught it yet. Check the failedSync record list before assuming anything is broken — many mismatches self-correct within the hour.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — status file unreachable, or a large/persistent mismatch</div><div class="lookout-action">If the status file itself can't be loaded, the scheduled reconciliation check has stopped running — check the GitHub Actions workflow run history via the card's link. If the file loads but shows a large or growing mismatch, check the failedSync records for the affected stock IDs, and check whether any vehicle is stuck mid-transfer inside Autotrader's own system (a known limitation — see the Technical Architecture Document, Section 5.3).</div></div></div>
       </div>
-    </div>
-  </div>
-
-  <!-- COOKIEYES -->
-  <div class="panel">
-    <div class="panel-head" onclick="toggle(this)">
-      <div class="panel-icon">🍪</div>
-      <div class="panel-title">CookieYes</div>
-      <span class="panel-badge status">Status Dashboard</span>
-      <span class="panel-chevron">▼</span>
-    </div>
-    <div class="panel-body">
-      <div class="what-block">
-        <div class="what-label">What it does</div>
-        <div class="what-text">CookieYes is the GDPR cookie consent banner that appears when someone visits the BMC website for the first time. It must load before Google Analytics and the Meta Pixel — CookieYes blocks those tracking tools until the visitor accepts cookies. The dashboard checks that the CookieYes CDN script is reachable and the dashboard is accessible.</div>
-      </div>
-      <div class="lookout">
-        <div class="lookout-title">What to look out for</div>
-        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Amber — script not yet installed on site</div><div class="lookout-action">The CookieYes script has not been added to the website yet. Brief has been sent to Elias. This must be resolved before go live — without it the site is not GDPR compliant.</div></div></div>
-        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red after installation — CDN unreachable</div><div class="lookout-action">The cookie banner won't appear and GA4/Meta Pixel may fire without consent, which is a GDPR violation. Contact CookieYes support at cookieyes.com.</div></div></div>
-      </div>
-      <div class="known-issue"><strong>Action required — not yet installed</strong>CookieYes has been set up and the script tag is ready but Elias has not yet added it to the website. This is a pre-launch blocker and must be completed before the site goes live.</div>
+      <div class="known-issue"><strong>Reads from a committed status file, not a live query</strong>This card doesn't query Autotrader or Sanity directly from the browser — it reads reconcile-status.json, a file the scheduled check commits back to the repository each run. If Netlify is serving a stale cached copy, the card fetches the file from raw.githubusercontent.com directly to guarantee it's current. If this card looks frozen (the timestamp inside the linked JSON isn't advancing), the workflow itself has likely stopped running rather than the site being wrong.</div>
     </div>
   </div>
 
@@ -397,12 +334,12 @@
     <div class="panel-body">
       <div class="what-block">
         <div class="what-label">What it does</div>
-        <div class="what-text">The VPS (Virtual Private Server) is a DigitalOcean server hosted at IP address 159.65.17.84. It runs the bmc-sync script that connects to the Autotrader API every 30 minutes and pushes vehicle data into Sanity. Without the VPS the stock on the BMC website would go out of date. The dashboard checks that the server is reachable and that DigitalOcean's platform is operational.</div>
+        <div class="what-text">The VPS (Virtual Private Server) is a DigitalOcean server hosted at IP address 159.65.17.84. It runs the bmc-sync script and the reactivation cron, which together keep Sanity matched to Autotrader. Without the VPS the stock on the BMC website would go out of date. This card checks that the server itself is reachable and that DigitalOcean's platform is operational — it does not confirm the sync job actually completed successfully. That is what the batch sync's own Healthchecks.io heartbeat and the Stock Reconciliation card above are for.</div>
       </div>
       <div class="lookout">
         <div class="lookout-title">What to look out for</div>
-        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Green — server reachable</div><div class="lookout-action">The sync is running normally. Stock updates every 30 minutes.</div></div></div>
-        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — server unreachable</div><div class="lookout-action">The Autotrader sync has stopped. Stock will go stale. Check DigitalOcean dashboard (cloud.digitalocean.com) — the droplet may need restarting. Contact Elias if the droplet is running but the sync has stopped.</div></div></div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Green — server reachable</div><div class="lookout-action">The server itself is up. Combine with the Stock Reconciliation card to confirm the sync is actually keeping stock current.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — server unreachable</div><div class="lookout-action">The Autotrader sync has almost certainly stopped. Stock will go stale. Check the DigitalOcean dashboard (cloud.digitalocean.com) — the droplet may need restarting.</div></div></div>
       </div>
     </div>
   </div>
@@ -435,7 +372,7 @@
         <div class="lookout-title">What good looks like</div>
         <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Under 400ms — Excellent</div><div class="lookout-action">Pages are loading very quickly. Customers will have a smooth experience.</div></div></div>
         <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">400ms–1000ms — Acceptable</div><div class="lookout-action">Slightly slower than ideal but still within acceptable range. Monitor over time to see if it improves or worsens.</div></div></div>
-        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Over 1000ms — Slow</div><div class="lookout-action">Pages are loading too slowly. This can affect Google search rankings and cause customers to leave before the page loads. Contact Elias to investigate — may be a Vercel issue or a slow Sanity query.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Over 1000ms — Slow</div><div class="lookout-action">Pages are loading too slowly. This can affect Google search rankings and cause customers to leave before the page loads. Contact IT Support to investigate — may be a Vercel issue or a slow Sanity query.</div></div></div>
       </div>
     </div>
   </div>
@@ -453,36 +390,10 @@
         <div class="what-label">What it does</div>
         <div class="what-text">Measures how quickly the Sanity CMS responds to content queries. Every vehicle page, promotion and location on the BMC website requires a Sanity API call. The panel also shows your current Sanity usage against the plan limits — API requests, CDN requests and document count.</div>
       </div>
-      <div class="metrics-list">
-        <div class="metric-item"><div class="metric-item-label">API Requests</div><div class="metric-item-desc">55.2k of 250k monthly limit — currently at 22%. Plenty of headroom.</div></div>
-        <div class="metric-item"><div class="metric-item-label">CDN Requests</div><div class="metric-item-desc">26.9k of 1m monthly limit — very low. No concern.</div></div>
-        <div class="metric-item"><div class="metric-item-label">Documents</div><div class="metric-item-desc">595 of 25k limit — vehicles, locations, settings etc. Plenty of room.</div></div>
-      </div>
       <div class="lookout">
         <div class="lookout-title">What to look out for</div>
         <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Under 500ms — Good</div><div class="lookout-action">Sanity is responding quickly. Vehicle pages will load fast.</div></div></div>
-        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">API usage approaching 80% of limit</div><div class="lookout-action">Consider upgrading the Sanity plan or optimising queries to reduce API calls. Contact Elias.</div></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- STRIPE METRICS -->
-  <div class="panel">
-    <div class="panel-head" onclick="toggle(this)">
-      <div class="panel-icon">💳</div>
-      <div class="panel-title">Stripe Reservations</div>
-      <span class="panel-badge metrics">Metrics Dashboard</span>
-      <span class="panel-chevron">▼</span>
-    </div>
-    <div class="panel-body">
-      <div class="what-block">
-        <div class="what-label">What it does</div>
-        <div class="what-text">Shows the number of vehicle reservations completed via the £99 Stripe deposit system, total revenue from deposits, and a transaction table showing recent reservations. Use the Today / 7 days / 30 days toggle to see different time periods.</div>
-      </div>
-      <div class="lookout">
-        <div class="lookout-title">What to look out for</div>
-        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Data is simulated until go live</div><div class="lookout-action">Real transaction data requires server-side Stripe API access which is not yet connected. Numbers shown are illustrative. After go live connect the Stripe API for real transaction data.</div></div></div>
-        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Success rate should always be 100%</div><div class="lookout-action">Stripe only fires the webhook and completes a reservation when payment is fully confirmed. If success rate drops below 100% after go live, check the Stripe dashboard for failed or disputed payments.</div></div></div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">API usage approaching plan limit</div><div class="lookout-action">Consider upgrading the Sanity plan or optimising queries to reduce API calls. Note the website deliberately runs with <code>useCdn: false</code> to avoid stale/inconsistent reads, which trades away some CDN offload and increases metered API usage compared with a CDN-backed setup — so usage naturally runs higher than a typical Sanity site of this size, and should be watched as traffic grows rather than treated as a bug.</div></div></div>
       </div>
     </div>
   </div>
@@ -492,19 +403,18 @@
     <div class="panel-head" onclick="toggle(this)">
       <div class="panel-icon">🚗</div>
       <div class="panel-title">Vehicle Inventory Count</div>
-      <span class="panel-badge both">Both Dashboards</span>
+      <span class="panel-badge metrics">Metrics Dashboard</span>
       <span class="panel-chevron">▼</span>
     </div>
     <div class="panel-body">
       <div class="what-block">
         <div class="what-label">What it does</div>
-        <div class="what-text">Pulls live vehicle counts directly from Sanity. Shows total live stock, how many are reserved, and a split between Brooke and Norwich branches. Also shows how many vehicles are flagged as Great Value by Autotrader's price indicator. This data is live and accurate.</div>
+        <div class="what-text">Pulls live vehicle counts directly from Sanity. Shows total live stock and a split between Brooke and Norwich branches. This data is live and accurate — it is a direct query, not a simulation.</div>
       </div>
       <div class="lookout">
         <div class="lookout-title">What to look out for</div>
-        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Count matches your Autotrader portal</div><div class="lookout-action">If the vehicle count on the dashboard matches what you see in the Autotrader dealer portal, the sync is working correctly.</div></div></div>
-        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Count significantly lower than Autotrader</div><div class="lookout-action">The Autotrader sync may have stopped or be running in sandbox mode. Check the VPS and Autotrader sync status on Dashboard 1.</div></div></div>
-        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Reserved count increasing</div><div class="lookout-action">Good news — more vehicles are being reserved via the website. Remember to manually update those vehicles to Sale in Progress in the Autotrader dealer portal so they also come off the Autotrader listing.</div></div></div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Count matches your Autotrader portal</div><div class="lookout-action">If the vehicle count on the dashboard matches what you see in the Autotrader dealer portal, the sync is working correctly. The Stock Reconciliation card on Dashboard 1 checks this automatically per advertiser, so it's usually the faster place to confirm this rather than counting by eye here.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Count significantly lower than Autotrader</div><div class="lookout-action">The Autotrader sync may have stopped, or a batch of vehicles has a dropped content write. Check the Stock Reconciliation card and the VPS Sync Server card on Dashboard 1.</div></div></div>
       </div>
     </div>
   </div>
@@ -513,7 +423,7 @@
   <div class="panel">
     <div class="panel-head" onclick="toggle(this)">
       <div class="panel-icon">⛽</div>
-      <div class="panel-title">Fuel Price Sync Success Rate</div>
+      <div class="panel-title">Fuel Price Sync</div>
       <span class="panel-badge metrics">Metrics Dashboard</span>
       <span class="panel-chevron">▼</span>
     </div>
@@ -527,49 +437,7 @@
         <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Prices match the forecourt</div><div class="lookout-action">The sync is working. Prices on the BMC website match what customers see at the pump.</div></div></div>
         <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Prices are outdated or incorrect</div><div class="lookout-action">You can manually update prices in Sanity Studio (bmc-vehicles.sanity.studio → Locations → Brooke Garage) while the sync issue is investigated. This is a temporary fix.</div></div></div>
       </div>
-      <div class="known-issue"><strong>Success rate is currently ~15%</strong>The Government Fuel Finder API is highly unreliable. Despite frequent failures the last successfully synced prices remain on the site. You can always manually update prices in Sanity if needed.</div>
-    </div>
-  </div>
-
-  <!-- RESEND METRICS -->
-  <div class="panel">
-    <div class="panel-head" onclick="toggle(this)">
-      <div class="panel-icon">✉️</div>
-      <div class="panel-title">Resend Email Delivery Rate</div>
-      <span class="panel-badge metrics">Metrics Dashboard</span>
-      <span class="panel-chevron">▼</span>
-    </div>
-    <div class="panel-body">
-      <div class="what-block">
-        <div class="what-label">What it does</div>
-        <div class="what-text">Shows how many transactional emails have been sent, delivered and failed. This covers both enquiry confirmation emails to customers and reservation notification emails to the sales team. After go live this will show real delivery statistics from the Resend dashboard.</div>
-      </div>
-      <div class="lookout">
-        <div class="lookout-title">What to look out for after go live</div>
-        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Delivery rate above 95%</div><div class="lookout-action">Emails are delivering reliably. No action needed.</div></div></div>
-        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">High failure rate after go live</div><div class="lookout-action">Sales team may be missing enquiry and reservation notifications. Check the Resend dashboard for bounce reports. May indicate a domain DNS or SPF record issue. Contact Elias.</div></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ENQUIRY FORMS -->
-  <div class="panel">
-    <div class="panel-head" onclick="toggle(this)">
-      <div class="panel-icon">📋</div>
-      <div class="panel-title">Enquiry Form Submissions</div>
-      <span class="panel-badge metrics">Metrics Dashboard</span>
-      <span class="panel-chevron">▼</span>
-    </div>
-    <div class="panel-body">
-      <div class="what-block">
-        <div class="what-label">What it does</div>
-        <div class="what-text">Shows how many vehicle enquiry forms have been submitted through the BMC website, split between Brooke and Norwich branches. Brooke enquiries route to sales@brookemotcentre.co.uk and Norwich enquiries route to norwich@bmccarsales.com.</div>
-      </div>
-      <div class="lookout">
-        <div class="lookout-title">What to look out for</div>
-        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Submissions coming in regularly after go live</div><div class="lookout-action">The website is generating leads. Cross-reference with the email delivery rate to ensure the sales team is receiving them all.</div></div></div>
-        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Zero submissions over multiple days after go live</div><div class="lookout-action">May indicate the enquiry form is broken or not visible. Test the form yourself on the live site and check Vercel logs for /api/enquiry errors.</div></div></div>
-      </div>
+      <div class="known-issue"><strong>Government Fuel Finder API reliability</strong>This feed has a history of intermittent failures independent of anything in our own code. The last successfully synced prices always remain on the site, so a sync failure does not blank the page — it just means prices may lag until the next successful run.</div>
     </div>
   </div>
 
@@ -582,8 +450,8 @@
       <div class="qr-item">
         <div class="qr-label">Status Dashboard</div>
         <div class="qr-row"><div class="qr-dot green"></div><span class="qr-text">Green — Service is up and reachable</span></div>
-        <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Amber — Degraded, known issue or sandbox mode</span></div>
-        <div class="qr-row"><div class="qr-dot red"></div><span class="qr-text">Red — Service is down, action required</span></div>
+        <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Amber — Degraded or a known, usually self-correcting condition</span></div>
+        <div class="qr-row"><div class="qr-dot red"></div><span class="qr-text">Red — Service is down or a persistent mismatch, action required</span></div>
       </div>
       <div class="qr-item">
         <div class="qr-label">Speed Metrics</div>
@@ -592,17 +460,31 @@
         <div class="qr-row"><div class="qr-dot red"></div><span class="qr-text">Red — Over 1000ms, investigate</span></div>
       </div>
       <div class="qr-item">
-        <div class="qr-label">Pre-Launch Ambers (Expected)</div>
-        <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Stripe — test mode, not live keys</span></div>
-        <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Resend — sandbox, domain not verified</span></div>
-        <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Autotrader — sandbox API, not live feed</span></div>
+        <div class="qr-label">Known Ongoing Conditions</div>
+        <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Fuel Finder — Government API is intermittently unreliable</span></div>
+        <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Stock Reconciliation — small, short-lived mismatches during transfers are normal</span></div>
+        <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Reservation write failures currently surface in Vercel logs only, not a dashboard card — see Technical Architecture Document, Section 5.4</span></div>
       </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="quick-ref">
+    <div class="quick-ref-title">What's no longer on these dashboards, and why</div>
+    <div class="what-text" style="margin-bottom:12px;">A few panels that appeared in earlier versions of this guide have since been removed from the live dashboards themselves. This guide has been updated to match — if you're looking for one of these, here's where that monitoring actually lives now:</div>
+    <div class="lookout">
+      <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Stripe Reservations (status &amp; metrics)</div><div class="lookout-action">A simple "is the Stripe API reachable" check told us nothing about whether payments were actually processing. Real payment and webhook health is monitored directly in the Stripe Dashboard.</div></div></div>
+      <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Resend Emails (status &amp; metrics)</div><div class="lookout-action">Same issue — an API reachability check doesn't confirm delivery. Email delivery, bounces and failures are monitored in the Resend Dashboard.</div></div></div>
+      <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">CookieYes</div><div class="lookout-action">Whether the consent banner is loading and gating tracking correctly is easily checked by visiting the live site directly — a dashboard card added little.</div></div></div>
+      <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Autotrader Sync (old simple version)</div><div class="lookout-action">Replaced entirely by the Stock Reconciliation card above, which checks actual stock-count agreement rather than just whether the API responds — a far more meaningful signal.</div></div></div>
+      <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Enquiry Form Submissions (metrics)</div><div class="lookout-action">This panel showed simulated data pending a server-side connection that was never built out; it was removed rather than leave a permanently-simulated card in place.</div></div></div>
     </div>
   </div>
 
 </div>
 
-<footer>BMC Group Dashboard Guide · June 2026 · Prepared by Ant Hewett</footer>
+<footer>BMC Group Dashboard Guide · v2 · July 2026 · Updated to match the live dashboards following go-live · Prepared by Ant Hewett</footer>
 
 <script>
 function toggle(head) {
