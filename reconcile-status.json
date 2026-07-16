@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-07-16T15:00:19.216Z",
+  "timestamp": "2026-07-16T15:15:14.211Z",
   "ok": true,
   "match": true,
-  "autotraderTotal": 399,
-  "sanityTotal": 399,
+  "autotraderTotal": 397,
+  "sanityTotal": 397,
   "byAdvertiser": {
     "833349": {
       "location": "Brooke",
@@ -14,8 +14,8 @@
     },
     "10043362": {
       "location": "Norwich",
-      "autotrader": 99,
-      "sanity": 99,
+      "autotrader": 97,
+      "sanity": 97,
       "match": true,
       "diff": 0
     }
