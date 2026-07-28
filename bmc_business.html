@@ -476,14 +476,14 @@ async function checkReconcile(svc) {
       // reconcile-check.js's registration-level diff.
       if (a.onlyInSanity && a.onlyInSanity.length) {
         checks.push({
-          label: `${a.location} — in Sanity, not on Autotrader`,
+          label: `Not currently on Autotrader's ${a.location} forecourt (may be listed elsewhere)`,
           ok: false,
           value: a.onlyInSanity.join(', ') + (a.onlyInSanityTruncated ? ' (+more, see reconcile-status.json)' : '')
         });
       }
       if (a.onlyInAutotrader && a.onlyInAutotrader.length) {
         checks.push({
-          label: `${a.location} — on Autotrader, not in Sanity`,
+          label: `Live on Autotrader's ${a.location} forecourt, not yet in Sanity`,
           ok: false,
           value: a.onlyInAutotrader.join(', ') + (a.onlyInAutotraderTruncated ? ' (+more, see reconcile-status.json)' : '')
         });
