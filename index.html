@@ -17,6 +17,7 @@
     --green: #22c55e;
     --blue: #3b82f6;
     --purple: #a855f7;
+    --amber: #f59e0b;
     --font: 'Inter', system-ui, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,8 +40,8 @@
   .hero-desc { font-size: 14px; color: var(--text-mid); line-height: 1.7; max-width: 560px; }
 
   .cards {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
-    padding: 0 40px 56px; max-width: 900px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;
+    padding: 0 40px 56px; max-width: 1100px; margin: 0 auto; width: 100%;
   }
 
   .card {
@@ -53,7 +54,8 @@
   .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 14px 14px 0 0; }
   .card-1::before { background: var(--green); }
   .card-2::before { background: var(--blue); }
-  .card-3::before { background: var(--purple); }
+  .card-3::before { background: var(--amber); }
+  .card-4::before { background: var(--purple); }
 
   .card-icon { font-size: 28px; margin-bottom: 16px; }
   .card-num { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
@@ -65,7 +67,8 @@
   }
   .card-1 .card-btn { background: rgba(34,197,94,0.12); color: var(--green); }
   .card-2 .card-btn { background: rgba(59,130,246,0.12); color: var(--blue); }
-  .card-3 .card-btn { background: rgba(168,85,247,0.12); color: var(--purple); }
+  .card-3 .card-btn { background: rgba(245,158,11,0.12); color: var(--amber); }
+  .card-4 .card-btn { background: rgba(168,85,247,0.12); color: var(--purple); }
   .card:hover .card-btn { opacity: 0.8; }
 
   footer { margin-top: auto; text-align: center; font-size: 11px; color: var(--text-dim); padding: 24px 40px; border-top: 1px solid var(--border); }
@@ -91,7 +94,7 @@
 <div class="hero">
   <div class="hero-eyebrow">Internal Tools</div>
   <h2 class="hero-title">Monitor your<br><span>end-to-end service.</span></h2>
-  <p class="hero-desc">Three dashboards covering the full BMC Group digital infrastructure — from website uptime and page speeds through to Stripe reservations, Autotrader sync and email delivery.</p>
+  <p class="hero-desc">Dashboards covering BMC Group's website and infrastructure health, stock accuracy against Autotrader, reservation follow-ups, and site performance.</p>
 </div>
 
 <div class="cards">
@@ -99,21 +102,28 @@
     <div class="card-icon">📖</div>
     <div class="card-num">Guide</div>
     <div class="card-title">Dashboard Guide</div>
-    <div class="card-desc">Explains every panel on both dashboards — what it checks, what good looks like, and what to do when something goes wrong.</div>
+    <div class="card-desc">Explains every panel across all three dashboards — what it checks, what good looks like, and what to do when something goes wrong.</div>
     <span class="card-btn">Read the Guide →</span>
   </a>
   <a href="bmc_dashboard.html" class="card card-2">
     <div class="card-icon">🟢</div>
     <div class="card-num">Dashboard 01</div>
-    <div class="card-title">Service Status</div>
-    <div class="card-desc">Live green / amber / red status for all 8 BMC services. Open this first every morning to check everything is running.</div>
-    <span class="card-btn">View Status Dashboard →</span>
+    <div class="card-title">IT Service Status</div>
+    <div class="card-desc">Live green / amber / red status for the website, Sanity CMS, fuel price sync and the VPS sync server. Open this first every morning to check core infrastructure is running.</div>
+    <span class="card-btn">View IT Service Status →</span>
   </a>
-  <a href="bmc_metrics.html" class="card card-3">
-    <div class="card-icon">📊</div>
+  <a href="bmc_business.html" class="card card-3">
+    <div class="card-icon">📈</div>
     <div class="card-num">Dashboard 02</div>
-    <div class="card-title">Performance Metrics</div>
-    <div class="card-desc">Page speeds, transaction counts, vehicle inventory, email delivery rates and fuel sync success. Toggle today, 7 days or 30 days.</div>
+    <div class="card-title">Business Insights</div>
+    <div class="card-desc">Stock Reconciliation (Autotrader vs Sanity counts) and Reservation Alerts — a staff follow-up list for £99 deposits ending today, tomorrow, or already cleared.</div>
+    <span class="card-btn">View Business Insights →</span>
+  </a>
+  <a href="bmc_metrics.html" class="card card-4">
+    <div class="card-icon">📊</div>
+    <div class="card-num">Dashboard 03</div>
+    <div class="card-title">IT Performance Metrics</div>
+    <div class="card-desc">Page load speeds, Sanity API response times, vehicle inventory counts and fuel sync status. Toggle today, 7 days or 30 days.</div>
     <span class="card-btn">View Metrics Dashboard →</span>
   </a>
 </div>

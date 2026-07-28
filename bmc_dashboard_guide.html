@@ -102,6 +102,7 @@
   .panel-badge { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
   .panel-badge.status { background: rgba(34,197,94,0.12); color: var(--green); }
   .panel-badge.metrics { background: rgba(59,130,246,0.12); color: var(--blue); }
+  .panel-badge.business { background: rgba(245,158,11,0.12); color: var(--amber); }
   .panel-badge.both { background: rgba(168,85,247,0.12); color: var(--purple); }
   .panel-chevron { color: var(--text-dim); font-size: 12px; transition: transform 0.2s; }
   .panel-chevron.open { transform: rotate(180deg); }
@@ -150,7 +151,7 @@
     background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-top: 48px;
   }
   .quick-ref-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
-  .quick-ref-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .quick-ref-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
   .qr-item { background: var(--surface2); border-radius: 8px; padding: 12px 14px; }
   .qr-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
   .qr-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
@@ -187,26 +188,37 @@
 <div style="max-width:1200px;margin:0 auto">
   <div class="hero">
     <div class="hero-eyebrow">Documentation · Updated for live production</div>
-    <h2 class="hero-title">Your two dashboards,<br><span>explained simply.</span></h2>
-    <p class="hero-desc">BMC Group runs on a connected set of services — the website, Sanity CMS, the Autotrader stock pipeline, and fuel-price sync — with a dedicated reconciliation check confirming Autotrader and Sanity agree. These two dashboards give you visibility of everything in one place. This guide explains what each panel is checking, what good looks like, and what to do when something goes wrong. Panels covering services now monitored elsewhere (Stripe, Resend, CookieYes) or superseded by better checks (the old simple Autotrader reachability check) have been retired from the dashboards themselves — this guide has been updated to match.</p>
+    <h2 class="hero-title">Your three dashboards,<br><span>explained simply.</span></h2>
+    <p class="hero-desc">BMC Group runs on a connected set of services — the website, Sanity CMS, the Autotrader stock pipeline, and fuel-price sync — plus a Business Insights layer covering stock accuracy and reservation follow-ups. This guide explains what each panel is checking, what good looks like, and what to do when something goes wrong. Panels covering services now monitored elsewhere (Stripe, Resend, CookieYes) or superseded by better checks (the old simple Autotrader reachability check) have been retired from the dashboards themselves — this guide has been updated to match.</p>
   </div>
 </div>
 
 <div class="dashboard-links">
   <div class="dash-card">
     <div class="dash-card-num">Dashboard 01</div>
-    <div class="dash-card-title">Service Status Dashboard</div>
-    <div class="dash-card-desc">Shows whether each core service is up and running, plus whether Autotrader and Sanity stock counts currently agree. Quick green/amber/red status for all 5 components. Open this first every morning.</div>
+    <div class="dash-card-title">IT Service Status Dashboard</div>
+    <div class="dash-card-desc">Shows whether each core piece of infrastructure is up and running — the website, Sanity CMS, fuel price sync and the VPS sync server. Quick green/amber/red status. Open this first every morning.</div>
     <div class="dash-card-tags">
       <span class="tag">bmc_dashboard.html</span>
       <span class="tag">Live checks</span>
       <span class="tag">Green / Amber / Red</span>
-      <span class="tag">5 services</span>
+      <span class="tag">4 services</span>
     </div>
   </div>
   <div class="dash-card">
     <div class="dash-card-num">Dashboard 02</div>
-    <div class="dash-card-title">Performance Metrics Dashboard</div>
+    <div class="dash-card-title">Business Insights Dashboard</div>
+    <div class="dash-card-desc">Whether Autotrader and Sanity stock counts agree, and a staff follow-up list for £99 deposit reservations — who's ending today, tomorrow, or already cleared.</div>
+    <div class="dash-card-tags">
+      <span class="tag">bmc_business.html</span>
+      <span class="tag">Live checks</span>
+      <span class="tag">Stock &amp; reservations</span>
+      <span class="tag">2 panels</span>
+    </div>
+  </div>
+  <div class="dash-card">
+    <div class="dash-card-num">Dashboard 03</div>
+    <div class="dash-card-title">IT Performance Metrics Dashboard</div>
     <div class="dash-card-desc">Shows speeds and live counts. How fast are pages loading? How is Sanity responding? What's the current vehicle inventory and fuel price sync status? Toggle between today, 7 days and 30 days.</div>
     <div class="dash-card-tags">
       <span class="tag">bmc_metrics.html</span>
@@ -223,7 +235,7 @@
   <div class="section-header">
     <div class="section-num">1</div>
     <div>
-      <div class="section-title">Service Status Dashboard — Panel by Panel</div>
+      <div class="section-title">IT Service Status Dashboard — Panel by Panel</div>
       <div class="section-sub">bmc_dashboard.html — what each card is checking and what to look out for</div>
     </div>
   </div>
@@ -300,12 +312,44 @@
     </div>
   </div>
 
-  <!-- STOCK RECONCILIATION (NEW) -->
+  <!-- VPS -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">🖥</div>
+      <div class="panel-title">VPS Sync Server</div>
+      <span class="panel-badge status">Status Dashboard</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">The VPS (Virtual Private Server) is a DigitalOcean server hosted at IP address 159.65.17.84. It runs the bmc-sync script and the reactivation cron, which together keep Sanity matched to Autotrader. Without the VPS the stock on the BMC website would go out of date. This card checks that the server itself is reachable and that DigitalOcean's platform is operational — it does not confirm the sync job actually completed successfully. That is what the batch sync's own Healthchecks.io heartbeat and the Stock Reconciliation card on the Business Insights dashboard are for.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to look out for</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Green — server reachable</div><div class="lookout-action">The server itself is up. Combine with the Stock Reconciliation card on the Business Insights dashboard to confirm the sync is actually keeping stock current.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — server unreachable</div><div class="lookout-action">The Autotrader sync has almost certainly stopped. Stock will go stale. Check the DigitalOcean dashboard (cloud.digitalocean.com) — the droplet may need restarting.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- DASHBOARD 2 — BUSINESS INSIGHTS (NEW) -->
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div>
+      <div class="section-title">Business Insights Dashboard — Panel by Panel</div>
+      <div class="section-sub">bmc_business.html — stock accuracy and reservation follow-ups, not infrastructure health</div>
+    </div>
+  </div>
+
+  <!-- STOCK RECONCILIATION (moved from IT Service Status) -->
   <div class="panel">
     <div class="panel-head" onclick="toggle(this)">
       <div class="panel-icon">🔄</div>
       <div class="panel-title">Stock Reconciliation</div>
-      <span class="panel-badge status">Status Dashboard</span>
+      <span class="panel-badge business">Business Insights</span>
       <span class="panel-chevron">▼</span>
     </div>
     <div class="panel-body">
@@ -323,34 +367,36 @@
     </div>
   </div>
 
-  <!-- VPS -->
+  <!-- RESERVATION ALERTS (NEW) -->
   <div class="panel">
     <div class="panel-head" onclick="toggle(this)">
-      <div class="panel-icon">🖥</div>
-      <div class="panel-title">VPS Sync Server</div>
-      <span class="panel-badge status">Status Dashboard</span>
+      <div class="panel-icon">⏱</div>
+      <div class="panel-title">Reservation Alerts</div>
+      <span class="panel-badge business">Business Insights</span>
       <span class="panel-chevron">▼</span>
     </div>
     <div class="panel-body">
       <div class="what-block">
         <div class="what-label">What it does</div>
-        <div class="what-text">The VPS (Virtual Private Server) is a DigitalOcean server hosted at IP address 159.65.17.84. It runs the bmc-sync script and the reactivation cron, which together keep Sanity matched to Autotrader. Without the VPS the stock on the BMC website would go out of date. This card checks that the server itself is reachable and that DigitalOcean's platform is operational — it does not confirm the sync job actually completed successfully. That is what the batch sync's own Healthchecks.io heartbeat and the Stock Reconciliation card above are for.</div>
+        <div class="what-text">A staff follow-up list for £99 deposit reservations, built directly from Sanity. Unlike the other cards on either dashboard, this one isn't really a fault indicator — it's a to-do list. It checks three things at once: vehicles whose reservation has already been cleared in the last 24 hours (worth a follow-up call), vehicles whose hold ends today, and vehicles whose hold ends tomorrow.</div>
       </div>
       <div class="lookout">
-        <div class="lookout-title">What to look out for</div>
-        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Green — server reachable</div><div class="lookout-action">The server itself is up. Combine with the Stock Reconciliation card to confirm the sync is actually keeping stock current.</div></div></div>
-        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — server unreachable</div><div class="lookout-action">The Autotrader sync has almost certainly stopped. Stock will go stale. Check the DigitalOcean dashboard (cloud.digitalocean.com) — the droplet may need restarting.</div></div></div>
+        <div class="lookout-title">What each colour means</div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — reservation ended and was cleared in the last 24 hours</div><div class="lookout-action">The £99 deposit hold has run out and the hourly expiry job has already removed the "Reserved" flag, so the vehicle is showing as available to other customers again. Worth a follow-up call to check whether the original customer still wants it.</div></div></div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Amber — reservation ends today</div><div class="lookout-action">Still showing as reserved, but the hold expires later today. A good moment to check in with the customer before it lapses.</div></div></div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Green — reservation ends tomorrow</div><div class="lookout-action">Nothing needs doing yet — this is advance visibility of what's coming up next, not a warning.</div></div></div>
       </div>
+      <div class="known-issue"><strong>Red relies on a dedicated trace record</strong>Once a reservation expires, the hourly expiry job deletes the customer and deposit details from the vehicle record entirely — otherwise there would be no way to tell "just cleared" apart from "never reserved at all". A small reservationCleared-&lt;vehicleId&gt; record is written first, specifically so this card can still show it for 24 hours afterwards.</div>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- DASHBOARD 2 -->
+  <!-- DASHBOARD 3 -->
   <div class="section-header">
-    <div class="section-num">2</div>
+    <div class="section-num">3</div>
     <div>
-      <div class="section-title">Performance Metrics Dashboard — Panel by Panel</div>
+      <div class="section-title">IT Performance Metrics Dashboard — Panel by Panel</div>
       <div class="section-sub">bmc_metrics.html — what each metric means and what good looks like</div>
     </div>
   </div>
@@ -413,8 +459,8 @@
       </div>
       <div class="lookout">
         <div class="lookout-title">What to look out for</div>
-        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Count matches your Autotrader portal</div><div class="lookout-action">If the vehicle count on the dashboard matches what you see in the Autotrader dealer portal, the sync is working correctly. The Stock Reconciliation card on Dashboard 1 checks this automatically per advertiser, so it's usually the faster place to confirm this rather than counting by eye here.</div></div></div>
-        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Count significantly lower than Autotrader</div><div class="lookout-action">The Autotrader sync may have stopped, or a batch of vehicles has a dropped content write. Check the Stock Reconciliation card and the VPS Sync Server card on Dashboard 1.</div></div></div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Count matches your Autotrader portal</div><div class="lookout-action">If the vehicle count on the dashboard matches what you see in the Autotrader dealer portal, the sync is working correctly. The Stock Reconciliation card on the Business Insights dashboard checks this automatically per advertiser, so it's usually the faster place to confirm this rather than counting by eye here.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Count significantly lower than Autotrader</div><div class="lookout-action">The Autotrader sync may have stopped, or a batch of vehicles has a dropped content write. Check the Stock Reconciliation card on the Business Insights dashboard and the VPS Sync Server card on IT Service Status.</div></div></div>
       </div>
     </div>
   </div>
@@ -448,7 +494,7 @@
     <div class="quick-ref-title">Quick Reference — What the Colours Mean</div>
     <div class="quick-ref-grid">
       <div class="qr-item">
-        <div class="qr-label">Status Dashboard</div>
+        <div class="qr-label">IT Service Status</div>
         <div class="qr-row"><div class="qr-dot green"></div><span class="qr-text">Green — Service is up and reachable</span></div>
         <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Amber — Degraded or a known, usually self-correcting condition</span></div>
         <div class="qr-row"><div class="qr-dot red"></div><span class="qr-text">Red — Service is down or a persistent mismatch, action required</span></div>
@@ -458,6 +504,12 @@
         <div class="qr-row"><div class="qr-dot green"></div><span class="qr-text">Green — Under 400ms, excellent</span></div>
         <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Amber — 400ms to 1000ms, acceptable</span></div>
         <div class="qr-row"><div class="qr-dot red"></div><span class="qr-text">Red — Over 1000ms, investigate</span></div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-label">Reservation Alerts (a to-do list, not a fault indicator)</div>
+        <div class="qr-row"><div class="qr-dot green"></div><span class="qr-text">Green — hold ends tomorrow, advance notice only</span></div>
+        <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Amber — hold ends today, worth a check-in</span></div>
+        <div class="qr-row"><div class="qr-dot red"></div><span class="qr-text">Red — cleared in the last 24h, worth a follow-up call</span></div>
       </div>
       <div class="qr-item">
         <div class="qr-label">Known Ongoing Conditions</div>
@@ -477,14 +529,14 @@
       <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Stripe Reservations (status &amp; metrics)</div><div class="lookout-action">A simple "is the Stripe API reachable" check told us nothing about whether payments were actually processing. Real payment and webhook health is monitored directly in the Stripe Dashboard.</div></div></div>
       <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Resend Emails (status &amp; metrics)</div><div class="lookout-action">Same issue — an API reachability check doesn't confirm delivery. Email delivery, bounces and failures are monitored in the Resend Dashboard.</div></div></div>
       <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">CookieYes</div><div class="lookout-action">Whether the consent banner is loading and gating tracking correctly is easily checked by visiting the live site directly — a dashboard card added little.</div></div></div>
-      <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Autotrader Sync (old simple version)</div><div class="lookout-action">Replaced entirely by the Stock Reconciliation card above, which checks actual stock-count agreement rather than just whether the API responds — a far more meaningful signal.</div></div></div>
+      <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Autotrader Sync (old simple version)</div><div class="lookout-action">Replaced entirely by the Stock Reconciliation card (now on the Business Insights dashboard), which checks actual stock-count agreement rather than just whether the API responds — a far more meaningful signal.</div></div></div>
       <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Enquiry Form Submissions (metrics)</div><div class="lookout-action">This panel showed simulated data pending a server-side connection that was never built out; it was removed rather than leave a permanently-simulated card in place.</div></div></div>
     </div>
   </div>
 
 </div>
 
-<footer>BMC Group Dashboard Guide · v2 · July 2026 · Updated to match the live dashboards following go-live · Prepared by Ant Hewett</footer>
+<footer>BMC Group Dashboard Guide · v3 · July 2026 · Updated for the new Business Insights dashboard (Stock Reconciliation &amp; Reservation Alerts moved off IT Service Status) · Prepared by Ant Hewett</footer>
 
 <script>
 function toggle(head) {

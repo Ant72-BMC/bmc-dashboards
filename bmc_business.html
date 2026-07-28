@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BMC Group — IT Service Dashboard</title>
+<title>BMC Group — Business Insights</title>
 <style>
   :root {
     --red: #CC2020;
@@ -356,8 +356,8 @@
   <div class="header-left">
     <div class="logo-mark">BMC</div>
     <div>
-      <div class="header-title">BMC Group — IT Service Dashboard</div>
-      <div class="header-sub">End-to-end infrastructure status</div>
+      <div class="header-title">BMC Group — Business Insights</div>
+      <div class="header-sub">Stock accuracy &amp; reservation follow-ups</div>
     </div>
   </div>
   <div class="header-right">
@@ -387,60 +387,25 @@
 <script>
 const SERVICES = [
   {
-    id: 'vercel',
-    name: 'Vercel / Website',
-    icon: '▲',
-    desc: 'Next.js site on brookemotcentre.co.uk',
-    checks: [
-      { label: 'Live site reachable', type: 'http', url: 'https://brookemotcentre.co.uk', expect: 200 },
-      { label: 'Finance page', type: 'http', url: 'https://brookemotcentre.co.uk/finance', expect: 200 },
-      { label: 'Inventory page', type: 'http', url: 'https://brookemotcentre.co.uk/inventory', expect: 200 },
-    ],
+    id: 'reconcile',
+    name: 'Stock Reconciliation',
+    icon: '🔄',
+    desc: 'Compares live Autotrader stock counts against Sanity active vehicle counts (Brooke & Norwich), checked every 15 minutes.',
+    checks: [], // populated dynamically by checkReconcile(), not the generic HTTP checker
     links: [
-      { label: 'Vercel Dashboard', url: 'https://vercel.com/bmcgroup/bmc-website' },
-      { label: 'Live Site', url: 'https://brookemotcentre.co.uk' },
+      { label: 'Reconciliation Workflow', url: 'https://github.com/Ant72-BMC/bmc-dashboards/actions/workflows/reconcile-check.yml' },
+      { label: 'Raw Status JSON', url: 'reconcile-status.json' },
     ]
   },
   {
-    id: 'sanity',
-    name: 'Sanity CMS',
-    icon: '🗄',
-    desc: 'Content management — vehicles, promotions, locations',
-    checks: [
-      { label: 'Sanity API reachable', type: 'http', url: 'https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=*[_type=="siteSettings"][0]{_id}', expect: 200 },
-      { label: 'Studio reachable', type: 'http', url: 'https://bmc-vehicles.sanity.studio', expect: 200 },
-    ],
+    id: 'reservations',
+    name: 'Reservation Alerts',
+    icon: '⏱',
+    desc: 'Staff follow-up list for £99 deposit reservations: red = ended and already cleared (last 24h), amber = ends today, green = ends tomorrow.',
+    checks: [], // populated dynamically by checkReservationAlerts(), not the generic HTTP checker
     links: [
-      { label: 'Sanity Studio', url: 'https://bmc-vehicles.sanity.studio' },
-      { label: 'Sanity Manage', url: 'https://sanity.io/manage' },
-    ]
-  },
-  {
-    id: 'fuel',
-    name: 'Fuel Finder',
-    icon: '⛽',
-    desc: 'Government API syncs Brooke Garage fuel prices into Sanity every 30 mins',
-    checks: [
-      { label: 'Fuel Finder API', type: 'http', url: 'https://www.fuel-finder.service.gov.uk', expect: [200, 301, 302, 403] },
-      { label: 'Cron endpoint', type: 'http', url: 'https://brookemotcentre.co.uk/api/cron/fuel-prices', expect: [200, 401, 405] },
-    ],
-    links: [
-      { label: 'Fuel Finder Portal', url: 'https://developer.fuel-finder.service.gov.uk' },
-      { label: 'Vercel Logs', url: 'https://vercel.com/bmcgroup/bmc-website/logs' },
-    ],
-    note: null
-  },
-  {
-    id: 'vps',
-    name: 'VPS Sync Server',
-    icon: '🖥',
-    desc: 'DigitalOcean VPS at 159.65.17.84 — runs the Autotrader to Sanity sync. Actual sync health is confirmed via Stock Reconciliation (on the Business Insights dashboard) and the sync\'s Healthchecks.io heartbeat, not by probing the VPS directly.',
-    checks: [
-      { label: 'DigitalOcean status', type: 'http', url: 'https://status.digitalocean.com', expect: 200 },
-    ],
-    links: [
-      { label: 'DigitalOcean', url: 'https://cloud.digitalocean.com' },
-      { label: 'DO Status', url: 'https://status.digitalocean.com' },
+      { label: 'Sanity Vision', url: 'https://bmc-vehicles.sanity.studio/vision' },
+      { label: 'Vercel Logs (expire-reservations)', url: 'https://vercel.com/bmcgroup/bmc-website/logs' },
     ]
   },
 ];
@@ -467,6 +432,149 @@ async function checkUrl(url, expect) {
   }
 }
 
+async function checkReconcile(svc) {
+  try {
+    const res = await fetch('https://raw.githubusercontent.com/Ant72-BMC/bmc-dashboards/main/reconcile-status.json?t=' + Date.now(), { signal: AbortSignal.timeout(8000) });
+    if (!res.ok) throw new Error('status file unreachable');
+    const data = await res.json();
+
+    if (!data.ok) {
+      results['reconcile'] = [{ label: 'Last check', ok: false, value: 'Failed' }];
+      svc.note = { type: 'red', text: `Reconciliation check failed: ${data.error || 'unknown error'}` };
+      return;
+    }
+
+    const checks = [
+      { label: 'Total (Autotrader / Sanity)', ok: data.match, value: `${data.autotraderTotal} / ${data.sanityTotal}` }
+    ];
+    for (const a of Object.values(data.byAdvertiser)) {
+      checks.push({ label: `${a.location} (AT / Sanity)`, ok: a.match, value: `${a.autotrader} / ${a.sanity}` });
+    }
+    results['reconcile'] = checks;
+
+    const mismatches = Object.values(data.byAdvertiser).filter(a => !a.match);
+    const hasFailedSync = data.failedSyncCount && data.failedSyncCount > 0;
+
+    if (hasFailedSync) {
+      checks.push({ label: 'Failed Sanity writes (failedSync)', ok: false, value: `${data.failedSyncCount}` });
+    }
+
+    const noteParts = [];
+    if (mismatches.length) {
+      noteParts.push(`Location split mismatch — ${mismatches.map(a => `${a.location} diff ${a.diff > 0 ? '+' : ''}${a.diff}`).join(' · ')}`);
+    }
+    if (hasFailedSync) {
+      noteParts.push(`${data.failedSyncCount} vehicle(s) failed to sync to Sanity even after retries — check the failedSync records in Sanity Vision`);
+    }
+    svc.note = noteParts.length
+      ? { type: hasFailedSync ? 'red' : 'amber', text: `${noteParts.join('. ')}. Checked ${new Date(data.timestamp).toLocaleString('en-GB')}.` }
+      : null;
+  } catch (e) {
+    results['reconcile'] = [{ label: 'Status file', ok: false, value: 'Unreachable' }];
+    svc.note = { type: 'red', text: 'Could not load reconcile-status.json' };
+  }
+}
+
+// Explicit per-card status override, set by checks whose severity can't be
+// derived purely from a mix of ok:true/false rows (e.g. reservation alerts,
+// where "red" must win over "amber" even if most rows are fine). Checked
+// first by getCardStatus() before falling back to the generic ok-array logic.
+const statusOverrides = {};
+
+function fmtTime(iso) {
+  return new Date(iso).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+}
+
+function fmtAgo(iso) {
+  const mins = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
+  if (mins < 60) return `${mins}m ago`;
+  return `${Math.floor(mins / 60)}h ${mins % 60}m ago`;
+}
+
+async function checkReservationAlerts(svc) {
+  try {
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+    const todayEnd = new Date(todayStart.getTime() + 86400000);
+    const tomorrowEnd = new Date(todayEnd.getTime() + 86400000);
+    const cutoff24h = new Date(now.getTime() - 86400000);
+
+    const groq = `{
+      "redList": *[_type == "reservationCleared" && clearedAt >= $cutoff24h] | order(clearedAt desc) {
+        registration, customerName, clearedAt
+      },
+      "amberList": *[_type == "vehicle" && reserved.isReserved == true
+        && reserved.reservedUntil >= $todayStart && reserved.reservedUntil < $todayEnd]{
+        "registration": identity.registration, "customerName": reserved.customerName,
+        "reservedUntil": reserved.reservedUntil
+      },
+      "greenList": *[_type == "vehicle" && reserved.isReserved == true
+        && reserved.reservedUntil >= $todayEnd && reserved.reservedUntil < $tomorrowEnd]{
+        "registration": identity.registration, "customerName": reserved.customerName,
+        "reservedUntil": reserved.reservedUntil
+      }
+    }`;
+
+    const params = {
+      cutoff24h: cutoff24h.toISOString(),
+      todayStart: todayStart.toISOString(),
+      todayEnd: todayEnd.toISOString(),
+      tomorrowEnd: tomorrowEnd.toISOString(),
+    };
+    const qs = new URLSearchParams({ query: groq });
+    for (const [k, v] of Object.entries(params)) qs.set('$' + k, JSON.stringify(v));
+
+    const res = await fetch(
+      `https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?${qs.toString()}`,
+      { signal: AbortSignal.timeout(8000) }
+    );
+    if (!res.ok) throw new Error('query failed');
+    const data = await res.json();
+    const { redList = [], amberList = [], greenList = [] } = data.result || {};
+
+    if (redList.length === 0 && amberList.length === 0 && greenList.length === 0) {
+      results['reservations'] = [{ label: 'Reservation alerts', ok: true, value: 'None pending' }];
+      statusOverrides['reservations'] = 'green';
+      svc.note = null;
+      return;
+    }
+
+    const rows = [
+      ...redList.map(r => ({
+        label: `🔴 ${r.registration || 'Unknown reg'} (${r.customerName || 'unknown customer'})`,
+        ok: false,
+        value: `cleared ${fmtAgo(r.clearedAt)}`
+      })),
+      ...amberList.map(a => ({
+        label: `🟠 ${a.registration || 'Unknown reg'} (${a.customerName || 'unknown customer'})`,
+        ok: false,
+        value: `ends today ${fmtTime(a.reservedUntil)}`
+      })),
+      ...greenList.map(g => ({
+        label: `🟢 ${g.registration || 'Unknown reg'} (${g.customerName || 'unknown customer'})`,
+        ok: true,
+        value: `ends tomorrow ${fmtTime(g.reservedUntil)}`
+      })),
+    ];
+    results['reservations'] = rows;
+
+    if (redList.length > 0) {
+      statusOverrides['reservations'] = 'red';
+      svc.note = { type: 'red', text: `${redList.length} reservation(s) ended and were cleared in the last 24h — worth a follow-up call.` };
+    } else if (amberList.length > 0) {
+      statusOverrides['reservations'] = 'amber';
+      svc.note = { type: 'amber', text: `${amberList.length} reservation(s) end today.` };
+    } else {
+      statusOverrides['reservations'] = 'green';
+      svc.note = { type: 'amber', text: `${greenList.length} reservation(s) end tomorrow.` };
+    }
+  } catch (e) {
+    results['reservations'] = [{ label: 'Query', ok: false, value: 'Unreachable' }];
+    statusOverrides['reservations'] = 'red';
+    svc.note = { type: 'red', text: 'Could not query Sanity for reservation alerts' };
+  }
+}
+
 async function runChecks() {
   const icon = document.getElementById('refreshIcon');
   icon.classList.add('spinning');
@@ -474,18 +582,21 @@ async function runChecks() {
 
   const checks = [];
   for (const svc of SERVICES) {
+    if (svc.id === 'reconcile' || svc.id === 'reservations') continue;
     for (const chk of svc.checks) {
       checks.push({ svcId: svc.id, chk });
     }
   }
 
-  await Promise.all(
-    checks.map(async ({ svcId, chk }) => {
+  await Promise.all([
+    ...checks.map(async ({ svcId, chk }) => {
       const result = await checkUrl(chk.url, chk.expect);
       if (!results[svcId]) results[svcId] = [];
       results[svcId].push({ label: chk.label, ok: result.ok });
-    })
-  );
+    }),
+    ...SERVICES.filter(s => s.id === 'reconcile').map(svc => checkReconcile(svc)),
+    ...SERVICES.filter(s => s.id === 'reservations').map(svc => checkReservationAlerts(svc))
+  ]);
 
   renderCards();
   icon.classList.remove('spinning');
@@ -498,6 +609,7 @@ async function runChecks() {
 }
 
 function getCardStatus(svcId, svc) {
+  if (statusOverrides[svcId]) return statusOverrides[svcId];
   const r = results[svcId];
   if (!r || r.length === 0) return 'unknown';
   const allOk = r.every(x => x.ok);
@@ -523,9 +635,11 @@ function renderCards() {
     const card = document.createElement('div');
     card.className = `card ${status}`;
 
-    const checks = svc.checks.map((chk, i) => {
-      const r = results[svc.id] ? results[svc.id][i] : null;
-      const label = chk.label;
+    const isDynamic = svc.id === 'reconcile' || svc.id === 'reservations';
+    const checkList = (isDynamic ? (results[svc.id] || []) : svc.checks);
+    const checks = checkList.map((chk, i) => {
+      const r = isDynamic ? chk : (results[svc.id] ? results[svc.id][i] : null);
+      const label = isDynamic ? r.label : chk.label;
       const val = r === null ? '…' : (r.value !== undefined ? r.value : (r.ok ? 'Reachable' : 'Unreachable'));
       const cls = r === null ? 'dim' : r.ok ? 'green' : 'red';
       return `<div class="check">
