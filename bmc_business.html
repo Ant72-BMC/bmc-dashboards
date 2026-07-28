@@ -408,6 +408,26 @@ const SERVICES = [
       { label: 'Vercel Logs (expire-reservations)', url: 'https://vercel.com/bmcgroup/bmc-website/logs' },
     ]
   },
+  {
+    id: 'priceband',
+    name: 'Sales by Price Band',
+    icon: '💷',
+    desc: 'Sold vehicles grouped into £2,500 price bands, with average days-to-sell per band. Builds up over time as real sales accumulate — this is informational, not a fault indicator.',
+    checks: [], // populated dynamically by checkPriceBands(), not the generic HTTP checker
+    links: [
+      { label: 'Sanity Vision', url: 'https://bmc-vehicles.sanity.studio/vision' },
+    ]
+  },
+  {
+    id: 'makemodel',
+    name: 'Sales by Make & Model',
+    icon: '🚗',
+    desc: 'Sold vehicles grouped by make and model, ranked highest-selling to lowest. Builds up over time as real sales accumulate — this is informational, not a fault indicator.',
+    checks: [], // populated dynamically by checkMakeModel(), not the generic HTTP checker
+    links: [
+      { label: 'Sanity Vision', url: 'https://bmc-vehicles.sanity.studio/vision' },
+    ]
+  },
 ];
 
 let results = {};
@@ -575,6 +595,122 @@ async function checkReservationAlerts(svc) {
   }
 }
 
+// Purely informational — never red/amber for "few sales so far", only red if
+// the query itself genuinely fails. Bands are £2,500 wide, starting at £0.
+const PRICE_BAND_WIDTH = 2500;
+
+function priceBandLabel(bandStart) {
+  const lower = (bandStart / 1000).toFixed(1).replace(/\.0$/, '');
+  const upper = ((bandStart + PRICE_BAND_WIDTH) / 1000).toFixed(1).replace(/\.0$/, '');
+  return `£${lower}k–£${upper}k`;
+}
+
+async function checkPriceBands(svc) {
+  try {
+    const groq = `*[_type == "vehicleSold" && defined(finalPrice)]{ finalPrice, daysToSell }`;
+    const res = await fetch(
+      `https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=${encodeURIComponent(groq)}`,
+      { signal: AbortSignal.timeout(8000) }
+    );
+    if (!res.ok) throw new Error('query failed');
+    const data = await res.json();
+    const sales = data.result || [];
+
+    if (sales.length === 0) {
+      results['priceband'] = [{ label: 'Sales recorded', ok: true, value: '0 so far' }];
+      statusOverrides['priceband'] = 'green';
+      svc.note = { type: 'amber', text: 'No sales recorded yet — this card fills in automatically as vehicles sell from today onward. Nothing to worry about, there is simply no history to show yet.' };
+      return;
+    }
+
+    // Bucket into £2,500 bands.
+    const bands = new Map(); // bandStart -> { count, daysSum, daysCount }
+    for (const s of sales) {
+      const bandStart = Math.floor(s.finalPrice / PRICE_BAND_WIDTH) * PRICE_BAND_WIDTH;
+      if (!bands.has(bandStart)) bands.set(bandStart, { count: 0, daysSum: 0, daysCount: 0 });
+      const b = bands.get(bandStart);
+      b.count++;
+      if (typeof s.daysToSell === 'number') {
+        b.daysSum += s.daysToSell;
+        b.daysCount++;
+      }
+    }
+
+    const sortedBands = [...bands.keys()].sort((a, b) => b - a);
+    results['priceband'] = sortedBands.map(bandStart => {
+      const b = bands.get(bandStart);
+      const avgDays = b.daysCount > 0 ? Math.round(b.daysSum / b.daysCount) : null;
+      return {
+        label: priceBandLabel(bandStart),
+        ok: true,
+        value: `${b.count} sold${avgDays != null ? ` · avg ${avgDays}d to sell` : ''}`
+      };
+    });
+    statusOverrides['priceband'] = 'green';
+    svc.note = { type: 'amber', text: `${sales.length} sale(s) recorded in total across ${sortedBands.length} price band(s). This is informational — nothing here indicates a problem.` };
+  } catch (e) {
+    results['priceband'] = [{ label: 'Query', ok: false, value: 'Unreachable' }];
+    statusOverrides['priceband'] = 'red';
+    svc.note = { type: 'red', text: 'Could not query Sanity for sold-vehicle price bands' };
+  }
+}
+
+async function checkMakeModel(svc) {
+  try {
+    const groq = `*[_type == "vehicleSold"]{ make, model, daysToSell }`;
+    const res = await fetch(
+      `https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=${encodeURIComponent(groq)}`,
+      { signal: AbortSignal.timeout(8000) }
+    );
+    if (!res.ok) throw new Error('query failed');
+    const data = await res.json();
+    const sales = data.result || [];
+
+    if (sales.length === 0) {
+      results['makemodel'] = [{ label: 'Sales recorded', ok: true, value: '0 so far' }];
+      statusOverrides['makemodel'] = 'green';
+      svc.note = { type: 'amber', text: 'No sales recorded yet — this card fills in automatically as vehicles sell from today onward. Nothing to worry about, there is simply no history to show yet.' };
+      return;
+    }
+
+    // Group by make + model (falling back to "Unknown" for either missing field).
+    const groups = new Map(); // key -> { make, model, count, daysSum, daysCount }
+    for (const s of sales) {
+      const make = s.make || 'Unknown';
+      const model = s.model || 'Unknown';
+      const key = `${make}|||${model}`;
+      if (!groups.has(key)) groups.set(key, { make, model, count: 0, daysSum: 0, daysCount: 0 });
+      const g = groups.get(key);
+      g.count++;
+      if (typeof s.daysToSell === 'number') {
+        g.daysSum += s.daysToSell;
+        g.daysCount++;
+      }
+    }
+
+    // Ranked highest-selling to lowest; ties broken alphabetically for stability.
+    const ranked = [...groups.values()].sort((a, b) => {
+      if (b.count !== a.count) return b.count - a.count;
+      return `${a.make} ${a.model}`.localeCompare(`${b.make} ${b.model}`);
+    });
+
+    results['makemodel'] = ranked.map(g => {
+      const avgDays = g.daysCount > 0 ? Math.round(g.daysSum / g.daysCount) : null;
+      return {
+        label: `${g.make} ${g.model}`,
+        ok: true,
+        value: `${g.count} sold${avgDays != null ? ` · avg ${avgDays}d to sell` : ''}`
+      };
+    });
+    statusOverrides['makemodel'] = 'green';
+    svc.note = { type: 'amber', text: `${sales.length} sale(s) recorded across ${ranked.length} make/model combination(s). This is informational — nothing here indicates a problem.` };
+  } catch (e) {
+    results['makemodel'] = [{ label: 'Query', ok: false, value: 'Unreachable' }];
+    statusOverrides['makemodel'] = 'red';
+    svc.note = { type: 'red', text: 'Could not query Sanity for sold-vehicle make/model breakdown' };
+  }
+}
+
 async function runChecks() {
   const icon = document.getElementById('refreshIcon');
   icon.classList.add('spinning');
@@ -582,7 +718,7 @@ async function runChecks() {
 
   const checks = [];
   for (const svc of SERVICES) {
-    if (svc.id === 'reconcile' || svc.id === 'reservations') continue;
+    if (svc.id === 'reconcile' || svc.id === 'reservations' || svc.id === 'priceband' || svc.id === 'makemodel') continue;
     for (const chk of svc.checks) {
       checks.push({ svcId: svc.id, chk });
     }
@@ -595,7 +731,9 @@ async function runChecks() {
       results[svcId].push({ label: chk.label, ok: result.ok });
     }),
     ...SERVICES.filter(s => s.id === 'reconcile').map(svc => checkReconcile(svc)),
-    ...SERVICES.filter(s => s.id === 'reservations').map(svc => checkReservationAlerts(svc))
+    ...SERVICES.filter(s => s.id === 'reservations').map(svc => checkReservationAlerts(svc)),
+    ...SERVICES.filter(s => s.id === 'priceband').map(svc => checkPriceBands(svc)),
+    ...SERVICES.filter(s => s.id === 'makemodel').map(svc => checkMakeModel(svc))
   ]);
 
   renderCards();
@@ -635,7 +773,7 @@ function renderCards() {
     const card = document.createElement('div');
     card.className = `card ${status}`;
 
-    const isDynamic = svc.id === 'reconcile' || svc.id === 'reservations';
+    const isDynamic = svc.id === 'reconcile' || svc.id === 'reservations' || svc.id === 'priceband' || svc.id === 'makemodel';
     const checkList = (isDynamic ? (results[svc.id] || []) : svc.checks);
     const checks = checkList.map((chk, i) => {
       const r = isDynamic ? chk : (results[svc.id] ? results[svc.id][i] : null);

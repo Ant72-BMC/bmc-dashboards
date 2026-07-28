@@ -208,12 +208,12 @@
   <div class="dash-card">
     <div class="dash-card-num">Dashboard 02</div>
     <div class="dash-card-title">Business Insights Dashboard</div>
-    <div class="dash-card-desc">Whether Autotrader and Sanity stock counts agree, and a staff follow-up list for £99 deposit reservations — who's ending today, tomorrow, or already cleared.</div>
+    <div class="dash-card-desc">Whether Autotrader and Sanity stock counts agree, a staff follow-up list for £99 deposit reservations, and sold-vehicle trends by price band and by make/model.</div>
     <div class="dash-card-tags">
       <span class="tag">bmc_business.html</span>
       <span class="tag">Live checks</span>
-      <span class="tag">Stock &amp; reservations</span>
-      <span class="tag">2 panels</span>
+      <span class="tag">Stock, reservations &amp; sales</span>
+      <span class="tag">4 panels</span>
     </div>
   </div>
   <div class="dash-card">
@@ -390,6 +390,47 @@
     </div>
   </div>
 
+  <!-- SALES BY PRICE BAND (NEW) -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">💷</div>
+      <div class="panel-title">Sales by Price Band</div>
+      <span class="panel-badge business">Business Insights</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Groups every recorded sale into £2,500 price bands (£0–£2.5k, £2.5k–£5k, and so on), ranked from the highest band down to the lowest. Each band shows how many vehicles sold in that range and the average number of days those vehicles took to sell. This is genuinely informational — not a fault indicator, and it's expected to be sparse or empty for a while after being switched on, since it can only ever show sales that happened after the underlying tracking was added.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to expect</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Always green</div><div class="lookout-action">This card is only ever red if the query itself fails to load — never for having few or no sales recorded. A quiet card genuinely means "not much sales history yet", not "something's wrong".</div></div></div>
+      </div>
+      <div class="known-issue"><strong>Builds up from zero</strong>There's no way to backfill sales that happened before this tracking existed — every vehicle previously just had isActive flipped to false with nothing else recorded. This card only reflects genuine sales from the day the tracking was switched on, onward. Expect it to look sparse for the first few weeks.</div>
+    </div>
+  </div>
+
+  <!-- SALES BY MAKE & MODEL (NEW) -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">🚗</div>
+      <div class="panel-title">Sales by Make &amp; Model</div>
+      <span class="panel-badge business">Business Insights</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Groups every recorded sale by make and model, ranked from the highest-selling combination down to the lowest, with the average days-to-sell shown for each. Ties (equal sale counts) are broken alphabetically for a stable, predictable order. Same as the price band card, this is purely informational.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to expect</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Always green</div><div class="lookout-action">Only ever red if the query itself fails — not for having little data. Builds up the same way as the price band card, from zero, starting the day the tracking was switched on.</div></div></div>
+      </div>
+    </div>
+  </div>
+
   <div class="divider"></div>
 
   <!-- DASHBOARD 3 -->
@@ -536,7 +577,7 @@
 
 </div>
 
-<footer>BMC Group Dashboard Guide · v3 · July 2026 · Updated for the new Business Insights dashboard (Stock Reconciliation &amp; Reservation Alerts moved off IT Service Status) · Prepared by Ant Hewett</footer>
+<footer>BMC Group Dashboard Guide · v4 · July 2026 · Added Sales by Price Band and Sales by Make &amp; Model to Business Insights · Prepared by Ant Hewett</footer>
 
 <script>
 function toggle(head) {
