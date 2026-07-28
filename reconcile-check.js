@@ -2,9 +2,14 @@
 // reconcile-check.js
 //
 // Lightweight, READ-ONLY reconciliation check.
-// Compares live AutoTrader stock counts (per advertiser) against Sanity's
-// advert.isActive counts, and writes the result to reconcile-status.json
+// Compares live AutoTrader stock (per advertiser) against Sanity's
+// advert.isActive vehicles, and writes the result to reconcile-status.json
 // for the bmc-dashboards site to render as a tile.
+//
+// As of the registration-diffing update: this compares actual registrations,
+// not just counts, so a mismatch lists the SPECIFIC vehicle(s) causing it
+// (onlyInSanity / onlyInAutotrader per advertiser), capped at 25 each to keep
+// the JSON file a sane size.
 //
 // Also surfaces any Sanity "failedSync" documents (added by Elias's write-retry
 // fix on 13 July) - queried generically since the exact field schema wasn't
@@ -101,12 +106,14 @@ async function authedFetch(url) {
 }
 
 // --------------------------------------------------
-// Fetch live stock count for one advertiser - same pagination as sync.js
+// Fetch live stock for one advertiser - same pagination as sync.js.
+// Returns both the count AND the set of registrations, so a count mismatch
+// can be traced back to the specific vehicle(s) causing it.
 // --------------------------------------------------
-async function fetchLiveCountForAdvertiser(advertiserId) {
+async function fetchLiveVehiclesForAdvertiser(advertiserId) {
   let page = 1;
   const pageSize = 200;
-  let liveCount = 0;
+  const registrations = new Set();
 
   while (true) {
     const url = `${BASE}/stock?advertiserId=${advertiserId}&page=${page}&pageSize=${pageSize}`;
@@ -122,11 +129,15 @@ async function fetchLiveCountForAdvertiser(advertiserId) {
 
     if (results.length === 0) break;
 
-    liveCount += results.filter(isLive).length;
+    for (const v of results) {
+      if (isLive(v) && v.vehicle?.registration) {
+        registrations.add(v.vehicle.registration.toUpperCase().replace(/\s+/g, ""));
+      }
+    }
     page++;
   }
 
-  return liveCount;
+  return registrations;
 }
 
 // --------------------------------------------------
@@ -167,38 +178,59 @@ async function main() {
   try {
     requireEnv();
 
-    // 1. AutoTrader live counts, per advertiser
+    // 1. AutoTrader live registrations, per advertiser
+    const autotraderByAdvertiser = {}; // advertiserId -> Set<registration>
     let autotraderTotal = 0;
-    const autotraderByAdvertiser = {};
     for (const advertiserId of ADVERTISER_IDS) {
-      const count = await fetchLiveCountForAdvertiser(advertiserId);
-      autotraderByAdvertiser[advertiserId] = count;
-      autotraderTotal += count;
+      const regs = await fetchLiveVehiclesForAdvertiser(advertiserId);
+      autotraderByAdvertiser[advertiserId] = regs;
+      autotraderTotal += regs.size;
     }
 
-    // 2. Sanity isActive counts - total and per dealerId (matches advertiserId 1:1)
-    const sanityTotal = await sanityCount(
-      `count(*[_type == "vehicle" && advert.isActive == true])`
-    );
-
-    const sanityByAdvertiser = {};
+    // 2. Sanity active registrations, per dealerId (matches advertiserId 1:1)
+    const sanityByAdvertiser = {}; // advertiserId -> Set<registration>
+    let sanityTotal = 0;
     for (const advertiserId of ADVERTISER_IDS) {
-      sanityByAdvertiser[advertiserId] = await sanityCount(
-        `count(*[_type == "vehicle" && advert.isActive == true && dealerId == "${advertiserId}"])`
+      const rows = await sanityCount(
+        `*[_type == "vehicle" && advert.isActive == true && dealerId == "${advertiserId}"].identity.registration`
       );
+      const regs = new Set(
+        (rows || [])
+          .filter(Boolean)
+          .map((r) => String(r).toUpperCase().replace(/\s+/g, ""))
+      );
+      sanityByAdvertiser[advertiserId] = regs;
+      sanityTotal += regs.size;
     }
 
-    // 3. Assemble comparison
+    // 3. Assemble comparison, including the SPECIFIC registrations causing any
+    // mismatch (not just the counts) so a discrepancy is actionable straight
+    // from the dashboard rather than needing a manual export/diff each time.
+    // Capped at 25 per side per advertiser to keep the JSON file a sane size —
+    // a mismatch bigger than that needs investigating some other way anyway.
+    const MAX_LISTED = 25;
     for (const advertiserId of ADVERTISER_IDS) {
       const location = DEALER_LOCATIONS[advertiserId];
-      const autotraderCount = autotraderByAdvertiser[advertiserId];
-      const sanityCountForDealer = sanityByAdvertiser[advertiserId];
+      const autotraderRegs = autotraderByAdvertiser[advertiserId];
+      const sanityRegs = sanityByAdvertiser[advertiserId];
+
+      const onlyInSanity = [...sanityRegs].filter((r) => !autotraderRegs.has(r)).sort();
+      const onlyInAutotrader = [...autotraderRegs].filter((r) => !sanityRegs.has(r)).sort();
+
       result.byAdvertiser[advertiserId] = {
         location,
-        autotrader: autotraderCount,
-        sanity: sanityCountForDealer,
-        match: autotraderCount === sanityCountForDealer,
-        diff: sanityCountForDealer - autotraderCount,
+        autotrader: autotraderRegs.size,
+        sanity: sanityRegs.size,
+        match: autotraderRegs.size === sanityRegs.size,
+        diff: sanityRegs.size - autotraderRegs.size,
+        // In Sanity as active, but not currently live on Autotrader's feed —
+        // e.g. a deferred/stuck transfer, or the sync hasn't caught a sale yet.
+        onlyInSanity: onlyInSanity.slice(0, MAX_LISTED),
+        onlyInSanityTruncated: onlyInSanity.length > MAX_LISTED,
+        // Live on Autotrader, but not yet active in Sanity — e.g. the webhook
+        // hasn't processed it yet, or the next batch sync hasn't run.
+        onlyInAutotrader: onlyInAutotrader.slice(0, MAX_LISTED),
+        onlyInAutotraderTruncated: onlyInAutotrader.length > MAX_LISTED,
       };
     }
 
