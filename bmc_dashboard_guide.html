@@ -355,7 +355,7 @@
     <div class="panel-body">
       <div class="what-block">
         <div class="what-label">What it does</div>
-        <div class="what-text">This card replaced the old simple "Autotrader Sync" reachability check. Rather than just confirming the Autotrader API responds, it does something far more useful: it pulls the live Autotrader stock count and the live Sanity active-vehicle count, per advertiser (Brooke 833349 and Norwich 10043362), and confirms they actually match. It also surfaces any currently outstanding failedSync trace documents — vehicles whose last content write to Sanity failed and hasn't yet self-corrected. A scheduled check refreshes this roughly every 15 minutes.</div>
+        <div class="what-text">This card replaced the old simple "Autotrader Sync" reachability check. Rather than just confirming the Autotrader API responds, it does something far more useful: it compares Autotrader's stock count against Sanity's active-vehicle count, per advertiser (Brooke 833349 and Norwich 10043362), and confirms they actually match. If they don't, it lists the specific registration(s) causing the mismatch — whether that's a vehicle sitting active in Sanity but not currently live on Autotrader, or the reverse — so a discrepancy is actionable straight from the dashboard rather than needing a manual export/diff each time. It also surfaces any currently outstanding failedSync trace documents — vehicles whose last content write to Sanity failed and hasn't yet self-corrected. A scheduled check refreshes all of this roughly every 15 minutes (not a live, on-page-load query).</div>
       </div>
       <div class="lookout">
         <div class="lookout-title">What to look out for</div>
