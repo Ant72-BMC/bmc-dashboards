@@ -655,7 +655,13 @@ async function checkPriceBands(svc) {
       }
     }
 
-    const sortedBands = [...bands.keys()].sort((a, b) => b - a);
+    // Ranked by how many sold in each band (highest count first) — ties
+    // broken by band value (highest price band first) for stable ordering.
+    const sortedBands = [...bands.keys()].sort((a, b) => {
+      const countDiff = bands.get(b).count - bands.get(a).count;
+      if (countDiff !== 0) return countDiff;
+      return b - a;
+    });
     results['priceband'] = sortedBands.map(bandStart => {
       const b = bands.get(bandStart);
       const avgDays = b.daysCount > 0 ? Math.round(b.daysSum / b.daysCount) : null;
