@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-28T10:30:18.204Z",
+  "timestamp": "2026-07-28T10:36:03.288Z",
   "ok": true,
   "match": false,
   "autotraderTotal": 368,
@@ -10,14 +10,24 @@
       "autotrader": 273,
       "sanity": 274,
       "match": false,
-      "diff": 1
+      "diff": 1,
+      "onlyInSanity": [
+        "KS16DAU"
+      ],
+      "onlyInSanityTruncated": false,
+      "onlyInAutotrader": [],
+      "onlyInAutotraderTruncated": false
     },
     "10043362": {
       "location": "Norwich",
       "autotrader": 95,
       "sanity": 95,
       "match": true,
-      "diff": 0
+      "diff": 0,
+      "onlyInSanity": [],
+      "onlyInSanityTruncated": false,
+      "onlyInAutotrader": [],
+      "onlyInAutotraderTruncated": false
     }
   },
   "failedSyncCount": 0,
