@@ -390,7 +390,7 @@ const SERVICES = [
     id: 'reconcile',
     name: 'Stock Reconciliation',
     icon: '🔄',
-    desc: "Compares Autotrader stock counts against Sanity's active vehicle counts (Brooke & Norwich), and lists the specific registration(s) causing any mismatch. Refreshed by a scheduled check every 15 minutes.",
+    desc: "Compares Autotrader stock counts against Sanity's active vehicle counts (Brooke & Norwich), and lists the specific registration(s) causing any mismatch. Refreshed by a scheduled check every 15 minutes. Note: a registration transferring between branches can briefly appear here (typically under 1hr) while the old branch's record finalises — this clears automatically. Persisting longer may indicate a genuine issue.",
     checks: [], // populated dynamically by checkReconcile(), not the generic HTTP checker
     links: [
       { label: 'Reconciliation Workflow', url: 'https://github.com/Ant72-BMC/bmc-dashboards/actions/workflows/reconcile-check.yml' },
