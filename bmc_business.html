@@ -412,7 +412,7 @@ const SERVICES = [
     id: 'priceband',
     name: 'Sales by Price Band',
     icon: '💷',
-    desc: 'Sold vehicles grouped into £2,500 price bands, with average days-to-sell per band. Builds up over time as real sales accumulate — this is informational, not a fault indicator.',
+    desc: 'Sold vehicles grouped into £2,500 price bands, with average days-to-sell per band. Data covers vehicles sold on or after 29/07/2026, when sale tracking began. Builds up over time as real sales accumulate — this is informational, not a fault indicator.',
     checks: [], // populated dynamically by checkPriceBands(), not the generic HTTP checker
     links: [
       { label: 'Sanity Vision', url: 'https://bmc-vehicles.sanity.studio/vision' },
@@ -422,7 +422,7 @@ const SERVICES = [
     id: 'makemodel',
     name: 'Sales by Make & Model',
     icon: '🚗',
-    desc: 'Sold vehicles grouped by make and model, ranked highest-selling to lowest. Builds up over time as real sales accumulate — this is informational, not a fault indicator.',
+    desc: 'Sold vehicles grouped by make and model, ranked highest-selling to lowest. Data covers vehicles sold on or after 29/07/2026, when sale tracking began. Builds up over time as real sales accumulate — this is informational, not a fault indicator.',
     checks: [], // populated dynamically by checkMakeModel(), not the generic HTTP checker
     links: [
       { label: 'Sanity Vision', url: 'https://bmc-vehicles.sanity.studio/vision' },
