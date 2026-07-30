@@ -5,353 +5,306 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BMC Group — Business Insights</title>
 <style>
-  :root {
-    --red: #CC2020;
-    --red-dim: #8a1515;
-    --bg: #0b0b0d;
-    --surface: #141416;
-    --surface2: #1c1c1f;
-    --border: #2a2a2d;
-    --text: #f0f0f0;
-    --text-dim: #888;
-    --green: #22c55e;
-    --amber: #f59e0b;
-    --red-status: #ef4444;
-    --green-dim: rgba(34,197,94,0.12);
-    --amber-dim: rgba(245,158,11,0.12);
-    --red-dim2: rgba(239,68,68,0.12);
-    --font: 'Inter', system-ui, -apple-system, sans-serif;
-    --mono: 'JetBrains Mono', 'Fira Code', monospace;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font);
-    min-height: 100vh;
-    padding: 0 0 48px;
-  }
-
-  .header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 20px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .logo-mark {
-    width: 36px;
-    height: 36px;
-    background: var(--red);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 14px;
-    letter-spacing: -0.5px;
-    color: #fff;
-    flex-shrink: 0;
-  }
-
-  .header-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .header-sub {
-    font-size: 12px;
-    color: var(--text-dim);
-    margin-top: 1px;
-  }
-
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .last-checked {
-    font-size: 12px;
-    color: var(--text-dim);
-    font-family: var(--mono);
-  }
-
-  .refresh-btn {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 13px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.15s;
-  }
-
-  .refresh-btn:hover { border-color: var(--red); color: var(--red); }
-
-  .status-bar {
-    padding: 16px 32px;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 32px;
-  }
-
-  .overall-status {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .overall-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 8px var(--green);
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-
-  .overall-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--green);
-  }
-
-  .status-counts {
-    display: flex;
-    gap: 20px;
-  }
-
-  .status-count {
-    font-size: 12px;
-    color: var(--text-dim);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .status-count .dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-  }
-
-  .dot-green { background: var(--green); }
-  .dot-amber { background: var(--amber); }
-  .dot-red { background: var(--red-status); }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 16px;
-    padding: 28px 32px;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
-
-  .card:hover { border-color: #3a3a3f; }
-
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    border-radius: 12px 12px 0 0;
-  }
-
-  .card.green::before { background: var(--green); }
-  .card.amber::before { background: var(--amber); }
-  .card.red::before { background: var(--red-status); }
-  .card.unknown::before { background: var(--border); }
-
-  .card-head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 16px;
-  }
-
-  .card-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: var(--surface2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-
-  .status-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-  }
-
-  .status-badge.green { background: var(--green-dim); color: var(--green); }
-  .status-badge.amber { background: var(--amber-dim); color: var(--amber); }
-  .status-badge.red { background: var(--red-dim2); color: var(--red-status); }
-  .status-badge.unknown { background: rgba(255,255,255,0.05); color: var(--text-dim); }
-
-  .badge-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-  }
-
-  .card-name {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 3px;
-  }
-
-  .card-desc {
-    font-size: 12px;
-    color: var(--text-dim);
-    line-height: 1.5;
-    margin-bottom: 16px;
-  }
-
-  .checks {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .check {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 10px;
-    background: var(--surface2);
-    border-radius: 7px;
-  }
-
-  .check-icon {
-    font-size: 13px;
-    width: 18px;
-    text-align: center;
-    flex-shrink: 0;
-  }
-
-  .check-label {
-    font-size: 12px;
-    color: var(--text-dim);
-    flex: 1;
-  }
-
-  .check-value {
-    font-size: 12px;
-    font-family: var(--mono);
-    font-weight: 500;
-  }
-
-  .check-value.green { color: var(--green); }
-  .check-value.amber { color: var(--amber); }
-  .check-value.red { color: var(--red-status); }
-  .check-value.dim { color: var(--text-dim); }
-
-  .card-note {
-    margin-top: 12px;
-    padding: 8px 10px;
-    background: rgba(245,158,11,0.07);
-    border-left: 2px solid var(--amber);
-    border-radius: 0 6px 6px 0;
-    font-size: 11px;
-    color: var(--amber);
-    line-height: 1.5;
-  }
-
-  .card-note.red {
-    background: rgba(239,68,68,0.07);
-    border-left-color: var(--red-status);
-    color: var(--red-status);
-  }
-
-  .card-links {
-    display: flex;
-    gap: 8px;
-    margin-top: 14px;
-    flex-wrap: wrap;
-  }
-
-  .card-link {
-    font-size: 11px;
-    color: var(--text-dim);
-    text-decoration: none;
-    padding: 4px 8px;
-    background: var(--surface2);
-    border-radius: 4px;
-    border: 1px solid var(--border);
-    transition: all 0.15s;
-  }
-
-  .card-link:hover { color: var(--text); border-color: #3a3a3f; }
-
-  .spinning { animation: spin 1s linear infinite; }
-  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-  .footer {
-    text-align: center;
-    font-size: 11px;
-    color: var(--text-dim);
-    padding: 0 32px;
-    margin-top: 8px;
-  }
-
-  @media (max-width: 600px) {
-    .grid { padding: 16px; gap: 12px; }
-    .header { padding: 14px 16px; }
-    .status-bar { padding: 12px 16px; flex-wrap: wrap; gap: 12px; }
-  }
+:root {
+  --red: #CC2020;
+  --red-dim: #8a1515;
+  --bg: #0b0b0d;
+  --surface: #141416;
+  --surface2: #1c1c1f;
+  --border: #2a2a2d;
+  --text: #f0f0f0;
+  --text-dim: #888;
+  --green: #22c55e;
+  --amber: #f59e0b;
+  --red-status: #ef4444;
+  --green-dim: rgba(34,197,94,0.12);
+  --amber-dim: rgba(245,158,11,0.12);
+  --red-dim2: rgba(239,68,68,0.12);
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  min-height: 100vh;
+  padding: 0 0 48px;
+}
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.logo-mark {
+  width: 36px;
+  height: 36px;
+  background: var(--red);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: -0.5px;
+  color: #fff;
+  flex-shrink: 0;
+}
+.header-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+.header-sub {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 1px;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.last-checked {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-family: var(--mono);
+}
+.refresh-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+.refresh-btn:hover { border-color: var(--red); color: var(--red); }
+.status-bar {
+  padding: 16px 32px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.overall-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.overall-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.overall-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green);
+}
+.status-counts {
+  display: flex;
+  gap: 20px;
+}
+.status-count {
+  font-size: 12px;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.status-count .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.dot-green { background: var(--green); }
+.dot-amber { background: var(--amber); }
+.dot-red { background: var(--red-status); }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+  padding: 28px 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: #3a3a3f; }
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: 12px 12px 0 0;
+}
+.card.green::before { background: var(--green); }
+.card.amber::before { background: var(--amber); }
+.card.red::before { background: var(--red-status); }
+.card.unknown::before { background: var(--border); }
+.card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.status-badge.green { background: var(--green-dim); color: var(--green); }
+.status-badge.amber { background: var(--amber-dim); color: var(--amber); }
+.status-badge.red { background: var(--red-dim2); color: var(--red-status); }
+.status-badge.unknown { background: rgba(255,255,255,0.05); color: var(--text-dim); }
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.card-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+.card-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.checks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: var(--surface2);
+  border-radius: 7px;
+}
+.check-icon {
+  font-size: 13px;
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.check-label {
+  font-size: 12px;
+  color: var(--text-dim);
+  flex: 1;
+}
+.check-value {
+  font-size: 12px;
+  font-family: var(--mono);
+  font-weight: 500;
+}
+.check-value.green { color: var(--green); }
+.check-value.amber { color: var(--amber); }
+.check-value.red { color: var(--red-status); }
+.check-value.dim { color: var(--text-dim); }
+.card-note {
+  margin-top: 12px;
+  padding: 8px 10px;
+  background: rgba(245,158,11,0.07);
+  border-left: 2px solid var(--amber);
+  border-radius: 0 6px 6px 0;
+  font-size: 11px;
+  color: var(--amber);
+  line-height: 1.5;
+}
+.card-note.red {
+  background: rgba(239,68,68,0.07);
+  border-left-color: var(--red-status);
+  color: var(--red-status);
+}
+.card-links {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.card-link {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 4px 8px;
+  background: var(--surface2);
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  transition: all 0.15s;
+}
+.card-link:hover { color: var(--text); border-color: #3a3a3f; }
+.spinning { animation: spin 1s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.footer {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-dim);
+  padding: 0 32px;
+  margin-top: 8px;
+}
+@media (max-width: 600px) {
+  .grid { padding: 16px; gap: 12px; }
+  .header { padding: 14px 16px; }
+  .status-bar { padding: 12px 16px; flex-wrap: wrap; gap: 12px; }
+}
 </style>
 </head>
 <body>
-
 <header class="header">
   <div class="header-left">
     <div class="logo-mark">BMC</div>
@@ -381,7 +334,6 @@
 </div>
 
 <div class="grid" id="grid"></div>
-
 <div class="footer" id="footer"></div>
 
 <script>
@@ -428,6 +380,16 @@ const SERVICES = [
       { label: 'Sanity Vision', url: 'https://bmc-vehicles.sanity.studio/vision' },
     ]
   },
+  {
+    id: 'location',
+    name: 'Sales by Location',
+    icon: '📍',
+    desc: 'Sold vehicles grouped by branch, ranked highest-selling to lowest. Data covers vehicles sold on or after 29/07/2026, when sale tracking began. Builds up over time as real sales accumulate — this is informational, not a fault indicator.',
+    checks: [], // populated dynamically by checkByLocation(), not the generic HTTP checker
+    links: [
+      { label: 'Sanity Vision', url: 'https://bmc-vehicles.sanity.studio/vision' },
+    ]
+  },
 ];
 
 let results = {};
@@ -457,20 +419,16 @@ async function checkReconcile(svc) {
     const res = await fetch('https://raw.githubusercontent.com/Ant72-BMC/bmc-dashboards/main/reconcile-status.json?t=' + Date.now(), { signal: AbortSignal.timeout(8000) });
     if (!res.ok) throw new Error('status file unreachable');
     const data = await res.json();
-
     if (!data.ok) {
       results['reconcile'] = [{ label: 'Last check', ok: false, value: 'Failed' }];
       svc.note = { type: 'red', text: `Reconciliation check failed: ${data.error || 'unknown error'}` };
       return;
     }
-
     const checks = [
       { label: 'Total (Autotrader / Sanity)', ok: data.match, value: `${data.autotraderTotal} / ${data.sanityTotal}` }
     ];
-
     for (const a of Object.values(data.byAdvertiser)) {
       checks.push({ label: `${a.location} (AT / Sanity)`, ok: a.match, value: `${a.autotrader} / ${a.sanity}` });
-
       // List the SPECIFIC registrations causing a mismatch, if any, rather
       // than just showing the count difference. Comes straight from
       // reconcile-check.js's registration-level diff.
@@ -490,14 +448,11 @@ async function checkReconcile(svc) {
       }
     }
     results['reconcile'] = checks;
-
     const mismatches = Object.values(data.byAdvertiser).filter(a => !a.match);
     const hasFailedSync = data.failedSyncCount && data.failedSyncCount > 0;
-
     if (hasFailedSync) {
       checks.push({ label: 'Failed Sanity writes (failedSync)', ok: false, value: `${data.failedSyncCount}` });
     }
-
     const noteParts = [];
     if (mismatches.length) {
       noteParts.push(`Location split mismatch — ${mismatches.map(a => `${a.location} diff ${a.diff > 0 ? '+' : ''}${a.diff}`).join(' · ')}. Specific registration(s) listed above.`);
@@ -560,6 +515,7 @@ async function checkReservationAlerts(svc) {
       todayEnd: todayEnd.toISOString(),
       tomorrowEnd: tomorrowEnd.toISOString(),
     };
+
     const qs = new URLSearchParams({ query: groq });
     for (const [k, v] of Object.entries(params)) qs.set('$' + k, JSON.stringify(v));
 
@@ -595,6 +551,7 @@ async function checkReservationAlerts(svc) {
         value: `ends tomorrow ${fmtTime(g.reservedUntil)}`
       })),
     ];
+
     results['reservations'] = rows;
 
     if (redList.length > 0) {
@@ -634,7 +591,6 @@ async function checkPriceBands(svc) {
     if (!res.ok) throw new Error('query failed');
     const data = await res.json();
     const sales = data.result || [];
-
     if (sales.length === 0) {
       results['priceband'] = [{ label: 'Sales recorded', ok: true, value: '0 so far' }];
       statusOverrides['priceband'] = 'green';
@@ -662,6 +618,7 @@ async function checkPriceBands(svc) {
       if (countDiff !== 0) return countDiff;
       return b - a;
     });
+
     results['priceband'] = sortedBands.map(bandStart => {
       const b = bands.get(bandStart);
       const avgDays = b.daysCount > 0 ? Math.round(b.daysSum / b.daysCount) : null;
@@ -690,7 +647,6 @@ async function checkMakeModel(svc) {
     if (!res.ok) throw new Error('query failed');
     const data = await res.json();
     const sales = data.result || [];
-
     if (sales.length === 0) {
       results['makemodel'] = [{ label: 'Sales recorded', ok: true, value: '0 so far' }];
       statusOverrides['makemodel'] = 'green';
@@ -736,6 +692,50 @@ async function checkMakeModel(svc) {
   }
 }
 
+async function checkByLocation(svc) {
+  try {
+    const groq = `*[_type == "vehicleSold"]{ location }`;
+    const res = await fetch(
+      `https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=${encodeURIComponent(groq)}`,
+      { signal: AbortSignal.timeout(8000) }
+    );
+    if (!res.ok) throw new Error('query failed');
+    const data = await res.json();
+    const sales = data.result || [];
+    if (sales.length === 0) {
+      results['location'] = [{ label: 'Sales recorded', ok: true, value: '0 so far' }];
+      statusOverrides['location'] = 'green';
+      svc.note = { type: 'amber', text: 'No sales recorded yet — this card fills in automatically as vehicles sell from today onward. Nothing to worry about, there is simply no history to show yet.' };
+      return;
+    }
+
+    // Group by location (falling back to "Unknown" for missing/null values).
+    const groups = new Map(); // location -> count
+    for (const s of sales) {
+      const loc = s.location || 'Unknown';
+      groups.set(loc, (groups.get(loc) || 0) + 1);
+    }
+
+    // Ranked highest-selling to lowest; ties broken alphabetically for stability.
+    const ranked = [...groups.entries()].sort((a, b) => {
+      if (b[1] !== a[1]) return b[1] - a[1];
+      return a[0].localeCompare(b[0]);
+    });
+
+    results['location'] = ranked.map(([loc, count]) => ({
+      label: loc,
+      ok: true,
+      value: `${count} sold`
+    }));
+    statusOverrides['location'] = 'green';
+    svc.note = { type: 'amber', text: `${sales.length} sale(s) recorded across ${ranked.length} location(s). This is informational — nothing here indicates a problem.` };
+  } catch (e) {
+    results['location'] = [{ label: 'Query', ok: false, value: 'Unreachable' }];
+    statusOverrides['location'] = 'red';
+    svc.note = { type: 'red', text: 'Could not query Sanity for sold-vehicle location breakdown' };
+  }
+}
+
 async function runChecks() {
   const icon = document.getElementById('refreshIcon');
   icon.classList.add('spinning');
@@ -743,7 +743,7 @@ async function runChecks() {
 
   const checks = [];
   for (const svc of SERVICES) {
-    if (svc.id === 'reconcile' || svc.id === 'reservations' || svc.id === 'priceband' || svc.id === 'makemodel') continue;
+    if (svc.id === 'reconcile' || svc.id === 'reservations' || svc.id === 'priceband' || svc.id === 'makemodel' || svc.id === 'location') continue;
     for (const chk of svc.checks) {
       checks.push({ svcId: svc.id, chk });
     }
@@ -758,7 +758,8 @@ async function runChecks() {
     ...SERVICES.filter(s => s.id === 'reconcile').map(svc => checkReconcile(svc)),
     ...SERVICES.filter(s => s.id === 'reservations').map(svc => checkReservationAlerts(svc)),
     ...SERVICES.filter(s => s.id === 'priceband').map(svc => checkPriceBands(svc)),
-    ...SERVICES.filter(s => s.id === 'makemodel').map(svc => checkMakeModel(svc))
+    ...SERVICES.filter(s => s.id === 'makemodel').map(svc => checkMakeModel(svc)),
+    ...SERVICES.filter(s => s.id === 'location').map(svc => checkByLocation(svc))
   ]);
 
   renderCards();
@@ -798,7 +799,7 @@ function renderCards() {
     const card = document.createElement('div');
     card.className = `card ${status}`;
 
-    const isDynamic = svc.id === 'reconcile' || svc.id === 'reservations' || svc.id === 'priceband' || svc.id === 'makemodel';
+    const isDynamic = svc.id === 'reconcile' || svc.id === 'reservations' || svc.id === 'priceband' || svc.id === 'makemodel' || svc.id === 'location';
     const checkList = (isDynamic ? (results[svc.id] || []) : svc.checks);
     const checks = checkList.map((chk, i) => {
       const r = isDynamic ? chk : (results[svc.id] ? results[svc.id][i] : null);
@@ -880,4 +881,3 @@ setInterval(runChecks, 5 * 60 * 1000);
 </script>
 </body>
 </html>
-
