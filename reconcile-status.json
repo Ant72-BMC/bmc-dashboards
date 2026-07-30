@@ -1,17 +1,20 @@
 {
-  "timestamp": "2026-07-30T22:00:18.259Z",
+  "timestamp": "2026-07-30T22:15:13.284Z",
   "ok": true,
-  "match": true,
+  "match": false,
   "autotraderTotal": 366,
-  "sanityTotal": 366,
+  "sanityTotal": 368,
   "byAdvertiser": {
     "833349": {
       "location": "Brooke",
       "autotrader": 266,
-      "sanity": 266,
-      "match": true,
-      "diff": 0,
-      "onlyInSanity": [],
+      "sanity": 268,
+      "match": false,
+      "diff": 2,
+      "onlyInSanity": [
+        "DX15XVS",
+        "MX20OPL"
+      ],
       "onlyInSanityTruncated": false,
       "onlyInAutotrader": [],
       "onlyInAutotraderTruncated": false
