@@ -406,6 +406,7 @@ const SERVICES = [
 
 let results = {};
 let makeModelBreakdown = {}; // make -> [{ model, count, avgDays }], populated by checkMakeModel()
+let othersBreakdown = []; // [{ make, count, avgDays }] for makes outside the top 5, populated by checkMakeModel()
 
 async function checkUrl(url, expect) {
   try {
@@ -731,10 +732,17 @@ async function checkMakeModel(svc) {
       };
     });
 
+    othersBreakdown = otherMakes.map(([make, g]) => ({
+      make,
+      count: g.count,
+      avgDays: g.daysCount > 0 ? Math.round(g.daysSum / g.daysCount) : null
+    }));
+
     if (otherMakes.length > 0) {
       const othersCount = otherMakes.reduce((sum, [, g]) => sum + g.count, 0);
       rows.push({
         label: `Others (${otherMakes.length} make${otherMakes.length > 1 ? 's' : ''})`,
+        make: '__OTHERS__',
         isOthers: true,
         ok: true,
         value: `${othersCount} sold`
@@ -861,12 +869,15 @@ function toggleMakeBreakdown(make) {
   if (row) row.textContent = isOpen ? '▸' : '▾';
 
   if (!isOpen && el.dataset.filled !== 'true') {
-    const models = makeModelBreakdown[make] || [];
-    el.innerHTML = models.map(m => `
+    const items = make === '__OTHERS__'
+      ? othersBreakdown.map(o => ({ label: o.make, count: o.count, avgDays: o.avgDays }))
+      : (makeModelBreakdown[make] || []).map(m => ({ label: m.model, count: m.count, avgDays: m.avgDays }));
+
+    el.innerHTML = items.map(item => `
       <div class="check sub-check">
         <span class="check-icon"></span>
-        <span class="check-label">${m.model}</span>
-        <span class="check-value green">${m.count} sold${m.avgDays != null ? ` · avg ${m.avgDays}d to sell` : ''}</span>
+        <span class="check-label">${item.label}</span>
+        <span class="check-value green">${item.count} sold${item.avgDays != null ? ` · avg ${item.avgDays}d to sell` : ''}</span>
       </div>
     `).join('');
     el.dataset.filled = 'true';
@@ -886,13 +897,6 @@ function renderCards() {
     const checkList = (isDynamic ? (results[svc.id] || []) : svc.checks);
     const checks = svc.id === 'makemodel'
       ? checkList.map(r => {
-          if (r.isOthers) {
-            return `<div class="check">
-              <span class="check-icon">•</span>
-              <span class="check-label">${r.label}</span>
-              <span class="check-value green">${r.value}</span>
-            </div>`;
-          }
           const breakdownId = 'breakdown-' + r.make.replace(/[^a-zA-Z0-9]/g, '_');
           return `<div class="check make-row" onclick="toggleMakeBreakdown('${r.make.replace(/'/g, "\\'")}')" data-make="${r.make}">
             <span class="check-icon">▸</span>
