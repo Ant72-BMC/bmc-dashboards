@@ -256,6 +256,18 @@ body {
 .check-value.amber { color: var(--amber); }
 .check-value.red { color: var(--red-status); }
 .check-value.dim { color: var(--text-dim); }
+.make-row { cursor: pointer; }
+.make-row:hover { background: #232326; }
+.make-breakdown {
+  flex-direction: column;
+  gap: 8px;
+  margin: -2px 0 0 18px;
+  padding-left: 10px;
+  border-left: 2px solid var(--border);
+}
+.check.sub-check {
+  background: rgba(255,255,255,0.03);
+}
 .card-note {
   margin-top: 12px;
   padding: 8px 10px;
@@ -374,7 +386,7 @@ const SERVICES = [
     id: 'makemodel',
     name: 'Sales by Make & Model',
     icon: '🚗',
-    desc: 'Sold vehicles grouped by make and model, ranked highest-selling to lowest. Data covers vehicles sold on or after 29/07/2026, when sale tracking began. Builds up over time as real sales accumulate — this is informational, not a fault indicator.',
+    desc: 'Top 5 selling makes ranked by volume, with the rest grouped under Others. Click a make to drill down into its individual models and counts. Data covers vehicles sold on or after 29/07/2026, when sale tracking began. Builds up over time as real sales accumulate — this is informational, not a fault indicator.',
     checks: [], // populated dynamically by checkMakeModel(), not the generic HTTP checker
     links: [
       { label: 'Sanity Vision', url: 'https://bmc-vehicles.sanity.studio/vision' },
@@ -393,6 +405,7 @@ const SERVICES = [
 ];
 
 let results = {};
+let makeModelBreakdown = {}; // make -> [{ model, count, avgDays }], populated by checkMakeModel()
 
 async function checkUrl(url, expect) {
   try {
@@ -654,37 +667,83 @@ async function checkMakeModel(svc) {
       return;
     }
 
-    // Group by make + model (falling back to "Unknown" for either missing field).
-    const groups = new Map(); // key -> { make, model, count, daysSum, daysCount }
+    // Top-level grouping is by MAKE ONLY (falling back to "Unknown").
+    const makeGroups = new Map(); // make -> { count, daysSum, daysCount }
+    // Separate grouping by make -> model, kept for the drilldown only.
+    const modelGroups = new Map(); // make -> Map(model -> { count, daysSum, daysCount })
+
     for (const s of sales) {
       const make = s.make || 'Unknown';
       const model = s.model || 'Unknown';
-      const key = `${make}|||${model}`;
-      if (!groups.has(key)) groups.set(key, { make, model, count: 0, daysSum: 0, daysCount: 0 });
-      const g = groups.get(key);
-      g.count++;
+
+      if (!makeGroups.has(make)) makeGroups.set(make, { count: 0, daysSum: 0, daysCount: 0 });
+      const mg = makeGroups.get(make);
+      mg.count++;
       if (typeof s.daysToSell === 'number') {
-        g.daysSum += s.daysToSell;
-        g.daysCount++;
+        mg.daysSum += s.daysToSell;
+        mg.daysCount++;
+      }
+
+      if (!modelGroups.has(make)) modelGroups.set(make, new Map());
+      const modelMap = modelGroups.get(make);
+      if (!modelMap.has(model)) modelMap.set(model, { count: 0, daysSum: 0, daysCount: 0 });
+      const md = modelMap.get(model);
+      md.count++;
+      if (typeof s.daysToSell === 'number') {
+        md.daysSum += s.daysToSell;
+        md.daysCount++;
       }
     }
 
     // Ranked highest-selling to lowest; ties broken alphabetically for stability.
-    const ranked = [...groups.values()].sort((a, b) => {
-      if (b.count !== a.count) return b.count - a.count;
-      return `${a.make} ${a.model}`.localeCompare(`${b.make} ${b.model}`);
+    const rankedMakes = [...makeGroups.entries()].sort((a, b) => {
+      if (b[1].count !== a[1].count) return b[1].count - a[1].count;
+      return a[0].localeCompare(b[0]);
     });
 
-    results['makemodel'] = ranked.map(g => {
+    const TOP_N = 5;
+    const topMakes = rankedMakes.slice(0, TOP_N);
+    const otherMakes = rankedMakes.slice(TOP_N);
+
+    // Build the drilldown data once — model breakdown per make, ranked
+    // highest-selling first. Read by toggleMakeBreakdown() on click.
+    makeModelBreakdown = {};
+    for (const [make, modelMap] of modelGroups.entries()) {
+      makeModelBreakdown[make] = [...modelMap.entries()]
+        .sort((a, b) => {
+          if (b[1].count !== a[1].count) return b[1].count - a[1].count;
+          return a[0].localeCompare(b[0]);
+        })
+        .map(([model, m]) => ({
+          model,
+          count: m.count,
+          avgDays: m.daysCount > 0 ? Math.round(m.daysSum / m.daysCount) : null
+        }));
+    }
+
+    const rows = topMakes.map(([make, g]) => {
       const avgDays = g.daysCount > 0 ? Math.round(g.daysSum / g.daysCount) : null;
       return {
-        label: `${g.make} ${g.model}`,
+        label: make,
+        make,
         ok: true,
         value: `${g.count} sold${avgDays != null ? ` · avg ${avgDays}d to sell` : ''}`
       };
     });
+
+    if (otherMakes.length > 0) {
+      const othersCount = otherMakes.reduce((sum, [, g]) => sum + g.count, 0);
+      rows.push({
+        label: `Others (${otherMakes.length} make${otherMakes.length > 1 ? 's' : ''})`,
+        isOthers: true,
+        ok: true,
+        value: `${othersCount} sold`
+      });
+    }
+
+    results['makemodel'] = rows;
     statusOverrides['makemodel'] = 'green';
-    svc.note = { type: 'amber', text: `${sales.length} sale(s) recorded across ${ranked.length} make/model combination(s). This is informational — nothing here indicates a problem.` };
+    svc.note = { type: 'amber', text: `${sales.length} sale(s) recorded across ${rankedMakes.length} make(s). Showing top ${topMakes.length} by volume${otherMakes.length ? `, remaining ${otherMakes.length} grouped under Others` : ''} — click a make to see its model breakdown. This is informational — nothing here indicates a problem.` };
   } catch (e) {
     results['makemodel'] = [{ label: 'Query', ok: false, value: 'Unreachable' }];
     statusOverrides['makemodel'] = 'red';
@@ -791,6 +850,29 @@ function statusLabel(status, svcId) {
   return 'Checking…';
 }
 
+function toggleMakeBreakdown(make) {
+  const id = 'breakdown-' + make.replace(/[^a-zA-Z0-9]/g, '_');
+  const el = document.getElementById(id);
+  if (!el) return;
+  const isOpen = el.style.display !== 'none';
+  el.style.display = isOpen ? 'none' : 'flex';
+
+  const row = document.querySelector(`.make-row[data-make="${CSS.escape(make)}"] .check-icon`);
+  if (row) row.textContent = isOpen ? '▸' : '▾';
+
+  if (!isOpen && el.dataset.filled !== 'true') {
+    const models = makeModelBreakdown[make] || [];
+    el.innerHTML = models.map(m => `
+      <div class="check sub-check">
+        <span class="check-icon"></span>
+        <span class="check-label">${m.model}</span>
+        <span class="check-value green">${m.count} sold${m.avgDays != null ? ` · avg ${m.avgDays}d to sell` : ''}</span>
+      </div>
+    `).join('');
+    el.dataset.filled = 'true';
+  }
+}
+
 function renderCards() {
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
@@ -802,17 +884,34 @@ function renderCards() {
 
     const isDynamic = svc.id === 'reconcile' || svc.id === 'reservations' || svc.id === 'priceband' || svc.id === 'makemodel' || svc.id === 'location';
     const checkList = (isDynamic ? (results[svc.id] || []) : svc.checks);
-    const checks = checkList.map((chk, i) => {
-      const r = isDynamic ? chk : (results[svc.id] ? results[svc.id][i] : null);
-      const label = isDynamic ? r.label : chk.label;
-      const val = r === null ? '…' : (r.value !== undefined ? r.value : (r.ok ? 'Reachable' : 'Unreachable'));
-      const cls = r === null ? 'dim' : r.ok ? 'green' : 'red';
-      return `<div class="check">
-        <span class="check-icon">${r === null ? '○' : r.ok ? '✓' : '✗'}</span>
-        <span class="check-label">${label}</span>
-        <span class="check-value ${cls}">${val}</span>
-      </div>`;
-    }).join('');
+    const checks = svc.id === 'makemodel'
+      ? checkList.map(r => {
+          if (r.isOthers) {
+            return `<div class="check">
+              <span class="check-icon">•</span>
+              <span class="check-label">${r.label}</span>
+              <span class="check-value green">${r.value}</span>
+            </div>`;
+          }
+          const breakdownId = 'breakdown-' + r.make.replace(/[^a-zA-Z0-9]/g, '_');
+          return `<div class="check make-row" onclick="toggleMakeBreakdown('${r.make.replace(/'/g, "\\'")}')" data-make="${r.make}">
+            <span class="check-icon">▸</span>
+            <span class="check-label">${r.label}</span>
+            <span class="check-value green">${r.value}</span>
+          </div>
+          <div class="make-breakdown" id="${breakdownId}" style="display:none;"></div>`;
+        }).join('')
+      : checkList.map((chk, i) => {
+          const r = isDynamic ? chk : (results[svc.id] ? results[svc.id][i] : null);
+          const label = isDynamic ? r.label : chk.label;
+          const val = r === null ? '…' : (r.value !== undefined ? r.value : (r.ok ? 'Reachable' : 'Unreachable'));
+          const cls = r === null ? 'dim' : r.ok ? 'green' : 'red';
+          return `<div class="check">
+            <span class="check-icon">${r === null ? '○' : r.ok ? '✓' : '✗'}</span>
+            <span class="check-label">${label}</span>
+            <span class="check-value ${cls}">${val}</span>
+          </div>`;
+        }).join('');
 
     const links = svc.links.map(l =>
       `<a class="card-link" href="${l.url}" target="_blank" rel="noopener">${l.label} ↗</a>`
