@@ -556,7 +556,7 @@ async function checkReservationAlerts(svc) {
 
     if (redList.length > 0) {
       statusOverrides['reservations'] = 'red';
-      svc.note = { type: 'red', text: `${redList.length} reservation(s) ended and were cleared in the last 24h — worth a follow-up call.` };
+      svc.note = { type: 'red', text: `${redList.length} reservation(s) ended in the last 24hrs and sale was not completed — worth a follow-up call?` };
     } else if (amberList.length > 0) {
       statusOverrides['reservations'] = 'amber';
       svc.note = { type: 'amber', text: `${amberList.length} reservation(s) end today.` };
