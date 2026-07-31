@@ -329,7 +329,7 @@ body {
   <div class="status-counts">
     <div class="status-count"><div class="dot dot-green"></div><span id="countGreen">0</span> Operational</div>
     <div class="status-count"><div class="dot dot-amber"></div><span id="countAmber">0</span> Degraded</div>
-    <div class="status-count"><div class="dot dot-red"></div><span id="countRed">0</span> Down</div>
+    <div class="status-count"><div class="dot dot-red"></div><span id="countRed">0</span> Down/Expired</div>
   </div>
 </div>
 
@@ -783,7 +783,8 @@ function getCardStatus(svcId, svc) {
   return 'red';
 }
 
-function statusLabel(status) {
+function statusLabel(status, svcId) {
+  if (svcId === 'reservations' && status === 'red') return 'Expired';
   if (status === 'green') return 'Operational';
   if (status === 'amber') return 'Degraded';
   if (status === 'red') return 'Down';
@@ -826,7 +827,7 @@ function renderCards() {
         <div class="card-icon">${svc.icon}</div>
         <div class="status-badge ${status}">
           <div class="badge-dot"></div>
-          ${statusLabel(status)}
+          ${statusLabel(status, svc.id)}
         </div>
       </div>
       <div class="card-name">${svc.name}</div>
@@ -856,7 +857,7 @@ function updateOverall() {
     dot.style.background = 'var(--red-status)';
     dot.style.boxShadow = '0 0 8px var(--red-status)';
     label.style.color = 'var(--red-status)';
-    label.textContent = `${red} system${red > 1 ? 's' : ''} down`;
+    label.textContent = `${red} system${red > 1 ? 's' : ''} down/expired`;
   } else if (amber > 0) {
     dot.style.background = 'var(--amber)';
     dot.style.boxShadow = '0 0 8px var(--amber)';
