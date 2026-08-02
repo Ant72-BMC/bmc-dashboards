@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-08-02T14:45:22.709Z",
+  "timestamp": "2026-08-02T15:00:13.331Z",
   "ok": true,
-  "match": false,
-  "autotraderTotal": 396,
+  "match": true,
+  "autotraderTotal": 395,
   "sanityTotal": 395,
   "byAdvertiser": {
     "833349": {
@@ -18,15 +18,13 @@
     },
     "10043362": {
       "location": "Norwich",
-      "autotrader": 90,
+      "autotrader": 89,
       "sanity": 89,
-      "match": false,
-      "diff": -1,
+      "match": true,
+      "diff": 0,
       "onlyInSanity": [],
       "onlyInSanityTruncated": false,
-      "onlyInAutotrader": [
-        "L800BJC"
-      ],
+      "onlyInAutotrader": [],
       "onlyInAutotraderTruncated": false
     }
   },
