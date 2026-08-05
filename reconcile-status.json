@@ -1,25 +1,27 @@
 {
-  "timestamp": "2026-08-05T08:15:21.354Z",
+  "timestamp": "2026-08-05T08:30:14.568Z",
   "ok": true,
-  "match": true,
+  "match": false,
   "autotraderTotal": 394,
-  "sanityTotal": 394,
+  "sanityTotal": 395,
   "byAdvertiser": {
     "833349": {
       "location": "Brooke",
-      "autotrader": 302,
+      "autotrader": 301,
       "sanity": 302,
-      "match": true,
-      "diff": 0,
-      "onlyInSanity": [],
+      "match": false,
+      "diff": 1,
+      "onlyInSanity": [
+        "MH16ABK"
+      ],
       "onlyInSanityTruncated": false,
       "onlyInAutotrader": [],
       "onlyInAutotraderTruncated": false
     },
     "10043362": {
       "location": "Norwich",
-      "autotrader": 92,
-      "sanity": 92,
+      "autotrader": 93,
+      "sanity": 93,
       "match": true,
       "diff": 0,
       "onlyInSanity": [],
