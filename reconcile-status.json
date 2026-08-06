@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-08-06T11:45:14.441Z",
+  "timestamp": "2026-08-06T12:00:20.963Z",
   "ok": true,
   "match": true,
-  "autotraderTotal": 396,
-  "sanityTotal": 396,
+  "autotraderTotal": 397,
+  "sanityTotal": 397,
   "byAdvertiser": {
     "833349": {
       "location": "Brooke",
-      "autotrader": 300,
-      "sanity": 300,
+      "autotrader": 301,
+      "sanity": 301,
       "match": true,
       "diff": 0,
       "onlyInSanity": [],
