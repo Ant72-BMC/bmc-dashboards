@@ -13,4 +13,3 @@
   # in that case this whole command is true, telling Netlify to SKIP the
   # build. If any other file changed, it exits 1, and Netlify builds as
   # normal.
-  ignore = "git diff --quiet HEAD^ HEAD -- . ':!reconcile-status.json'"
