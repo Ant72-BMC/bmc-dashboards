@@ -1,35 +1,30 @@
 {
-  "timestamp": "2026-08-20T13:00:02.919Z",
+  "timestamp": "2026-08-20T15:48:18.096Z",
   "ok": true,
-  "match": false,
-  "autotraderTotal": 407,
-  "sanityTotal": 406,
+  "match": true,
+  "autotraderTotal": 408,
+  "sanityTotal": 408,
   "byAdvertiser": {
     "833349": {
       "location": "Brooke",
-      "autotrader": 304,
-      "sanity": 305,
-      "match": false,
-      "diff": 1,
-      "onlyInSanity": [
-        "V700MED"
-      ],
+      "autotrader": 310,
+      "sanity": 310,
+      "match": true,
+      "diff": 0,
+      "onlyInSanity": [],
       "onlyInSanityTruncated": false,
       "onlyInAutotrader": [],
       "onlyInAutotraderTruncated": false
     },
     "10043362": {
       "location": "Norwich",
-      "autotrader": 103,
-      "sanity": 101,
-      "match": false,
-      "diff": -2,
+      "autotrader": 98,
+      "sanity": 98,
+      "match": true,
+      "diff": 0,
       "onlyInSanity": [],
       "onlyInSanityTruncated": false,
-      "onlyInAutotrader": [
-        "RX66YDA",
-        "V700MED"
-      ],
+      "onlyInAutotrader": [],
       "onlyInAutotraderTruncated": false
     }
   },
