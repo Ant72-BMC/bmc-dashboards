@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-20T17:00:01.838Z",
+  "timestamp": "2026-08-21T09:00:01.435Z",
   "ok": true,
   "match": true,
   "autotraderTotal": 408,
@@ -8,10 +8,12 @@
     "833349": {
       "location": "Brooke",
       "autotrader": 310,
-      "sanity": 310,
-      "match": true,
-      "diff": 0,
-      "onlyInSanity": [],
+      "sanity": 311,
+      "match": false,
+      "diff": 1,
+      "onlyInSanity": [
+        "AP16SBO"
+      ],
       "onlyInSanityTruncated": false,
       "onlyInAutotrader": [],
       "onlyInAutotraderTruncated": false
@@ -19,12 +21,14 @@
     "10043362": {
       "location": "Norwich",
       "autotrader": 98,
-      "sanity": 98,
-      "match": true,
-      "diff": 0,
+      "sanity": 97,
+      "match": false,
+      "diff": -1,
       "onlyInSanity": [],
       "onlyInSanityTruncated": false,
-      "onlyInAutotrader": [],
+      "onlyInAutotrader": [
+        "AP16SBO"
+      ],
       "onlyInAutotraderTruncated": false
     }
   },
