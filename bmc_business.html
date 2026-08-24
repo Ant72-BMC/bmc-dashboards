@@ -402,6 +402,16 @@ const SERVICES = [
       { label: 'Sanity Vision', url: 'https://bmc-vehicles.sanity.studio/vision' },
     ]
   },
+  {
+    id: 'stockvalue',
+    name: 'Total Stock Value',
+    icon: '💰',
+    desc: 'Total advertised value (£) of every currently active vehicle in Sanity, broken down by branch. Informational — not a fault indicator.',
+    checks: [], // populated dynamically by checkStockValue(), not the generic HTTP checker
+    links: [
+      { label: 'Sanity Vision', url: 'https://bmc-vehicles.sanity.studio/vision' },
+    ]
+  },
 ];
 
 let results = {};
@@ -593,6 +603,10 @@ function priceBandLabel(bandStart) {
   const lower = (bandStart / 1000).toFixed(1).replace(/\.0$/, '');
   const upper = ((bandStart + PRICE_BAND_WIDTH) / 1000).toFixed(1).replace(/\.0$/, '');
   return `£${lower}k–£${upper}k`;
+}
+
+function formatGBP(amount) {
+  return amount.toLocaleString('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
 }
 
 async function checkPriceBands(svc) {
@@ -803,6 +817,55 @@ async function checkByLocation(svc) {
   }
 }
 
+async function checkStockValue(svc) {
+  try {
+    const groq = `*[_type == "vehicle" && advert.isActive == true && defined(pricing.price)]{
+      "price": pricing.price,
+      "location": coalesce(advert.manualLocation, advert.location)
+    }`;
+    const res = await fetch(
+      `https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=${encodeURIComponent(groq)}`,
+      { signal: AbortSignal.timeout(8000) }
+    );
+    if (!res.ok) throw new Error('query failed');
+    const data = await res.json();
+    const vehicles = data.result || [];
+
+    if (vehicles.length === 0) {
+      results['stockvalue'] = [{ label: 'Active stock', ok: true, value: '£0' }];
+      statusOverrides['stockvalue'] = 'green';
+      svc.note = { type: 'amber', text: 'No active, priced stock found — check this is expected before assuming the query is working correctly.' };
+      return;
+    }
+
+    // Group by branch (falling back to "Unknown" for missing/null location).
+    const groups = new Map(); // location -> total
+    let grandTotal = 0;
+    for (const v of vehicles) {
+      const loc = v.location || 'Unknown';
+      groups.set(loc, (groups.get(loc) || 0) + v.price);
+      grandTotal += v.price;
+    }
+
+    // Ranked highest total value to lowest; ties broken alphabetically for stability.
+    const ranked = [...groups.entries()].sort((a, b) => {
+      if (b[1] !== a[1]) return b[1] - a[1];
+      return a[0].localeCompare(b[0]);
+    });
+
+    results['stockvalue'] = [
+      { label: 'Total (all branches)', ok: true, value: formatGBP(grandTotal) },
+      ...ranked.map(([loc, total]) => ({ label: loc, ok: true, value: formatGBP(total) }))
+    ];
+    statusOverrides['stockvalue'] = 'green';
+    svc.note = { type: 'amber', text: `Total active stock value across all branches: ${formatGBP(grandTotal)}. This is informational — nothing here indicates a problem.` };
+  } catch (e) {
+    results['stockvalue'] = [{ label: 'Query', ok: false, value: 'Unreachable' }];
+    statusOverrides['stockvalue'] = 'red';
+    svc.note = { type: 'red', text: 'Could not query Sanity for active stock value' };
+  }
+}
+
 async function runChecks() {
   const icon = document.getElementById('refreshIcon');
   icon.classList.add('spinning');
@@ -810,7 +873,7 @@ async function runChecks() {
 
   const checks = [];
   for (const svc of SERVICES) {
-    if (svc.id === 'reconcile' || svc.id === 'reservations' || svc.id === 'priceband' || svc.id === 'makemodel' || svc.id === 'location') continue;
+    if (svc.id === 'reconcile' || svc.id === 'reservations' || svc.id === 'priceband' || svc.id === 'makemodel' || svc.id === 'location' || svc.id === 'stockvalue') continue;
     for (const chk of svc.checks) {
       checks.push({ svcId: svc.id, chk });
     }
@@ -826,7 +889,8 @@ async function runChecks() {
     ...SERVICES.filter(s => s.id === 'reservations').map(svc => checkReservationAlerts(svc)),
     ...SERVICES.filter(s => s.id === 'priceband').map(svc => checkPriceBands(svc)),
     ...SERVICES.filter(s => s.id === 'makemodel').map(svc => checkMakeModel(svc)),
-    ...SERVICES.filter(s => s.id === 'location').map(svc => checkByLocation(svc))
+    ...SERVICES.filter(s => s.id === 'location').map(svc => checkByLocation(svc)),
+    ...SERVICES.filter(s => s.id === 'stockvalue').map(svc => checkStockValue(svc))
   ]);
 
   renderCards();
@@ -893,7 +957,7 @@ function renderCards() {
     const card = document.createElement('div');
     card.className = `card ${status}`;
 
-    const isDynamic = svc.id === 'reconcile' || svc.id === 'reservations' || svc.id === 'priceband' || svc.id === 'makemodel' || svc.id === 'location';
+    const isDynamic = svc.id === 'reconcile' || svc.id === 'reservations' || svc.id === 'priceband' || svc.id === 'makemodel' || svc.id === 'location' || svc.id === 'stockvalue';
     const checkList = (isDynamic ? (results[svc.id] || []) : svc.checks);
     const checks = svc.id === 'makemodel'
       ? checkList.map(r => {
