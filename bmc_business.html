@@ -354,11 +354,10 @@ const SERVICES = [
     id: 'reconcile',
     name: 'Stock Reconciliation',
     icon: '🔄',
-    desc: "Compares Autotrader stock counts against Sanity's active vehicle counts (Brooke & Norwich), and lists the specific registration(s) causing any mismatch. Refreshed 3 times a day (9am, 1pm, 5pm) by a check running directly on the VPS. Note: a registration transferring between branches can briefly appear here (typically under 1hr) while the old branch's record finalises — this clears automatically. Persisting longer may indicate a genuine issue.",
+    desc: "Checks that the number of cars we're advertising on AutoTrader matches what's in our own system, for both Brooke and Norwich, and shows exactly which car(s) are causing any mismatch. Also shows how many of those cars are actually visible on our website — some are deliberately kept off public listings. Updates automatically three times a day (9am, 1pm and 5pm). Note: if a car is being moved between branches, it can briefly show up as a mismatch here (usually for under an hour) while the move finishes — this sorts itself out. If it's still showing after an hour or so, it may be worth a look.",
     checks: [], // populated dynamically by checkReconcile(), not the generic HTTP checker
     links: [
-      { label: 'Reconciliation Workflow', url: 'https://github.com/Ant72-BMC/bmc-dashboards/actions/workflows/reconcile-check.yml' },
-      { label: 'Raw Status JSON', url: 'reconcile-status.json' },
+      { label: 'View full details', url: 'reconcile-status.json' },
     ]
   },
   {
@@ -406,7 +405,7 @@ const SERVICES = [
     id: 'stockvalue',
     name: 'Total Stock Value',
     icon: '💰',
-    desc: 'Total advertised value (£) of every vehicle in AutoTrader including those with My Website not ticked, broken down by branch. Informational — not a fault indicator.',
+    desc: 'Total advertised value (£) of every vehicle currently in stock (forecourt or due in), including those not shown on our website, broken down by branch. Informational — not a fault indicator.',
     checks: [], // populated dynamically by checkStockValue(), not the generic HTTP checker
     links: [
       { label: 'Sanity Vision', url: 'https://bmc-vehicles.sanity.studio/vision' },
@@ -445,31 +444,31 @@ async function checkReconcile(svc) {
     const data = await res.json();
     if (!data.ok) {
       results['reconcile'] = [{ label: 'Last check', ok: false, value: 'Failed' }];
-      svc.note = { type: 'red', text: `Reconciliation check failed: ${data.error || 'unknown error'}` };
+      svc.note = { type: 'red', text: `Something went wrong with today's stock check: ${data.error || 'unknown error'}` };
       return;
     }
     const checks = [
-      { label: 'Total (Autotrader / Sanity)', ok: data.match, value: `${data.autotraderTotal} / ${data.sanityTotal}` },
-      { label: 'On Website (of Sanity total)', ok: true, value: `${data.onWebsiteTotal ?? '…'} / ${data.sanityTotal}` }
+      { label: 'Total cars (AutoTrader / our system)', ok: data.match, value: `${data.autotraderTotal} / ${data.sanityTotal}` },
+      { label: 'Showing on website (out of that total)', ok: true, value: `${data.onWebsiteTotal ?? '…'} / ${data.sanityTotal}` }
     ];
     for (const a of Object.values(data.byAdvertiser)) {
-      checks.push({ label: `${a.location} (AT / Sanity)`, ok: a.match, value: `${a.autotrader} / ${a.sanity}` });
-      checks.push({ label: `${a.location} on website`, ok: true, value: `${a.onWebsite ?? '…'} / ${a.sanity}` });
+      checks.push({ label: `${a.location} (AutoTrader / our system)`, ok: a.match, value: `${a.autotrader} / ${a.sanity}` });
+      checks.push({ label: `${a.location} showing on website`, ok: true, value: `${a.onWebsite ?? '…'} / ${a.sanity}` });
       // List the SPECIFIC registrations causing a mismatch, if any, rather
       // than just showing the count difference. Comes straight from
-      // reconcile-check.js's registration-level diff.
+      // reconcile.mjs's registration-level diff.
       if (a.onlyInSanity && a.onlyInSanity.length) {
         checks.push({
-          label: `Not currently on Autotrader's ${a.location} forecourt (may be listed elsewhere)`,
+          label: `In our system, but not currently listed on AutoTrader for ${a.location} (may have moved elsewhere)`,
           ok: false,
-          value: a.onlyInSanity.join(', ') + (a.onlyInSanityTruncated ? ' (+more, see reconcile-status.json)' : '')
+          value: a.onlyInSanity.join(', ') + (a.onlyInSanityTruncated ? ' (+more, see full details)' : '')
         });
       }
       if (a.onlyInAutotrader && a.onlyInAutotrader.length) {
         checks.push({
-          label: `Live on Autotrader's ${a.location} forecourt, not yet in Sanity`,
+          label: `Listed on AutoTrader for ${a.location}, but not yet in our system`,
           ok: false,
-          value: a.onlyInAutotrader.join(', ') + (a.onlyInAutotraderTruncated ? ' (+more, see reconcile-status.json)' : '')
+          value: a.onlyInAutotrader.join(', ') + (a.onlyInAutotraderTruncated ? ' (+more, see full details)' : '')
         });
       }
     }
@@ -477,21 +476,21 @@ async function checkReconcile(svc) {
     const mismatches = Object.values(data.byAdvertiser).filter(a => !a.match);
     const hasFailedSync = data.failedSyncCount && data.failedSyncCount > 0;
     if (hasFailedSync) {
-      checks.push({ label: 'Failed Sanity writes (failedSync)', ok: false, value: `${data.failedSyncCount}` });
+      checks.push({ label: 'Cars that failed to save properly', ok: false, value: `${data.failedSyncCount}` });
     }
     const noteParts = [];
     if (mismatches.length) {
-      noteParts.push(`Location split mismatch — ${mismatches.map(a => `${a.location} diff ${a.diff > 0 ? '+' : ''}${a.diff}`).join(' · ')}. Specific registration(s) listed above.`);
+      noteParts.push(`Mismatch at ${mismatches.map(a => `${a.location} (off by ${Math.abs(a.diff)})`).join(' · ')}. See the car(s) listed above.`);
     }
     if (hasFailedSync) {
-      noteParts.push(`${data.failedSyncCount} vehicle(s) failed to sync to Sanity even after retries — check the failedSync records in Sanity Vision`);
+      noteParts.push(`${data.failedSyncCount} car(s) failed to save properly even after retrying — needs a manual check`);
     }
     svc.note = noteParts.length
       ? { type: hasFailedSync ? 'red' : 'amber', text: `${noteParts.join('. ')}. Checked ${new Date(data.timestamp).toLocaleString('en-GB')}.` }
       : null;
   } catch (e) {
-    results['reconcile'] = [{ label: 'Status file', ok: false, value: 'Unreachable' }];
-    svc.note = { type: 'red', text: 'Could not load reconcile-status.json' };
+    results['reconcile'] = [{ label: 'Stock check data', ok: false, value: 'Unavailable' }];
+    svc.note = { type: 'red', text: "Couldn't load today's stock check results" };
   }
 }
 
