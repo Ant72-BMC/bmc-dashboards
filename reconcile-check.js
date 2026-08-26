@@ -169,6 +169,8 @@ async function main() {
     match: null,
     autotraderTotal: null,
     sanityTotal: null,
+    onWebsiteTotal: null,
+    hiddenFromWebsiteTotal: null,
     byAdvertiser: {},
     failedSyncCount: null,
     failedSyncRecords: [],
@@ -203,6 +205,19 @@ async function main() {
       sanityTotal += regs.size;
     }
 
+    // 2b. Of those active vehicles, how many also have "My Website" ticked
+    // (advert.showOnWebsite) — i.e. how many are actually visible on
+    // bmc's own site, not just synced into Sanity.
+    const onWebsiteByAdvertiser = {}; // advertiserId -> count
+    let onWebsiteTotal = 0;
+    for (const advertiserId of ADVERTISER_IDS) {
+      const count = await sanityCount(
+        `count(*[_type == "vehicle" && advert.isActive == true && advert.showOnWebsite == true && dealerId == "${advertiserId}"])`
+      );
+      onWebsiteByAdvertiser[advertiserId] = count;
+      onWebsiteTotal += count;
+    }
+
     // 3. Assemble comparison, including the SPECIFIC registrations causing any
     // mismatch (not just the counts) so a discrepancy is actionable straight
     // from the dashboard rather than needing a manual export/diff each time.
@@ -221,6 +236,8 @@ async function main() {
         location,
         autotrader: autotraderRegs.size,
         sanity: sanityRegs.size,
+        onWebsite: onWebsiteByAdvertiser[advertiserId],
+        hiddenFromWebsite: sanityRegs.size - onWebsiteByAdvertiser[advertiserId],
         match: autotraderRegs.size === sanityRegs.size,
         diff: sanityRegs.size - autotraderRegs.size,
         // In Sanity as active, but not currently live on Autotrader's feed —
@@ -237,6 +254,8 @@ async function main() {
     result.autotraderTotal = autotraderTotal;
     result.sanityTotal = sanityTotal;
     result.match = autotraderTotal === sanityTotal;
+    result.onWebsiteTotal = onWebsiteTotal;
+    result.hiddenFromWebsiteTotal = sanityTotal - onWebsiteTotal;
 
     // 4. failedSync records - queried generically (no assumed field names beyond
     // _type == "failedSync", since the exact schema wasn't confirmed with Elias).
