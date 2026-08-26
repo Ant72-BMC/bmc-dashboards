@@ -449,10 +449,12 @@ async function checkReconcile(svc) {
       return;
     }
     const checks = [
-      { label: 'Total (Autotrader / Sanity)', ok: data.match, value: `${data.autotraderTotal} / ${data.sanityTotal}` }
+      { label: 'Total (Autotrader / Sanity)', ok: data.match, value: `${data.autotraderTotal} / ${data.sanityTotal}` },
+      { label: 'On Website (of Sanity total)', ok: true, value: `${data.onWebsiteTotal ?? '…'} / ${data.sanityTotal}` }
     ];
     for (const a of Object.values(data.byAdvertiser)) {
       checks.push({ label: `${a.location} (AT / Sanity)`, ok: a.match, value: `${a.autotrader} / ${a.sanity}` });
+      checks.push({ label: `${a.location} on website`, ok: true, value: `${a.onWebsite ?? '…'} / ${a.sanity}` });
       // List the SPECIFIC registrations causing a mismatch, if any, rather
       // than just showing the count difference. Comes straight from
       // reconcile-check.js's registration-level diff.
