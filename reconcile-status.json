@@ -1,38 +1,38 @@
 {
-  "timestamp": "2026-08-28T09:00:01.922Z",
+  "timestamp": "2026-08-28T13:00:03.220Z",
   "ok": true,
   "match": false,
-  "autotraderTotal": 400,
+  "autotraderTotal": 398,
   "sanityTotal": 399,
   "onWebsiteTotal": 364,
   "hiddenFromWebsiteTotal": 35,
   "byAdvertiser": {
     "833349": {
       "location": "Brooke",
-      "autotrader": 300,
+      "autotrader": 299,
       "sanity": 300,
       "onWebsite": 265,
       "hiddenFromWebsite": 35,
-      "match": true,
-      "diff": 0,
-      "onlyInSanity": [],
+      "match": false,
+      "diff": 1,
+      "onlyInSanity": [
+        "DAZ9077"
+      ],
       "onlyInSanityTruncated": false,
       "onlyInAutotrader": [],
       "onlyInAutotraderTruncated": false
     },
     "10043362": {
       "location": "Norwich",
-      "autotrader": 100,
+      "autotrader": 99,
       "sanity": 99,
       "onWebsite": 99,
       "hiddenFromWebsite": 0,
-      "match": false,
-      "diff": -1,
+      "match": true,
+      "diff": 0,
       "onlyInSanity": [],
       "onlyInSanityTruncated": false,
-      "onlyInAutotrader": [
-        "RF65MTU"
-      ],
+      "onlyInAutotrader": [],
       "onlyInAutotraderTruncated": false
     }
   },
