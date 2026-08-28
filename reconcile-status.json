@@ -1,25 +1,32 @@
 {
-  "timestamp": "2026-08-28T13:00:03.220Z",
+  "timestamp": "2026-08-28T17:00:01.562Z",
   "ok": true,
   "match": false,
-  "autotraderTotal": 398,
+  "autotraderTotal": 394,
   "sanityTotal": 399,
   "onWebsiteTotal": 364,
   "hiddenFromWebsiteTotal": 35,
   "byAdvertiser": {
     "833349": {
       "location": "Brooke",
-      "autotrader": 299,
+      "autotrader": 295,
       "sanity": 300,
       "onWebsite": 265,
       "hiddenFromWebsite": 35,
       "match": false,
-      "diff": 1,
+      "diff": 5,
       "onlyInSanity": [
-        "DAZ9077"
+        "DAZ9077",
+        "DL16EZU",
+        "HF68LLD",
+        "RX19HVO",
+        "SH69PKU",
+        "WR66PZU"
       ],
       "onlyInSanityTruncated": false,
-      "onlyInAutotrader": [],
+      "onlyInAutotrader": [
+        "CP18JZD"
+      ],
       "onlyInAutotraderTruncated": false
     },
     "10043362": {
@@ -30,9 +37,13 @@
       "hiddenFromWebsite": 0,
       "match": true,
       "diff": 0,
-      "onlyInSanity": [],
+      "onlyInSanity": [
+        "RA19DTV"
+      ],
       "onlyInSanityTruncated": false,
-      "onlyInAutotrader": [],
+      "onlyInAutotrader": [
+        "RX19HVO"
+      ],
       "onlyInAutotraderTruncated": false
     }
   },
