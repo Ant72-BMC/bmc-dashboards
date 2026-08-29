@@ -16,21 +16,21 @@ jobs:
       # VERCEL / WEBSITE — mirrors the "vercel" card on bmc_dashboard.html
       # green = all 3 pages OK · amber = 1-2 OK · red = 0 OK
       # ---------------------------------------------------------------
-      - name: Check Website — Homepage
+       - name: Check Website — Homepage
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L https://brookemotcentre.co.uk) || STATUS="000"
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L -H "X-BMC-Healthcheck: 7f3a9c2e" https://brookemotcentre.co.uk) || STATUS="000"
           echo "Homepage: HTTP $STATUS"
           [ "$STATUS" = "200" ] && echo "VERCEL_HOME_OK=true" >> $GITHUB_ENV || echo "VERCEL_HOME_OK=false" >> $GITHUB_ENV
 
       - name: Check Website — Finance
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L https://brookemotcentre.co.uk/finance) || STATUS="000"
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L -H "X-BMC-Healthcheck: 7f3a9c2e" https://brookemotcentre.co.uk/finance) || STATUS="000"
           echo "Finance: HTTP $STATUS"
           [ "$STATUS" = "200" ] && echo "VERCEL_FIN_OK=true" >> $GITHUB_ENV || echo "VERCEL_FIN_OK=false" >> $GITHUB_ENV
 
       - name: Check Website — Inventory
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L https://brookemotcentre.co.uk/inventory) || STATUS="000"
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L -H "X-BMC-Healthcheck: 7f3a9c2e" https://brookemotcentre.co.uk/inventory) || STATUS="000"
           echo "Inventory: HTTP $STATUS"
           [ "$STATUS" = "200" ] && echo "VERCEL_INV_OK=true" >> $GITHUB_ENV || echo "VERCEL_INV_OK=false" >> $GITHUB_ENV
 
