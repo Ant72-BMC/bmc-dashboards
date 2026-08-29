@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-08-29T09:00:01.897Z",
+  "timestamp": "2026-08-29T13:00:02.680Z",
   "ok": true,
   "match": false,
-  "autotraderTotal": 397,
+  "autotraderTotal": 396,
   "sanityTotal": 399,
   "onWebsiteTotal": 364,
   "hiddenFromWebsiteTotal": 35,
@@ -36,13 +36,14 @@
     },
     "10043362": {
       "location": "Norwich",
-      "autotrader": 99,
+      "autotrader": 98,
       "sanity": 99,
       "onWebsite": 99,
       "hiddenFromWebsite": 0,
-      "match": true,
-      "diff": 0,
+      "match": false,
+      "diff": 1,
       "onlyInSanity": [
+        "KK69GUF",
         "RA19DTV"
       ],
       "onlyInSanityTruncated": false,
