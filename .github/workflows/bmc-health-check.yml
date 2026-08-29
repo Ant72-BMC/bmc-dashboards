@@ -15,7 +15,7 @@ jobs:
       # ---------------------------------------------------------------
       # VERCEL / WEBSITE — mirrors the "vercel" card on bmc_dashboard.html
       # green = all 3 pages OK · amber = 1-2 OK · red = 0 OK
-      # ---------------------------------------------------------------
+      # ----------------------------------------------------------------
       - name: Check Website — Homepage
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L -H "X-BMC-Healthcheck: 7f3a9c2e" https://brookemotcentre.co.uk) || STATUS="000"
