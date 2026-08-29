@@ -250,7 +250,7 @@ jobs:
           secure: true
           username: ${{ secrets.ALERT_EMAIL_ADDRESS }}
           password: ${{ secrets.ALERT_EMAIL_PASSWORD }}
-          to: anthewett@hotmail.com,rafael@switchsocialmarketing.com,sales@brookemotcentre.co.uk
+          to: anthewett@hotmail.com
           from: BMC Alerts <${{ secrets.ALERT_EMAIL_ADDRESS }}>
           subject: "BMC Dashboard Alert [${{ steps.summary.outputs.overall }}] — Issues Detected"
           body: |
