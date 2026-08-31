@@ -1,23 +1,25 @@
 {
-  "timestamp": "2026-08-31T13:00:02.777Z",
+  "timestamp": "2026-08-31T17:00:03.294Z",
   "ok": true,
   "match": false,
-  "autotraderTotal": 390,
+  "autotraderTotal": 385,
   "sanityTotal": 392,
   "onWebsiteTotal": 353,
   "hiddenFromWebsiteTotal": 39,
   "byAdvertiser": {
     "833349": {
       "location": "Brooke",
-      "autotrader": 295,
+      "autotrader": 293,
       "sanity": 296,
       "onWebsite": 257,
       "hiddenFromWebsite": 39,
       "match": false,
-      "diff": 1,
+      "diff": 3,
       "onlyInSanity": [
         "EP68EHD",
-        "FJ68MVW"
+        "FJ68MVW",
+        "LS69LKP",
+        "OY67HBE"
       ],
       "onlyInSanityTruncated": false,
       "onlyInAutotrader": [
@@ -27,14 +29,17 @@
     },
     "10043362": {
       "location": "Norwich",
-      "autotrader": 95,
+      "autotrader": 92,
       "sanity": 96,
       "onWebsite": 96,
       "hiddenFromWebsite": 0,
       "match": false,
-      "diff": 1,
+      "diff": 4,
       "onlyInSanity": [
-        "AO67VTY"
+        "AO67VTY",
+        "FP21SMO",
+        "KR67FGD",
+        "L800BJC"
       ],
       "onlyInSanityTruncated": false,
       "onlyInAutotrader": [],
