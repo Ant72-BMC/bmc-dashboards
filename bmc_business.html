@@ -399,6 +399,7 @@ body {
 <div class="footer" id="footer"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script>
 const SERVICES = [
   {
@@ -466,6 +467,7 @@ const SERVICES = [
 
 let results = {};
 let salesChart = null;
+if (typeof ChartDataLabels !== 'undefined') Chart.register(ChartDataLabels);
 let makeModelBreakdown = {}; // make -> [{ model, count, avgDays }], populated by checkMakeModel()
 let othersBreakdown = []; // [{ make, count, avgDays }] for makes outside the top 5, populated by checkMakeModel()
 
@@ -988,6 +990,7 @@ async function checkSalesOverTime() {
         borderWidth: 3,
         tension: 0.25,
         pointRadius: 3,
+        datalabels: { color: '#f0f0f0', align: 'top', offset: 6 },
       },
       ...branchOrder.map((branch, i) => ({
         label: branch,
@@ -997,6 +1000,7 @@ async function checkSalesOverTime() {
         borderWidth: 2,
         tension: 0.25,
         pointRadius: 3,
+        datalabels: { color: branchColors[i % branchColors.length], align: 'bottom', offset: 6 },
       })),
     ];
 
@@ -1009,9 +1013,14 @@ async function checkSalesOverTime() {
         responsive: true,
         maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
+        layout: { padding: { top: 20, bottom: 10 } },
         plugins: {
           legend: { labels: { color: '#888', font: { family: "'Inter', system-ui, sans-serif" } } },
           tooltip: { mode: 'index', intersect: false },
+          datalabels: {
+            font: { size: 11, weight: '600', family: "'Inter', system-ui, sans-serif" },
+            formatter: (value) => value === 0 ? '' : value,
+          },
         },
         scales: {
           x: { ticks: { color: '#888' }, grid: { color: '#2a2a2d' } },
