@@ -302,6 +302,37 @@ body {
 .card-link:hover { color: var(--text); border-color: #3a3a3f; }
 .spinning { animation: spin 1s linear infinite; }
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.chart-outer {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 32px 28px;
+}
+.chart-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+.chart-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.chart-canvas-wrap {
+  position: relative;
+  height: 320px;
+}
+.chart-note {
+  margin-top: 14px;
+  padding: 8px 10px;
+  background: rgba(245,158,11,0.07);
+  border-left: 2px solid var(--amber);
+  border-radius: 0 6px 6px 0;
+  font-size: 11px;
+  color: var(--amber);
+  line-height: 1.5;
+}
 .footer {
   text-align: center;
   font-size: 11px;
@@ -313,6 +344,8 @@ body {
   .grid { padding: 16px; gap: 12px; }
   .header { padding: 14px 16px; }
   .status-bar { padding: 12px 16px; flex-wrap: wrap; gap: 12px; }
+  .chart-outer { padding: 0 16px 20px; }
+  .chart-canvas-wrap { height: 260px; }
 }
 </style>
 </head>
@@ -346,8 +379,26 @@ body {
 </div>
 
 <div class="grid" id="grid"></div>
+
+<div class="chart-outer">
+  <div class="chart-card">
+    <div class="chart-head">
+      <div class="card-icon">📈</div>
+      <div>
+        <div class="card-name">Sales Over Time</div>
+        <div class="card-desc" id="salesOverTimeDesc">Monthly vehicle sales, total and by branch. Data covers vehicles sold on or after 29/07/2026, when sale tracking began — early months will look sparse as history builds up.</div>
+      </div>
+    </div>
+    <div class="chart-canvas-wrap">
+      <canvas id="salesOverTimeChart"></canvas>
+    </div>
+    <div id="salesOverTimeNote"></div>
+  </div>
+</div>
+
 <div class="footer" id="footer"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
 const SERVICES = [
   {
@@ -414,6 +465,7 @@ const SERVICES = [
 ];
 
 let results = {};
+let salesChart = null;
 let makeModelBreakdown = {}; // make -> [{ model, count, avgDays }], populated by checkMakeModel()
 let othersBreakdown = []; // [{ make, count, avgDays }] for makes outside the top 5, populated by checkMakeModel()
 
@@ -867,6 +919,117 @@ async function checkStockValue(svc) {
   }
 }
 
+async function checkSalesOverTime() {
+  const noteEl = document.getElementById('salesOverTimeNote');
+  try {
+    const groq = `*[_type == "vehicleSold" && defined(soldAt)]{ soldAt, location }`;
+    const res = await fetch(
+      `https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=${encodeURIComponent(groq)}`,
+      { signal: AbortSignal.timeout(8000) }
+    );
+    if (!res.ok) throw new Error('query failed');
+    const data = await res.json();
+    const sales = data.result || [];
+
+    // Build a continuous month axis (YYYY-MM) from the tracking start date
+    // through the current month, so months with zero sales still show as a
+    // flat point rather than being skipped entirely.
+    const TRACKING_START = new Date('2026-07-29T00:00:00Z');
+    const monthKey = (d) => `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
+    const monthLabel = (key) => {
+      const [y, m] = key.split('-').map(Number);
+      return new Date(Date.UTC(y, m - 1, 1)).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
+    };
+
+    const now = new Date();
+    const months = [];
+    let cursor = new Date(Date.UTC(TRACKING_START.getUTCFullYear(), TRACKING_START.getUTCMonth(), 1));
+    const end = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
+    while (cursor <= end) {
+      months.push(monthKey(cursor));
+      cursor = new Date(Date.UTC(cursor.getUTCFullYear(), cursor.getUTCMonth() + 1, 1));
+    }
+
+    // Tally sales per month, overall and per branch (falling back to
+    // "Unknown" for a missing/null location, same convention used by the
+    // Sales by Branch card).
+    const totals = new Map(months.map(m => [m, 0]));
+    const byBranch = new Map(); // branch -> Map(month -> count)
+    for (const s of sales) {
+      const d = new Date(s.soldAt);
+      if (isNaN(d.getTime())) continue;
+      const key = monthKey(d);
+      if (!totals.has(key)) continue; // outside the tracked range — stay safe rather than throw
+      totals.set(key, totals.get(key) + 1);
+      const branch = s.location || 'Unknown';
+      if (!byBranch.has(branch)) byBranch.set(branch, new Map(months.map(m => [m, 0])));
+      const bm = byBranch.get(branch);
+      bm.set(key, bm.get(key) + 1);
+    }
+
+    // Branches ranked by total sales so far, so line/legend order is stable
+    // and the busiest branch is listed first.
+    const branchOrder = [...byBranch.entries()]
+      .sort((a, b) => {
+        const totalA = [...a[1].values()].reduce((s, v) => s + v, 0);
+        const totalB = [...b[1].values()].reduce((s, v) => s + v, 0);
+        return totalB - totalA;
+      })
+      .map(([branch]) => branch);
+
+    const labels = months.map(monthLabel);
+    const branchColors = ['#CC2020', '#3b82f6', '#f59e0b', '#a855f7', '#22c55e'];
+    const datasets = [
+      {
+        label: 'Total',
+        data: months.map(m => totals.get(m)),
+        borderColor: '#f0f0f0',
+        backgroundColor: '#f0f0f0',
+        borderWidth: 3,
+        tension: 0.25,
+        pointRadius: 3,
+      },
+      ...branchOrder.map((branch, i) => ({
+        label: branch,
+        data: months.map(m => byBranch.get(branch).get(m)),
+        borderColor: branchColors[i % branchColors.length],
+        backgroundColor: branchColors[i % branchColors.length],
+        borderWidth: 2,
+        tension: 0.25,
+        pointRadius: 3,
+      })),
+    ];
+
+    if (salesChart) salesChart.destroy();
+    const ctx = document.getElementById('salesOverTimeChart').getContext('2d');
+    salesChart = new Chart(ctx, {
+      type: 'line',
+      data: { labels, datasets },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { labels: { color: '#888', font: { family: "'Inter', system-ui, sans-serif" } } },
+          tooltip: { mode: 'index', intersect: false },
+        },
+        scales: {
+          x: { ticks: { color: '#888' }, grid: { color: '#2a2a2d' } },
+          y: { beginAtZero: true, ticks: { color: '#888', precision: 0 }, grid: { color: '#2a2a2d' } },
+        },
+      },
+    });
+
+    if (sales.length === 0) {
+      noteEl.innerHTML = `<div class="chart-note">No sales recorded yet — this chart fills in automatically as vehicles sell. Nothing to worry about, there is simply no history to show yet.</div>`;
+    } else {
+      noteEl.innerHTML = `<div class="chart-note">${sales.length} sale(s) recorded since tracking began on 29/07/2026. Early months will look sparse purely because of how recently tracking started — this is informational, not a fault indicator.</div>`;
+    }
+  } catch (e) {
+    noteEl.innerHTML = `<div class="chart-note" style="border-left-color: var(--red-status); background: rgba(239,68,68,0.07); color: var(--red-status);">Could not load the sales-over-time chart — Sanity query unreachable.</div>`;
+  }
+}
+
 async function runChecks() {
   const icon = document.getElementById('refreshIcon');
   icon.classList.add('spinning');
@@ -891,7 +1054,8 @@ async function runChecks() {
     ...SERVICES.filter(s => s.id === 'priceband').map(svc => checkPriceBands(svc)),
     ...SERVICES.filter(s => s.id === 'makemodel').map(svc => checkMakeModel(svc)),
     ...SERVICES.filter(s => s.id === 'location').map(svc => checkByLocation(svc)),
-    ...SERVICES.filter(s => s.id === 'stockvalue').map(svc => checkStockValue(svc))
+    ...SERVICES.filter(s => s.id === 'stockvalue').map(svc => checkStockValue(svc)),
+    checkSalesOverTime()
   ]);
 
   renderCards();
