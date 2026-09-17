@@ -319,6 +319,26 @@ body {
   gap: 14px;
   margin-bottom: 16px;
 }
+.chart-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: 0 0 28px;
+}
+.chart-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+.chart-legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
 .chart-canvas-wrap {
   position: relative;
   height: 320px;
@@ -389,6 +409,7 @@ body {
         <div class="card-desc" id="salesOverTimeDesc">Monthly vehicle sales, total and by branch. Data covers vehicles sold on or after 29/07/2026, when sale tracking began — early months will look sparse as history builds up.</div>
       </div>
     </div>
+    <div class="chart-legend" id="salesOverTimeLegend"></div>
     <div class="chart-canvas-wrap">
       <canvas id="salesOverTimeChart"></canvas>
     </div>
@@ -1004,6 +1025,13 @@ async function checkSalesOverTime() {
       })),
     ];
 
+    document.getElementById('salesOverTimeLegend').innerHTML = datasets.map(ds => `
+      <span class="chart-legend-item">
+        <span class="chart-legend-swatch" style="background:${ds.borderColor}"></span>
+        ${ds.label}
+      </span>
+    `).join('');
+
     if (salesChart) salesChart.destroy();
     const ctx = document.getElementById('salesOverTimeChart').getContext('2d');
     salesChart = new Chart(ctx, {
@@ -1013,9 +1041,9 @@ async function checkSalesOverTime() {
         responsive: true,
         maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
-        layout: { padding: { top: 36, bottom: 10 } },
+        layout: { padding: { top: 20, bottom: 10 } },
         plugins: {
-          legend: { labels: { color: '#888', font: { family: "'Inter', system-ui, sans-serif" }, padding: 40 } },
+          legend: { display: false },
           tooltip: { mode: 'index', intersect: false },
           datalabels: {
             font: { size: 11, weight: '600', family: "'Inter', system-ui, sans-serif" },
