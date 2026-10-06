@@ -165,7 +165,7 @@
   <div class="summary-card">
     <div class="summary-label">Live Vehicles</div>
     <div class="summary-value blue" id="s-vehicles">—</div>
-    <div class="summary-sub">In Sanity / on site</div>
+    <div class="summary-sub" id="s-vehicles-sub">In Sanity / on website</div>
   </div>
 </div>
 
@@ -246,20 +246,24 @@
         <div class="metric-icon">🚗</div>
         <div>
           <div class="metric-title">Vehicle Inventory</div>
-          <div class="metric-subtitle">Live stock count from Sanity</div>
+          <div class="metric-subtitle">Active stock in Sanity vs published to website</div>
         </div>
       </div>
       <span class="metric-badge green" id="inv-badge">Live</span>
     </div>
     <div class="stats-row">
-      <div class="stat"><div class="stat-label">Total Live Stock</div><div class="stat-value blue" id="inv-total">—</div><div class="stat-unit">on forecourt</div></div>
-      <div class="stat"><div class="stat-label">Reserved</div><div class="stat-value purple" id="inv-reserved">—</div><div class="stat-unit">£99 deposit paid</div></div>
-      <div class="stat"><div class="stat-label">Last Sync</div><div class="stat-value green" id="inv-sync">—</div><div class="stat-unit">Autotrader → Sanity</div></div>
+      <div class="stat"><div class="stat-label">In Sanity</div><div class="stat-value blue" id="inv-total">—</div><div class="stat-unit">active adverts</div></div>
+      <div class="stat"><div class="stat-label">On Website</div><div class="stat-value green" id="inv-published">—</div><div class="stat-unit">published</div></div>
+      <div class="stat"><div class="stat-label">Not on Website</div><div class="stat-value amber" id="inv-hidden">—</div><div class="stat-unit">active, not published</div></div>
     </div>
     <div class="stats-row" style="margin-top:10px">
-      <div class="stat"><div class="stat-label">Brooke</div><div class="stat-value blue" id="inv-brooke">—</div><div class="stat-unit">vehicles</div></div>
-      <div class="stat"><div class="stat-label">Norwich</div><div class="stat-value blue" id="inv-norwich">—</div><div class="stat-unit">vehicles</div></div>
-      <div class="stat"><div class="stat-label">Great Value</div><div class="stat-value green" id="inv-great">—</div><div class="stat-unit">price indicator</div></div>
+      <div class="stat"><div class="stat-label">Brooke</div><div class="stat-value blue" id="inv-brooke">—</div><div class="stat-unit" id="inv-brooke-sub">on website</div></div>
+      <div class="stat"><div class="stat-label">Norwich</div><div class="stat-value blue" id="inv-norwich">—</div><div class="stat-unit" id="inv-norwich-sub">on website</div></div>
+      <div class="stat"><div class="stat-label">Reserved</div><div class="stat-value purple" id="inv-reserved">—</div><div class="stat-unit">£99 deposit paid</div></div>
+    </div>
+    <div class="stats-row" style="margin-top:10px">
+      <div class="stat"><div class="stat-label">Great Value</div><div class="stat-value green" id="inv-great">—</div><div class="stat-unit">on website</div></div>
+      <div class="stat"><div class="stat-label">Last Sync</div><div class="stat-value green" id="inv-sync">—</div><div class="stat-unit">Autotrader → Sanity</div></div>
     </div>
   </div>
 
@@ -385,25 +389,43 @@ async function loadSanitySpeed() {
 
 async function loadInventory() {
   try {
+    // ACTIVE    = live advert in Sanity (advert.isActive)
+    // PUBLISHED = what the website actually shows — must match LIVE_VEHICLE in
+    //             bmc-website lib/sanity/queries.ts (isActive && showOnWebsite)
+    const ACTIVE = `_type == "vehicle" && advert.isActive == true`;
+    const PUBLISHED = `${ACTIVE} && advert.showOnWebsite == true`;
+    const LOC = `coalesce(advert.manualLocation, advert.location)`;
     const query = encodeURIComponent(`{
-      "total": count(*[_type == "vehicle" && advert.isActive == true]),
-      "brooke": count(*[_type == "vehicle" && advert.isActive == true && coalesce(advert.manualLocation, advert.location) == "Brooke"]),
-      "norwich": count(*[_type == "vehicle" && advert.isActive == true && coalesce(advert.manualLocation, advert.location) == "Norwich"]),
-      "reserved": count(*[_type == "vehicle" && advert.isActive == true && reserved.isReserved == true]),
-      "great": count(*[_type == "vehicle" && advert.isActive == true && pricing.priceIndicatorText == "great"])
+      "total": count(*[${ACTIVE}]),
+      "published": count(*[${PUBLISHED}]),
+      "brooke": count(*[${PUBLISHED} && ${LOC} == "Brooke"]),
+      "brookeAll": count(*[${ACTIVE} && ${LOC} == "Brooke"]),
+      "norwich": count(*[${PUBLISHED} && ${LOC} == "Norwich"]),
+      "norwichAll": count(*[${ACTIVE} && ${LOC} == "Norwich"]),
+      "reserved": count(*[${PUBLISHED} && reserved.isReserved == true]),
+      "great": count(*[${PUBLISHED} && pricing.priceIndicatorText == "great"])
     }`);
 
     const res = await fetch(`https://0d5aee7t.api.sanity.io/v2021-10-21/data/query/production?query=${query}`);
     const data = await res.json();
     const inv = data.result;
+    const hidden = inv.total - inv.published;
 
     document.getElementById('inv-total').textContent = inv.total;
+    document.getElementById('inv-published').textContent = inv.published;
+    const hiddenEl = document.getElementById('inv-hidden');
+    hiddenEl.textContent = hidden;
+    hiddenEl.className = `stat-value ${hidden > 0 ? 'amber' : 'green'}`;
     document.getElementById('inv-reserved').textContent = inv.reserved;
     document.getElementById('inv-brooke').textContent = inv.brooke;
+    document.getElementById('inv-brooke-sub').textContent = `on website · ${inv.brookeAll} in Sanity`;
     document.getElementById('inv-norwich').textContent = inv.norwich;
+    document.getElementById('inv-norwich-sub').textContent = `on website · ${inv.norwichAll} in Sanity`;
     document.getElementById('inv-great').textContent = inv.great;
     document.getElementById('inv-sync').textContent = '< 7d';
-    document.getElementById('s-vehicles').textContent = inv.total;
+    document.getElementById('s-vehicles').textContent = `${inv.total} / ${inv.published}`;
+    document.getElementById('s-vehicles-sub').textContent =
+      hidden > 0 ? `In Sanity / on website · ${hidden} not published` : 'In Sanity / on website · all published';
   } catch(e) {
     document.getElementById('inv-total').textContent = 'Error';
     console.error('Inventory fetch failed:', e);
