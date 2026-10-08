@@ -1,0 +1,17 @@
+[build]
+  # Skip the Netlify deploy when the only files that changed since the last
+  # deploy are the automated data files. Those are written several times a day
+  # by the VPS reconciliation job (reconcile-status.json) and the website's
+  # fuel-prices cron (fuel-watch.json). Each deploy costs ~15 credits, and the
+  # dashboards read both files straight from raw.githubusercontent.com, so a
+  # deploy isn't needed for them to show fresh data.
+  #
+  # How it works: Netlify skips the build when this command exits 0.
+  # `git diff --quiet` exits 0 when nothing OTHER than the excluded files
+  # changed between the last deployed commit ($CACHED_COMMIT_REF) and this one
+  # ($COMMIT_REF). Comparing against the last DEPLOYED commit (not just the
+  # previous commit) means an HTML upload is never skipped just because a data
+  # commit landed on top of it before Netlify got to it.
+  # If anything else changed - or there's no previous deploy to compare with -
+  # it exits non-zero and Netlify builds as normal.
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ':(exclude)reconcile-status.json' ':(exclude)fuel-watch.json'"
