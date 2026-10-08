@@ -32,17 +32,37 @@
   .header-text p { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
 
   .hero {
-    padding: 56px 40px 40px; max-width: 900px; margin: 0 auto; width: 100%;
+    padding: 56px 40px 40px; max-width: 1100px; margin: 0 auto; width: 100%;
   }
   .hero-eyebrow { font-size: 11px; color: var(--red); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 12px; }
   .hero-title { font-size: 40px; font-weight: 800; line-height: 1.1; margin-bottom: 14px; }
   .hero-title span { color: var(--red); }
   .hero-desc { font-size: 14px; color: var(--text-mid); line-height: 1.7; max-width: 560px; }
 
-  .cards {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;
-    padding: 0 40px 56px; max-width: 1100px; margin: 0 auto; width: 100%;
+  .wrap { padding: 0 40px 56px; max-width: 1100px; margin: 0 auto; width: 100%; }
+
+  /* Guide: a slim strip, not a dashboard tile */
+  .guide {
+    display: flex; align-items: center; gap: 18px; padding: 18px 22px; margin-bottom: 36px;
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--green);
+    border-radius: 12px; text-decoration: none; color: inherit; transition: border-color 0.2s;
   }
+  .guide:hover { border-color: var(--green); }
+  .guide-icon { font-size: 24px; flex-shrink: 0; }
+  .guide-text { flex: 1; min-width: 0; }
+  .guide-title { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+  .guide-desc { font-size: 12px; color: var(--text-mid); line-height: 1.5; }
+  .guide-btn {
+    flex-shrink: 0; padding: 9px 14px; border-radius: 7px; font-size: 12px; font-weight: 600;
+    background: rgba(34,197,94,0.12); color: var(--green); white-space: nowrap;
+  }
+
+  .group { margin-bottom: 36px; }
+  .group:last-child { margin-bottom: 0; }
+  .group-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+  .group-title { font-size: 11px; color: var(--text-mid); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+  .group-sub { font-size: 12px; color: var(--text-dim); }
+  .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 
   .card {
     background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
@@ -76,7 +96,10 @@
   footer { margin-top: auto; text-align: center; font-size: 11px; color: var(--text-dim); padding: 24px 40px; border-top: 1px solid var(--border); }
 
   @media (max-width: 700px) {
-    .cards { grid-template-columns: 1fr; padding: 0 20px 40px; }
+    .cards { grid-template-columns: 1fr; }
+    .wrap { padding: 0 20px 40px; }
+    .guide { flex-wrap: wrap; }
+    .guide-btn { width: 100%; text-align: center; }
     .hero { padding: 36px 20px 24px; }
     .hero-title { font-size: 28px; }
     .header { padding: 18px 20px; }
@@ -89,52 +112,69 @@
   <div class="logo">BMC</div>
   <div class="header-text">
     <h1>BMC Group</h1>
-    <p>Infrastructure monitoring dashboards</p>
+    <p>Internal dashboards</p>
   </div>
 </header>
 
 <div class="hero">
   <div class="hero-eyebrow">Internal Tools</div>
   <h2 class="hero-title">Monitor your<br><span>end-to-end service.</span></h2>
-  <p class="hero-desc">Dashboards covering BMC Group's website and infrastructure health, stock accuracy against Autotrader, reservation follow-ups, and site performance.</p>
+  <p class="hero-desc">Dashboards covering BMC Group's website and infrastructure health, site performance, car sales and stock accuracy against Autotrader, and fuel prices against local competitors.</p>
 </div>
 
-<div class="cards">
-  <a href="bmc_dashboard_guide.html" class="card card-1">
-    <div class="card-icon">📖</div>
-    <div class="card-num">Guide</div>
-    <div class="card-title">Dashboard Guide</div>
-    <div class="card-desc">Explains every panel across all three dashboards — what it checks, what good looks like, and what to do when something goes wrong.</div>
-    <span class="card-btn">Read the Guide →</span>
+<div class="wrap">
+
+  <a href="bmc_dashboard_guide.html" class="guide">
+    <div class="guide-icon">📖</div>
+    <div class="guide-text">
+      <div class="guide-title">Dashboard Guide</div>
+      <div class="guide-desc">Explains every panel — what it checks, what good looks like, and what to do when something goes wrong.</div>
+    </div>
+    <span class="guide-btn">Read the Guide →</span>
   </a>
-  <a href="bmc_dashboard.html" class="card card-2">
-    <div class="card-icon">🟢</div>
-    <div class="card-num">Dashboard 01</div>
-    <div class="card-title">IT Service Status</div>
-    <div class="card-desc">Live green / amber / red status for the website, Sanity CMS, fuel price sync and the VPS sync server. Open this first every morning to check core infrastructure is running.</div>
-    <span class="card-btn">View IT Service Status →</span>
-  </a>
-  <a href="bmc_business.html" class="card card-3">
-    <div class="card-icon">📈</div>
-    <div class="card-num">Dashboard 02</div>
-    <div class="card-title">Business Insights</div>
-    <div class="card-desc">Stock Reconciliation (Autotrader vs Sanity counts) and Reservation Alerts — a staff follow-up list for £99 deposits ending today, tomorrow, or already cleared.</div>
-    <span class="card-btn">View Business Insights →</span>
-  </a>
-  <a href="bmc_metrics.html" class="card card-4">
-    <div class="card-icon">📊</div>
-    <div class="card-num">Dashboard 03</div>
-    <div class="card-title">IT Performance Metrics</div>
-    <div class="card-desc">Page load speeds, Sanity API response times, vehicle inventory counts and fuel sync status. Toggle today, 7 days or 30 days.</div>
-    <span class="card-btn">View Metrics Dashboard →</span>
-  </a>
-  <a href="bmc_petrol.html" class="card card-5">
-    <div class="card-icon">⛽</div>
-    <div class="card-num">Dashboard 04</div>
-    <div class="card-title">Business Insights — Petrol Stations</div>
-    <div class="card-desc">Brooke Garage fuel prices against every station within 10 miles — where we rank, the cheapest nearby, the local average and a 30-day trend. Prices from the government Fuel Finder scheme.</div>
-    <span class="card-btn">View Petrol Stations →</span>
-  </a>
+
+  <section class="group">
+    <div class="group-head">
+      <div class="group-title">IT &amp; Infrastructure</div>
+      <div class="group-sub">Is everything running?</div>
+    </div>
+    <div class="cards">
+      <a href="bmc_dashboard.html" class="card card-2">
+        <div class="card-icon">🟢</div>
+        <div class="card-title">IT Service Status</div>
+        <div class="card-desc">Live green / amber / red status for the website, Sanity CMS, fuel price sync and the VPS sync server. Open this first every morning to check core infrastructure is running.</div>
+        <span class="card-btn">View IT Service Status →</span>
+      </a>
+      <a href="bmc_metrics.html" class="card card-4">
+        <div class="card-icon">📊</div>
+        <div class="card-title">IT Performance Metrics</div>
+        <div class="card-desc">Page load speeds, Sanity API response times, vehicle inventory counts and fuel sync status. Toggle today, 7 days or 30 days.</div>
+        <span class="card-btn">View Metrics Dashboard →</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="group">
+    <div class="group-head">
+      <div class="group-title">Business Insights</div>
+      <div class="group-sub">How is the business doing?</div>
+    </div>
+    <div class="cards">
+      <a href="bmc_business.html" class="card card-3">
+        <div class="card-icon">📈</div>
+        <div class="card-title">Car Sales</div>
+        <div class="card-desc">Stock Reconciliation (Autotrader vs Sanity), Reservation Alerts for £99 deposits, sales by make, model, price band and branch, total stock value and sales over time.</div>
+        <span class="card-btn">View Car Sales →</span>
+      </a>
+      <a href="bmc_petrol.html" class="card card-5">
+        <div class="card-icon">⛽</div>
+        <div class="card-title">Petrol Stations</div>
+        <div class="card-desc">Brooke Garage fuel prices against every station within 10 miles — where we rank, the cheapest nearby, the local average and a 30-day trend. Prices from the government Fuel Finder scheme.</div>
+        <span class="card-btn">View Petrol Stations →</span>
+      </a>
+    </div>
+  </section>
+
 </div>
 
 <footer>BMC Group · Internal Dashboard Hub · brookemotcentre.co.uk</footer>
