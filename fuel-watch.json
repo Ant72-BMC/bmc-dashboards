@@ -1,0 +1,490 @@
+{
+  "version": 1,
+  "source": "Fuel Finder",
+  "checkedAt": "2026-10-08T14:42:13.702Z",
+  "changedAt": "2026-10-08T14:42:13.702Z",
+  "sites": [
+    {
+      "key": "brooke-garage",
+      "name": "Brooke Garage",
+      "radiusMiles": 10,
+      "own": {
+        "unleaded": 168.9,
+        "diesel": 196.9,
+        "premiumUnleaded": 178.9,
+        "lastUpdated": "2026-10-07T05:59:47.000Z"
+      },
+      "competitors": [
+        {
+          "nodeId": "bcd04be39831648157fd7877be5656e38766e1775472d868f4398cc7427fff9f",
+          "label": "Poringland Service Station",
+          "postcode": "NR14 7JR",
+          "miles": 2.6,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 171.9,
+          "diesel": 199.9,
+          "premiumUnleaded": 185.9,
+          "lastUpdated": "2026-09-28T13:55:54.999Z"
+        },
+        {
+          "nodeId": "795fc4e49ca36fdea8146dbd7be98b95412f4dfcd9a8c77c2a5fd4e1c3779543",
+          "label": "Tesco Harford Bridge",
+          "postcode": "NR4 6DZ",
+          "miles": 5.3,
+          "supermarket": true,
+          "role": "direct",
+          "found": true,
+          "unleaded": 172.9,
+          "diesel": 197.9,
+          "premiumUnleaded": 182.9,
+          "lastUpdated": "2026-10-02T16:26:13.477Z"
+        },
+        {
+          "nodeId": "a082bec907ca589d877f3d62626e9e630f8cbd94c7326c9a2e6bd97ff30f7853",
+          "label": "BP Martineau Lane",
+          "postcode": "NR1 2JA",
+          "miles": 5.6,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 174.9,
+          "diesel": 201.9,
+          "premiumUnleaded": 195.9,
+          "lastUpdated": "2026-10-07T10:10:47.000Z"
+        },
+        {
+          "nodeId": "e718d546c14d35bafc3c12b50fef7186e4f4752495164553663ae07ddd55040d",
+          "label": "Asda Hall Road",
+          "postcode": "NR4 6DP",
+          "miles": 5.6,
+          "supermarket": true,
+          "role": "direct",
+          "found": true,
+          "unleaded": 172.7,
+          "diesel": 197.7,
+          "premiumUnleaded": null,
+          "lastUpdated": "2026-10-02T20:31:39.000Z"
+        },
+        {
+          "nodeId": "8e436da1d04a4fe80dc9e3a547fa70ed8f006b7ad6710ac71a27f625c2ad5ceb",
+          "label": "BP Norwich South",
+          "postcode": "NR1 2RT",
+          "miles": 5.8,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 174.9,
+          "diesel": 201.9,
+          "premiumUnleaded": 195.9,
+          "lastUpdated": "2026-10-07T10:05:42.000Z"
+        },
+        {
+          "nodeId": "7e54b71d4fc9e3cd9d0f87e6ff69184eb7001a3de05c085565c92028a6f368ef",
+          "label": "Shell Hales",
+          "postcode": "NR14 6SR",
+          "miles": 5.8,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 179.9,
+          "diesel": 209.9,
+          "premiumUnleaded": 204.9,
+          "lastUpdated": "2026-09-16T11:29:01.000Z"
+        },
+        {
+          "nodeId": "1d9c183ad31040585e1513e1b76d5a65f5fd3a9431f3b977e7c1672cddee9ccb",
+          "label": "Shell Ipswich Road",
+          "postcode": "NR4 6LA",
+          "miles": 6,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 174.9,
+          "diesel": 200.9,
+          "premiumUnleaded": 194.9,
+          "lastUpdated": "2026-10-07T12:37:04.000Z"
+        },
+        {
+          "nodeId": "b2b99cc5942e1d768c817dfe9906b7953cad11dad6950110bd3cdf2b1e96bbfe",
+          "label": "Sainsbury's Pound Lane",
+          "postcode": "NR7 0SR",
+          "miles": 6.1,
+          "supermarket": true,
+          "role": "direct",
+          "found": true,
+          "unleaded": 173.9,
+          "diesel": 198.9,
+          "premiumUnleaded": 185.9,
+          "lastUpdated": "2026-10-08T06:01:47.000Z"
+        },
+        {
+          "nodeId": "9413600ac2534b2d02b6927a2b8edafc482b6d5add45b8bd8c6f15a672373911",
+          "label": "Morrisons Albion Way",
+          "postcode": "NR1 1WU",
+          "miles": 6.2,
+          "supermarket": true,
+          "role": "direct",
+          "found": true,
+          "unleaded": 172.9,
+          "diesel": 197.9,
+          "premiumUnleaded": 189.9,
+          "lastUpdated": "2026-10-03T11:18:18.000Z"
+        },
+        {
+          "nodeId": "ed341c6c89e1896b15fc7cefd913a381e4c833488cac0115910411cb7d1b4688",
+          "label": "Sainsbury's Queens Road",
+          "postcode": "NR1 3RX",
+          "miles": 6.3,
+          "supermarket": true,
+          "role": "direct",
+          "found": true,
+          "unleaded": 171.9,
+          "diesel": 196.9,
+          "premiumUnleaded": 183.9,
+          "lastUpdated": "2026-10-08T05:53:42.000Z"
+        },
+        {
+          "nodeId": "fd07fad71453cf5a6827fc43c377e7991cc6c6f0b5d0b9994dce580f32626c26",
+          "label": "Shell Co-op Brundall",
+          "postcode": "NR13 5AR",
+          "miles": 6.7,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 176.9,
+          "diesel": 202.9,
+          "premiumUnleaded": 204.9,
+          "lastUpdated": "2026-10-07T16:23:03.000Z"
+        },
+        {
+          "nodeId": "e88be1df777d3a4ae04edc3827f6f9ab83fb01a24a4f53506cda06fdfebc7ba0",
+          "label": "Jet Castle Service Station",
+          "postcode": "NR1 1PN",
+          "miles": 6.7,
+          "supermarket": true,
+          "role": "direct",
+          "found": true,
+          "unleaded": 170.9,
+          "diesel": 196.9,
+          "premiumUnleaded": 183.9,
+          "lastUpdated": "2026-10-03T12:16:57.000Z"
+        },
+        {
+          "nodeId": "3a84eeda3951eed9a28fca74be208b8dcfeb591df0429087e5af73ab55982432",
+          "label": "Esso Plumstead Road",
+          "postcode": "NR1 4JT",
+          "miles": 6.8,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 175.9,
+          "diesel": 202.9,
+          "premiumUnleaded": 195.9,
+          "lastUpdated": "2026-10-03T11:17:15.000Z"
+        },
+        {
+          "nodeId": "536e7657ccc01318e5a2e6a540247df774cd58c9be3a6a91ca887e6f84d9c244",
+          "label": "Shell Stratton Motor Co (Long Stratton)",
+          "postcode": "NR15 2XJ",
+          "miles": 6.8,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 184.6,
+          "diesel": 204.1,
+          "premiumUnleaded": 199.5,
+          "lastUpdated": "2026-10-08T08:18:44.000Z"
+        },
+        {
+          "nodeId": "04dbf02f9ac114bfc8e89e96f7172b5b87a5b58f3d8dfed947ac242be4e741f5",
+          "label": "Jet Thunder Lane",
+          "postcode": "NR7 9NQ",
+          "miles": 7,
+          "supermarket": true,
+          "role": "direct",
+          "found": true,
+          "unleaded": 175.9,
+          "diesel": 202.9,
+          "premiumUnleaded": 190.9,
+          "lastUpdated": "2026-10-04T22:05:32.000Z"
+        },
+        {
+          "nodeId": "0687d5320b931821d20be87679773dda76e009d9fa88aea1661c6401d1c430db",
+          "label": "Co-op Bungay",
+          "postcode": "NR35 1RX",
+          "miles": 7.2,
+          "supermarket": true,
+          "role": "direct",
+          "found": true,
+          "unleaded": 173.9,
+          "diesel": 198.9,
+          "premiumUnleaded": 185.9,
+          "lastUpdated": "2026-10-05T23:26:30.600Z"
+        },
+        {
+          "nodeId": "048856cd1dff44eaca3cc04ef14d7f14e74a60054135eef278d33b088dbbfd77",
+          "label": "Esso St Benedicts",
+          "postcode": "NR2 4HX",
+          "miles": 7.2,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 174.9,
+          "diesel": 201.9,
+          "premiumUnleaded": 195.9,
+          "lastUpdated": "2026-09-28T14:28:05.000Z"
+        },
+        {
+          "nodeId": "cfd6698944cf2fe3f95e079a2301ff12a1668c804e05af28de1f1f66467f16bd",
+          "label": "Shell Cringleford",
+          "postcode": "NR9 3AU",
+          "miles": 7.5,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 177.9,
+          "diesel": 199.9,
+          "premiumUnleaded": 199.9,
+          "lastUpdated": "2026-10-03T13:22:03.000Z"
+        },
+        {
+          "nodeId": "b568fa532e2cac4b9cbd15a3942f2e7109eeb1f4af2e2542b45d4fe2a1aeda7a",
+          "label": "BP Mousehold Lane",
+          "postcode": "NR7 8HA",
+          "miles": 7.7,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 175.9,
+          "diesel": 203.9,
+          "premiumUnleaded": 196.9,
+          "lastUpdated": "2026-10-02T10:15:01.000Z"
+        },
+        {
+          "nodeId": "bdc5697fd7922eb4f036ba6933219a10aa875ff36a238b8ab7c0b956c1ebfd6a",
+          "label": "Tesco Earlham Road Express",
+          "postcode": "NR4 7TF",
+          "miles": 7.9,
+          "supermarket": true,
+          "role": "direct",
+          "found": true,
+          "unleaded": 172.9,
+          "diesel": 197.9,
+          "premiumUnleaded": 182.9,
+          "lastUpdated": "2026-10-02T16:38:14.205Z"
+        },
+        {
+          "nodeId": "c317976db9d4b99ec0d9f1fa26388c310f9bd78a4406271d998c49c28cfb863b",
+          "label": "Esso Broadside",
+          "postcode": "NR3 2HJ",
+          "miles": 8.1,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 175.9,
+          "diesel": 202.9,
+          "premiumUnleaded": 195.9,
+          "lastUpdated": "2026-09-28T14:27:38.000Z"
+        },
+        {
+          "nodeId": "1e0cda47058e422fef06ed34f513aa4e4608e893449149cb8576881bc2c1ac34",
+          "label": "Tesco Norwich Extra",
+          "postcode": "NR7 8AB",
+          "miles": 8.3,
+          "supermarket": true,
+          "role": "direct",
+          "found": true,
+          "unleaded": 172.9,
+          "diesel": 197.9,
+          "premiumUnleaded": 183.9,
+          "lastUpdated": "2026-10-02T15:56:14.137Z"
+        },
+        {
+          "nodeId": "d0c26f4feaf419fcd0e3c07846737ab53b33a90b5105e553d683b4c072cf3ce8",
+          "label": "Harvest Energy (Progress Fuels)",
+          "postcode": "NR6 7QN",
+          "miles": 8.6,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 171.7,
+          "diesel": 197.7,
+          "premiumUnleaded": 182.7,
+          "lastUpdated": "2026-10-03T11:35:33.000Z"
+        },
+        {
+          "nodeId": "a0c2787bcbee40249bf506dfa254c426e5365218e4f1454dee556b54c1bfaf97",
+          "label": "Shell Co-op Beccles",
+          "postcode": "NR34 0ED",
+          "miles": 8.7,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 178.9,
+          "diesel": 203.9,
+          "premiumUnleaded": 199.9,
+          "lastUpdated": "2026-10-07T11:09:03.000Z"
+        },
+        {
+          "nodeId": "3ec68782dadfdf32cb5bc7d5f06cd4b2f01276d09553bcb6573c8a8c9e6f9351",
+          "label": "Esso Ring",
+          "postcode": "NR6 6SH",
+          "miles": 8.8,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 175.9,
+          "diesel": 203.9,
+          "premiumUnleaded": 195.9,
+          "lastUpdated": "2026-10-01T10:55:24.000Z"
+        },
+        {
+          "nodeId": "ccfb60753197614dcdc4eca32b7125a53e846dc4b10788cf51c5508a89b4efe3",
+          "label": "Asda Sweet Briar Express (Esso)",
+          "postcode": "NR6 5AL",
+          "miles": 8.8,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 175.9,
+          "diesel": 203.9,
+          "premiumUnleaded": 194.9,
+          "lastUpdated": "2026-10-07T17:06:27.000Z"
+        },
+        {
+          "nodeId": "60c0b8586b396f86bbbe0d8d9804026bf3291f479b7ae65d6e1d6696f7738838",
+          "label": "Asda Norwich Superstore",
+          "postcode": "NR6 5DT",
+          "miles": 8.9,
+          "supermarket": true,
+          "role": "direct",
+          "found": true,
+          "unleaded": 172.7,
+          "diesel": 197.7,
+          "premiumUnleaded": null,
+          "lastUpdated": "2026-10-05T14:00:47.000Z"
+        },
+        {
+          "nodeId": "10db311a51182bd42771ad326b1d2f930265a24c6f8bbab5698fde99f0cf64eb",
+          "label": "BP Oval",
+          "postcode": "NR5 0SY",
+          "miles": 8.9,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 177.9,
+          "diesel": 203.9,
+          "premiumUnleaded": 195.9,
+          "lastUpdated": "2026-10-01T10:54:33.000Z"
+        },
+        {
+          "nodeId": "32c0cae9f7bdf46f21d10411158d3be533d82bd067c20c8888a6124f396856ef",
+          "label": "EG On The Move Norwich",
+          "postcode": "NR6 6XA",
+          "miles": 9.5,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 174.9,
+          "diesel": 199.9,
+          "premiumUnleaded": 194.9,
+          "lastUpdated": "2026-09-29T16:29:48.000Z"
+        },
+        {
+          "nodeId": "53b28468e07172ef5def62f64cc642dfcb3f73794df1d6078bd45230b45c718a",
+          "label": "Jet A&F Motors",
+          "postcode": "NR6 5NQ",
+          "miles": 9.6,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 175.9,
+          "diesel": 199.9,
+          "premiumUnleaded": 171.9,
+          "lastUpdated": "2026-09-22T14:51:09.000Z"
+        },
+        {
+          "nodeId": "e44701c4606125946ba3e910d7d4f37743c8e70651d5f221dc33516714063701",
+          "label": "Asda Norwich Express",
+          "postcode": "NR5 0SE",
+          "miles": 9.8,
+          "supermarket": false,
+          "role": "direct",
+          "found": true,
+          "unleaded": 177.9,
+          "diesel": 199.9,
+          "premiumUnleaded": 193.9,
+          "lastUpdated": "2026-10-02T20:53:39.000Z"
+        },
+        {
+          "nodeId": "127544094681fa89a9dce0a4d20a345e6151e53d89acb49555b6aec6ccd7da24",
+          "label": "Morrisons Beccles",
+          "postcode": "NR34 9BJ",
+          "miles": 10,
+          "supermarket": true,
+          "role": "direct",
+          "found": true,
+          "unleaded": 172.9,
+          "diesel": 197.9,
+          "premiumUnleaded": 189.9,
+          "lastUpdated": "2026-10-07T10:14:36.000Z"
+        }
+      ],
+      "stats": {
+        "unleaded": {
+          "ours": 168.9,
+          "cheapest": 170.9,
+          "cheapestLabel": "Jet Castle Service Station",
+          "average": 175.1,
+          "rank": 1,
+          "of": 33,
+          "excluded": []
+        },
+        "diesel": {
+          "ours": 196.9,
+          "cheapest": 196.9,
+          "cheapestLabel": "Sainsbury's Queens Road",
+          "average": 200.8,
+          "rank": 1,
+          "of": 33,
+          "excluded": []
+        },
+        "premiumUnleaded": {
+          "ours": 178.9,
+          "cheapest": 182.7,
+          "cheapestLabel": "Harvest Energy (Progress Fuels)",
+          "average": 192.6,
+          "rank": 1,
+          "of": 30,
+          "excluded": [
+            "Jet A&F Motors"
+          ]
+        }
+      }
+    }
+  ],
+  "history": {
+    "brooke-garage": [
+      {
+        "date": "2026-10-08",
+        "unleaded": {
+          "ours": 168.9,
+          "cheapest": 170.9,
+          "average": 175.1
+        },
+        "diesel": {
+          "ours": 196.9,
+          "cheapest": 196.9,
+          "average": 200.8
+        },
+        "premiumUnleaded": {
+          "ours": 178.9,
+          "cheapest": 182.7,
+          "average": 192.6
+        }
+      }
+    ]
+  }
+}
