@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMC Group — Business Insights · Petrol Stations</title>
+<style>
+:root {
+  --red: #CC2020;
+  --bg: #0b0b0d;
+  --surface: #141416;
+  --surface2: #1c1c1f;
+  --border: #2a2a2d;
+  --text: #f0f0f0;
+  --text-dim: #888;
+  --green: #22c55e;
+  --amber: #f59e0b;
+  --blue: #3b82f6;
+  --red-status: #ef4444;
+  --green-dim: rgba(34,197,94,0.12);
+  --amber-dim: rgba(245,158,11,0.12);
+  --red-dim2: rgba(239,68,68,0.12);
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); min-height: 100vh; padding: 0 0 48px; }
+
+.header {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 20px 32px; display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100; gap: 16px;
+}
+.header-left { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.logo-mark {
+  width: 36px; height: 36px; background: var(--red); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 14px; letter-spacing: -0.5px; color: #fff; flex-shrink: 0;
+  text-decoration: none;
+}
+.header-title { font-size: 15px; font-weight: 600; }
+.header-sub { font-size: 12px; color: var(--text-dim); margin-top: 1px; }
+.header-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.last-checked { font-size: 12px; color: var(--text-dim); font-family: var(--mono); }
+.refresh-btn {
+  background: var(--surface2); border: 1px solid var(--border); color: var(--text);
+  padding: 8px 16px; border-radius: 6px; font-size: 13px; cursor: pointer;
+  display: flex; align-items: center; gap: 6px; transition: all 0.15s;
+}
+.refresh-btn:hover { border-color: var(--red); color: var(--red); }
+
+.status-bar {
+  padding: 16px 32px; background: var(--surface); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+}
+.overall-status { display: flex; align-items: center; gap: 10px; }
+.overall-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--text-dim); animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.overall-label { font-size: 13px; font-weight: 600; color: var(--text-dim); }
+.status-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+.status-meta span { font-size: 12px; color: var(--text-dim); }
+.status-meta b { color: var(--text); font-weight: 500; font-family: var(--mono); }
+
+.grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px; padding: 28px 32px; max-width: 1400px; margin: 0 auto;
+}
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 20px; position: relative; overflow: hidden; transition: border-color 0.2s;
+}
+.card:hover { border-color: #3a3a3f; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 12px 12px 0 0; }
+.card.green::before { background: var(--green); }
+.card.amber::before { background: var(--amber); }
+.card.red::before { background: var(--red-status); }
+.card.unknown::before { background: var(--border); }
+.card-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; gap: 12px; }
+.card-icon {
+  width: 40px; height: 40px; border-radius: 10px; background: var(--surface2);
+  display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+}
+.status-badge {
+  display: flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap;
+}
+.status-badge.green { background: var(--green-dim); color: var(--green); }
+.status-badge.amber { background: var(--amber-dim); color: var(--amber); }
+.status-badge.red { background: var(--red-dim2); color: var(--red-status); }
+.status-badge.unknown { background: rgba(255,255,255,0.05); color: var(--text-dim); }
+.badge-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.card-name { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+.card-desc { font-size: 12px; color: var(--text-dim); line-height: 1.5; margin-bottom: 16px; }
+.our-price { font-size: 32px; font-weight: 700; font-family: var(--mono); letter-spacing: -1px; margin-bottom: 4px; }
+.our-price small { font-size: 13px; color: var(--text-dim); font-weight: 500; letter-spacing: 0; margin-left: 4px; }
+.our-rank { font-size: 12px; color: var(--text-dim); margin-bottom: 14px; }
+.checks { display: flex; flex-direction: column; gap: 8px; }
+.check { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--surface2); border-radius: 7px; }
+.check-label { font-size: 12px; color: var(--text-dim); flex: 1; min-width: 0; }
+.check-label .sub { display: block; color: #666; font-size: 11px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.check-value { font-size: 12px; font-family: var(--mono); font-weight: 500; white-space: nowrap; }
+.check-value.green { color: var(--green); }
+.check-value.amber { color: var(--amber); }
+.check-value.red { color: var(--red-status); }
+.check-value.dim { color: var(--text-dim); }
+.card-note {
+  margin-top: 12px; padding: 8px 10px; background: rgba(245,158,11,0.07);
+  border-left: 2px solid var(--amber); border-radius: 0 6px 6px 0;
+  font-size: 11px; color: var(--amber); line-height: 1.5;
+}
+.card-note.red { background: rgba(239,68,68,0.07); border-left-color: var(--red-status); color: var(--red-status); }
+.card-note.info { background: rgba(255,255,255,0.03); border-left-color: var(--border); color: var(--text-dim); }
+
+.section { max-width: 1400px; margin: 0 auto; padding: 0 32px 28px; }
+.section .card:hover { border-color: var(--border); }
+.section-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+.section-head-left { display: flex; align-items: flex-start; gap: 14px; }
+.section-head .card-desc { margin-bottom: 0; max-width: 640px; }
+.seg { display: inline-flex; background: var(--surface2); border: 1px solid var(--border); border-radius: 7px; padding: 2px; }
+.seg button {
+  background: none; border: 0; color: var(--text-dim); font: inherit; font-size: 12px;
+  padding: 6px 12px; border-radius: 5px; cursor: pointer;
+}
+.seg button.on { background: #2a2a2e; color: var(--text); }
+.controls { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.table-wrap { overflow-x: auto; margin: 0 -4px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 640px; }
+th {
+  text-align: right; font-weight: 600; color: var(--text-dim); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 10px; border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+th:first-child, td:first-child { text-align: left; }
+td { padding: 9px 10px; border-bottom: 1px solid #1f1f22; text-align: right; font-family: var(--mono); white-space: nowrap; }
+td:first-child { font-family: var(--font); white-space: normal; }
+tr.ours td { background: rgba(204,32,32,0.08); }
+tr.ours td:first-child { font-weight: 600; }
+.tag {
+  display: inline-block; font-family: var(--font); font-size: 10px; font-weight: 600; color: var(--text-dim);
+  border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; margin-left: 6px; vertical-align: 1px;
+}
+.tag.us { color: var(--red); border-color: rgba(204,32,32,0.4); }
+td.cheaper { color: var(--red-status); font-weight: 600; }
+td.same { color: var(--amber); }
+td.excl { color: #555; text-decoration: line-through; }
+td.na { color: #444; }
+td.age { color: var(--text-dim); }
+td.age.old { color: #555; }
+.table-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+.key { display: flex; gap: 16px; flex-wrap: wrap; font-size: 11px; color: var(--text-dim); }
+.key i { font-style: normal; font-family: var(--mono); }
+.link-btn {
+  background: var(--surface2); border: 1px solid var(--border); color: var(--text-dim);
+  font: inherit; font-size: 12px; padding: 6px 12px; border-radius: 6px; cursor: pointer;
+}
+.link-btn:hover { color: var(--text); border-color: #3a3a3f; }
+
+.chart-legend { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; margin: 0 0 20px; }
+.chart-legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-dim); }
+.chart-legend-swatch { width: 14px; height: 3px; border-radius: 2px; flex-shrink: 0; }
+.chart-legend-swatch.dash { background: none !important; border-top: 2px dashed currentColor; height: 0; }
+.chart-canvas-wrap { position: relative; height: 300px; }
+
+.empty { padding: 48px 32px; text-align: center; color: var(--text-dim); font-size: 13px; line-height: 1.7; max-width: 640px; margin: 0 auto; }
+.footer { text-align: center; font-size: 11px; color: var(--text-dim); padding: 0 32px; margin-top: 8px; line-height: 1.7; }
+.footer a { color: var(--text-dim); }
+
+@media (max-width: 1000px) { .grid { grid-template-columns: 1fr; } }
+@media (max-width: 600px) {
+  .grid { padding: 16px; gap: 12px; }
+  .header { padding: 14px 16px; }
+  .header-sub, .last-checked { display: none; }
+  .status-bar { padding: 12px 16px; gap: 12px; }
+  .section { padding: 0 16px 20px; }
+  .chart-canvas-wrap { height: 240px; }
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-left">
+    <a class="logo-mark" href="index.html" title="All dashboards">BMC</a>
+    <div>
+      <div class="header-title">BMC Group — Business Insights · Petrol Stations</div>
+      <div class="header-sub" id="headerSub">Fuel prices against local competitors</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="last-checked" id="lastLoaded">Loaded: —</div>
+    <button class="refresh-btn" onclick="load()"><span id="refreshIcon">↻</span> Refresh</button>
+  </div>
+</header>
+
+<div class="status-bar">
+  <div class="overall-status">
+    <div class="overall-dot" id="overallDot"></div>
+    <div class="overall-label" id="overallLabel">Loading prices…</div>
+  </div>
+  <div class="status-meta">
+    <span>Feed checked <b id="checkedAt">—</b></span>
+    <span>Last price change <b id="changedAt">—</b></span>
+    <span>Source <b>Fuel Finder</b></span>
+  </div>
+</div>
+
+<div id="content"></div>
+
+<div class="footer" id="footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+// Data written by the website's fuel-prices cron (lib/fuel-watch.ts).
+// ?data=<url> overrides the source, for testing only.
+const DATA_URL = new URLSearchParams(location.search).get('data')
+  || 'https://raw.githubusercontent.com/Ant72-BMC/bmc-dashboards/main/fuel-watch.json';
+
+const FUELS = [
+  { key: 'unleaded', name: 'Unleaded', code: 'E10', icon: '⛽' },
+  { key: 'diesel', name: 'Diesel', code: 'B7', icon: '🛢️' },
+  { key: 'premiumUnleaded', name: 'Super unleaded', code: 'E5', icon: '⭐' },
+];
+const UNDERCUT_ALERT = 2.0;   // pence — matches the alert threshold
+const STALE_CHECK_HOURS = 8;  // cron heartbeat is 6-hourly; warn after 8h
+const OLD_PRICE_DAYS = 30;    // matches lib/fuel-watch.ts
+const DEFAULT_ROWS = 10;
+
+let data = null;
+let tableSort = 'unleaded';   // a fuel key, or 'miles'
+let showAll = false;
+let chartFuel = 'unleaded';
+let trendChart = null;
+
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const p = (n) => n == null ? '—' : n.toFixed(1);
+const pp = (n) => n == null ? '—' : `${n.toFixed(1)}p`;
+const ordinal = (n) => { const s = ['th', 'st', 'nd', 'rd'], v = n % 100; return n + (s[(v - 20) % 10] || s[v] || s[0]); };
+
+function ago(iso) {
+  if (!iso) return '—';
+  const ms = Date.now() - Date.parse(iso);
+  if (!Number.isFinite(ms)) return '—';
+  const m = Math.round(ms / 60000);
+  if (m < 1) return 'just now';
+  if (m < 60) return `${m} min ago`;
+  const h = Math.round(m / 60);
+  if (h < 36) return `${h} hr${h === 1 ? '' : 's'} ago`;
+  const d = Math.round(h / 24);
+  return `${d} day${d === 1 ? '' : 's'} ago`;
+}
+const fmtDateTime = (iso) => iso ? new Date(iso).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '—';
+const ageDays = (iso) => iso ? (Date.now() - Date.parse(iso)) / 86400000 : null;
+
+// ---- status per fuel ----
+function fuelStatus(st) {
+  if (!st || st.ours == null || st.cheapest == null) return 'unknown';
+  const gap = st.ours - st.cheapest;
+  if (gap <= 0) return 'green';
+  if (gap < UNDERCUT_ALERT) return 'amber';
+  return 'red';
+}
+const STATUS_TEXT = { green: 'Cheapest', amber: 'Close', red: 'Undercut', unknown: 'No data' };
+
+async function load() {
+  const icon = document.getElementById('refreshIcon');
+  icon.style.display = 'inline-block';
+  icon.style.animation = 'spin 1s linear infinite';
+  try {
+    const sep = DATA_URL.includes('?') ? '&' : '?';
+    const res = await fetch(`${DATA_URL}${sep}t=${Date.now()}`, { signal: AbortSignal.timeout(8000) });
+    if (res.status === 404) { data = null; renderEmpty(); return; }
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    data = await res.json();
+    render();
+  } catch (e) {
+    renderError(e);
+  } finally {
+    icon.style.animation = '';
+    document.getElementById('lastLoaded').textContent =
+      'Loaded: ' + new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  }
+}
+
+function setOverall(colour, text) {
+  const v = { green: 'var(--green)', amber: 'var(--amber)', red: 'var(--red-status)', unknown: 'var(--text-dim)' }[colour];
+  const dot = document.getElementById('overallDot');
+  dot.style.background = v;
+  dot.style.boxShadow = colour === 'unknown' ? 'none' : `0 0 8px ${v}`;
+  const label = document.getElementById('overallLabel');
+  label.style.color = v;
+  label.textContent = text;
+}
+
+function renderEmpty() {
+  setOverall('unknown', 'Waiting for first data');
+  document.getElementById('content').innerHTML =
+    `<div class="empty">No fuel price data yet. The file is created by the website's fuel-prices job on its next run (every 30 minutes) once Fuel Price Watch is deployed.</div>`;
+  renderFooter();
+}
+
+function renderError(e) {
+  setOverall('red', 'Could not load fuel price data');
+  document.getElementById('content').innerHTML =
+    `<div class="empty">Couldn't load <code>fuel-watch.json</code> (${esc(e.message || e)}). Try Refresh; if it persists, check the fuel-prices job in Vercel logs.</div>`;
+  renderFooter();
+}
+
+function renderFooter() {
+  document.getElementById('footer').innerHTML =
+    `BMC Group · Business Insights · Petrol Stations · ${new Date().toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}<br>` +
+    `Prices from the government Fuel Finder scheme, as reported by each forecourt. Distances are straight-line.`;
+}
+
+function render() {
+  const site = data.sites[0];
+  document.getElementById('headerSub').textContent =
+    `${site.name} vs ${site.competitors.length} stations within ${site.radiusMiles} miles`;
+  document.getElementById('checkedAt').textContent = ago(data.checkedAt);
+  document.getElementById('checkedAt').title = fmtDateTime(data.checkedAt);
+  document.getElementById('changedAt').textContent = ago(data.changedAt);
+  document.getElementById('changedAt').title = fmtDateTime(data.changedAt);
+
+  // Overall: stale feed beats everything; then the worst of unleaded/diesel.
+  const hoursSinceCheck = (Date.now() - Date.parse(data.checkedAt)) / 3600000;
+  const core = ['unleaded', 'diesel'].map(k => ({ k, s: fuelStatus(site.stats[k]) }));
+  if (!(hoursSinceCheck < STALE_CHECK_HOURS)) {
+    setOverall('red', `Price feed not checked for ${Math.round(hoursSinceCheck)} hours`);
+  } else if (core.some(c => c.s === 'red')) {
+    const names = core.filter(c => c.s === 'red').map(c => FUELS.find(f => f.key === c.k).name.toLowerCase());
+    setOverall('red', `Undercut by ${UNDERCUT_ALERT}p+ on ${names.join(' & ')}`);
+  } else if (core.some(c => c.s === 'amber')) {
+    setOverall('amber', 'Within 2p of the cheapest nearby');
+  } else if (core.every(c => c.s === 'green')) {
+    setOverall('green', 'Cheapest locally on unleaded & diesel');
+  } else {
+    setOverall('unknown', 'Some prices missing');
+  }
+
+  document.getElementById('content').innerHTML = `
+    <div class="grid">${FUELS.map(f => fuelCard(site, f)).join('')}</div>
+    <div class="section"><div class="card">${tableSection(site)}</div></div>
+    <div class="section"><div class="card">${chartSection()}</div></div>`;
+  renderTable();
+  renderChart();
+  renderFooter();
+}
+
+function fuelCard(site, f) {
+  const st = site.stats[f.key];
+  const status = fuelStatus(st);
+  const gapCheapest = st.ours != null && st.cheapest != null ? st.ours - st.cheapest : null;
+  const gapAvg = st.ours != null && st.average != null ? st.ours - st.average : null;
+  const signed = (n) => n == null ? '—' : (n > 0 ? '+' : n < 0 ? '−' : '±') + Math.abs(n).toFixed(1) + 'p';
+  const gapClass = (n) => n == null ? 'dim' : n <= 0 ? 'green' : n < UNDERCUT_ALERT ? 'amber' : 'red';
+  const tied = st.ours != null && site.competitors.some(c =>
+    c.found && c.role === 'direct' && c[f.key] === st.ours && !(st.excluded || []).includes(c.label));
+  const rankText = st.rank == null ? 'Not ranked' :
+    `${tied ? 'Joint ' + ordinal(st.rank) : ordinal(st.rank)} cheapest of ${st.of}`;
+  const excluded = st.excluded && st.excluded.length
+    ? `<div class="card-note info">Left out of the figures: ${st.excluded.map(esc).join(', ')} — price unchanged for over ${OLD_PRICE_DAYS} days, or more than 15p from the local median (likely a reporting error).</div>` : '';
+  const ownStale = ageDays(site.own.lastUpdated);
+  return `
+  <div class="card ${status}">
+    <div class="card-head">
+      <div class="card-icon">${f.icon}</div>
+      <div class="status-badge ${status}"><span class="badge-dot"></span>${STATUS_TEXT[status]}</div>
+    </div>
+    <div class="card-name">${f.name} <span style="color:var(--text-dim);font-weight:500">${f.code}</span></div>
+    <div class="card-desc">Brooke Garage against stations within ${site.radiusMiles} miles.</div>
+    <div class="our-price">${p(st.ours)}<small>p/litre</small></div>
+    <div class="our-rank">${rankText}</div>
+    <div class="checks">
+      <div class="check">
+        <div class="check-label">Cheapest nearby<span class="sub">${esc(st.cheapestLabel || '—')}</span></div>
+        <div class="check-value">${pp(st.cheapest)}</div>
+      </div>
+      <div class="check">
+        <div class="check-label">Our gap to cheapest</div>
+        <div class="check-value ${gapClass(gapCheapest)}">${signed(gapCheapest)}</div>
+      </div>
+      <div class="check">
+        <div class="check-label">Local average</div>
+        <div class="check-value">${pp(st.average)}</div>
+      </div>
+      <div class="check">
+        <div class="check-label">Our gap to average</div>
+        <div class="check-value ${gapClass(gapAvg == null ? null : gapAvg + UNDERCUT_ALERT)}">${signed(gapAvg)}</div>
+      </div>
+    </div>
+    ${ownStale != null && ownStale > 7 && f.key === 'unleaded'
+      ? `<div class="card-note">Our own price hasn't been updated on Fuel Finder for ${Math.floor(ownStale)} days — check it matches the pumps (Google Maps shows what we report).</div>` : ''}
+    ${excluded}
+  </div>`;
+}
+
+// ---- competitor table ----
+function tableSection(site) {
+  return `
+    <div class="section-head">
+      <div class="section-head-left">
+        <div class="card-icon">📋</div>
+        <div>
+          <div class="card-name">Nearby stations</div>
+          <div class="card-desc">Current prices in pence per litre. Red means cheaper than us; amber means the same as us.</div>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="seg" id="sortSeg">
+          ${FUELS.map(f => `<button data-sort="${f.key}">${f.code}</button>`).join('')}
+          <button data-sort="miles">Distance</button>
+        </div>
+      </div>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Station</th><th>Miles</th><th>Unleaded</th><th>Diesel</th><th>Super</th><th>Price updated</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table></div>
+    <div class="table-foot">
+      <div class="key">
+        <span><i style="color:var(--red-status)">171.9</i> cheaper than us</span>
+        <span><i style="color:var(--amber)">171.9</i> same as us</span>
+        <span><i style="color:#555;text-decoration:line-through">171.9</i> left out (old / outlier)</span>
+        <span id="missingNote"></span>
+      </div>
+      <button class="link-btn" id="showAllBtn"></button>
+    </div>`;
+}
+
+function renderTable() {
+  const site = data.sites[0];
+  const excluded = Object.fromEntries(FUELS.map(f => [f.key, new Set(site.stats[f.key].excluded || [])]));
+  const ownRow = { label: site.name, miles: 0, supermarket: false, found: true, ours: true, ...site.own };
+  let rows = site.competitors.filter(c => c.found).map(c => ({ ...c }));
+  const missing = site.competitors.filter(c => !c.found).length;
+
+  const sortKey = tableSort;
+  const cmp = (a, b) => sortKey === 'miles'
+    ? a.miles - b.miles
+    : (a[sortKey] ?? Infinity) - (b[sortKey] ?? Infinity) || a.miles - b.miles;
+  rows.sort(cmp);
+
+  let visible = rows;
+  if (!showAll) {
+    visible = rows.slice(0, DEFAULT_ROWS);
+    // Always show our nearest competitor, even if it isn't in the top 10.
+    const nearest = [...rows].sort((a, b) => a.miles - b.miles)[0];
+    if (nearest && !visible.includes(nearest)) visible.push(nearest);
+  }
+  // Our row sits in its sorted position, so where we rank is visible at a glance.
+  const all = [ownRow, ...visible].sort(cmp);
+
+  const cell = (r, k) => {
+    const v = r[k];
+    if (v == null) return `<td class="na">—</td>`;
+    if (r.ours) return `<td>${p(v)}</td>`;
+    if (excluded[k].has(r.label)) return `<td class="excl" title="Left out of rankings">${p(v)}</td>`;
+    const mine = site.own[k];
+    const cls = mine == null ? '' : v < mine ? 'cheaper' : v === mine ? 'same' : '';
+    return `<td class="${cls}">${p(v)}</td>`;
+  };
+  document.getElementById('tbody').innerHTML = all.map(r => {
+    const d = ageDays(r.lastUpdated);
+    return `<tr class="${r.ours ? 'ours' : ''}">
+      <td>${esc(r.label)}${r.ours ? '<span class="tag us">US</span>' : ''}${r.supermarket ? '<span class="tag">Supermarket</span>' : ''}</td>
+      <td>${r.ours ? '—' : r.miles.toFixed(1)}</td>
+      ${cell(r, 'unleaded')}${cell(r, 'diesel')}${cell(r, 'premiumUnleaded')}
+      <td class="age ${d != null && d > OLD_PRICE_DAYS ? 'old' : ''}" title="${fmtDateTime(r.lastUpdated)}">${ago(r.lastUpdated)}</td>
+    </tr>`;
+  }).join('');
+
+  document.querySelectorAll('#sortSeg button').forEach(b => {
+    b.classList.toggle('on', b.dataset.sort === tableSort);
+    b.onclick = () => { tableSort = b.dataset.sort; renderTable(); };
+  });
+  const btn = document.getElementById('showAllBtn');
+  btn.textContent = showAll ? `Show top ${DEFAULT_ROWS}` : `Show all ${rows.length} stations`;
+  btn.style.display = rows.length > DEFAULT_ROWS ? '' : 'none';
+  btn.onclick = () => { showAll = !showAll; renderTable(); };
+  document.getElementById('missingNote').textContent = missing
+    ? `${missing} station${missing === 1 ? '' : 's'} not in today's feed` : '';
+}
+
+// ---- 30-day trend ----
+function chartSection() {
+  return `
+    <div class="section-head">
+      <div class="section-head-left">
+        <div class="card-icon">📉</div>
+        <div>
+          <div class="card-name">30-day trend</div>
+          <div class="card-desc">Our price against the cheapest and the average of nearby stations, one point per day.</div>
+        </div>
+      </div>
+      <div class="seg" id="chartSeg">
+        ${FUELS.map(f => `<button data-fuel="${f.key}">${f.name}</button>`).join('')}
+      </div>
+    </div>
+    <div class="chart-legend">
+      <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#CC2020"></span>Brooke Garage</span>
+      <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#22c55e"></span>Cheapest nearby</span>
+      <span class="chart-legend-item" style="color:#888"><span class="chart-legend-swatch dash"></span><span style="color:var(--text-dim)">Local average</span></span>
+    </div>
+    <div class="chart-canvas-wrap"><canvas id="trendChart"></canvas></div>
+    <div id="chartNote"></div>`;
+}
+
+function renderChart() {
+  const site = data.sites[0];
+  const hist = (data.history && data.history[site.key]) || [];
+  document.querySelectorAll('#chartSeg button').forEach(b => {
+    b.classList.toggle('on', b.dataset.fuel === chartFuel);
+    b.onclick = () => { chartFuel = b.dataset.fuel; renderChart(); };
+  });
+  const labels = hist.map(h => new Date(h.date + 'T12:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }));
+  const series = (k) => hist.map(h => h[chartFuel] ? h[chartFuel][k] : null);
+  const ds = (label, values, color, extra = {}) => ({
+    label, data: values, borderColor: color, backgroundColor: color,
+    borderWidth: 2, tension: 0, pointRadius: hist.length > 14 ? 0 : 3, pointHoverRadius: 4, spanGaps: true, ...extra,
+  });
+  if (trendChart) trendChart.destroy();
+  if (typeof Chart === 'undefined') {
+    document.getElementById('chartNote').innerHTML = `<div class="card-note red">Chart library didn't load — try Refresh.</div>`;
+    return;
+  }
+  trendChart = new Chart(document.getElementById('trendChart').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        ds('Brooke Garage', series('ours'), '#CC2020', { borderWidth: 3 }),
+        ds('Cheapest nearby', series('cheapest'), '#22c55e'),
+        ds('Local average', series('average'), '#888', { borderDash: [5, 4], pointRadius: 0 }),
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (c) => ` ${c.dataset.label}: ${c.parsed.y == null ? '—' : c.parsed.y.toFixed(1) + 'p'}` } },
+      },
+      scales: {
+        x: { ticks: { color: '#888', maxRotation: 0, autoSkip: true, maxTicksLimit: 10 }, grid: { color: '#2a2a2d' } },
+        y: { ticks: { color: '#888', callback: (v) => v + 'p' }, grid: { color: '#2a2a2d' }, grace: '5%' },
+      },
+    },
+  });
+  document.getElementById('chartNote').innerHTML = hist.length < 7
+    ? `<div class="card-note info">History started recently (${hist.length} day${hist.length === 1 ? '' : 's'} so far) — the chart fills in one point per day, up to 30 days.</div>`
+    : '';
+}
+
+renderFooter();
+load();
+setInterval(load, 5 * 60 * 1000);
+</script>
+<style>@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }</style>
+</body>
+</html>
