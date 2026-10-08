@@ -233,8 +233,8 @@ const DATA_URL = new URLSearchParams(location.search).get('data')
 
 const FUELS = [
   { key: 'unleaded', name: 'Unleaded', code: 'E10', icon: '⛽' },
-  { key: 'diesel', name: 'Diesel', code: 'B7', icon: '🛢️' },
   { key: 'premiumUnleaded', name: 'Super unleaded', code: 'E5', icon: '⭐' },
+  { key: 'diesel', name: 'Diesel', code: 'B7', icon: '🛢️' },
 ];
 const STALE_CHECK_HOURS = 8;  // cron heartbeat is 6-hourly; warn after 8h
 const OLD_PRICE_DAYS = 30;    // matches lib/fuel-watch.ts
@@ -446,7 +446,7 @@ function tableSection(site) {
       </div>
     </div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Station</th><th>Miles</th><th>Unleaded</th><th>Diesel</th><th>Super</th><th>Price updated</th></tr></thead>
+      <thead><tr><th>Station</th><th>Miles</th><th>Unleaded</th><th>Super</th><th>Diesel</th><th>Price updated</th></tr></thead>
       <tbody id="tbody"></tbody>
     </table></div>
     <div class="table-foot">
@@ -498,7 +498,7 @@ function renderTable() {
     return `<tr class="${r.ours ? 'ours' : ''}">
       <td><button class="name-btn" data-node="${esc(r.nodeId)}" aria-expanded="${open}"><span class="caret">${open ? '▾' : '▸'}</span>${esc(r.label)}</button>${r.ours ? '<span class="tag us">US</span>' : ''}${r.supermarket ? '<span class="tag">Supermarket</span>' : ''}</td>
       <td>${r.ours ? '—' : r.miles.toFixed(1)}</td>
-      ${cell(r, 'unleaded')}${cell(r, 'diesel')}${cell(r, 'premiumUnleaded')}
+      ${cell(r, 'unleaded')}${cell(r, 'premiumUnleaded')}${cell(r, 'diesel')}
       <td class="age ${d != null && d > OLD_PRICE_DAYS ? 'old' : ''}" title="${fmtDateTime(r.lastUpdated)}">${ago(r.lastUpdated)}</td>
     </tr>${open ? detailRow(r) : ''}`;
   }).join('');
