@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-08T12:00:03.116Z",
+  "timestamp": "2026-10-08T16:00:02.319Z",
   "ok": true,
   "match": true,
   "autotraderTotal": 401,
@@ -9,9 +9,9 @@
   "byAdvertiser": {
     "833349": {
       "location": "Brooke",
-      "autotrader": 300,
-      "sanity": 300,
-      "onWebsite": 277,
+      "autotrader": 298,
+      "sanity": 298,
+      "onWebsite": 275,
       "hiddenFromWebsite": 23,
       "match": true,
       "diff": 0,
@@ -22,9 +22,9 @@
     },
     "10043362": {
       "location": "Norwich",
-      "autotrader": 101,
-      "sanity": 101,
-      "onWebsite": 100,
+      "autotrader": 103,
+      "sanity": 103,
+      "onWebsite": 102,
       "hiddenFromWebsite": 1,
       "match": true,
       "diff": 0,
