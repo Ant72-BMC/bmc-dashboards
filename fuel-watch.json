@@ -1,12 +1,21 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-08T14:42:13.702Z",
-  "changedAt": "2026-10-08T14:42:13.702Z",
+  "checkedAt": "2026-10-08T15:31:49.317Z",
+  "changedAt": "2026-10-08T15:31:49.317Z",
   "sites": [
     {
       "key": "brooke-garage",
       "name": "Brooke Garage",
+      "postcode": "NR15 1AB",
+      "address": [
+        "Brooke Garage Ltd",
+        "9 Norwich Road",
+        "Brooke",
+        "Norwich",
+        "South Norfolk"
+      ],
+      "phone": "01508 550241",
       "radiusMiles": 10,
       "own": {
         "unleaded": 168.9,
@@ -19,6 +28,13 @@
           "nodeId": "bcd04be39831648157fd7877be5656e38766e1775472d868f4398cc7427fff9f",
           "label": "Poringland Service Station",
           "postcode": "NR14 7JR",
+          "address": [
+            "Poringland Service Station",
+            "2 The Street",
+            "Poringland",
+            "Norwich"
+          ],
+          "phone": null,
           "miles": 2.6,
           "supermarket": false,
           "role": "direct",
@@ -32,6 +48,12 @@
           "nodeId": "795fc4e49ca36fdea8146dbd7be98b95412f4dfcd9a8c77c2a5fd4e1c3779543",
           "label": "Tesco Harford Bridge",
           "postcode": "NR4 6DZ",
+          "address": [
+            "Tesco Stores Ltd",
+            "Ipswich Road",
+            "Norwich"
+          ],
+          "phone": "0800 323 4040",
           "miles": 5.3,
           "supermarket": true,
           "role": "direct",
@@ -45,6 +67,12 @@
           "nodeId": "a082bec907ca589d877f3d62626e9e630f8cbd94c7326c9a2e6bd97ff30f7853",
           "label": "BP Martineau Lane",
           "postcode": "NR1 2JA",
+          "address": [
+            "Martineau Lane",
+            "Norwich",
+            "Norfolk"
+          ],
+          "phone": "01603 511544",
           "miles": 5.6,
           "supermarket": false,
           "role": "direct",
@@ -58,6 +86,11 @@
           "nodeId": "e718d546c14d35bafc3c12b50fef7186e4f4752495164553663ae07ddd55040d",
           "label": "Asda Hall Road",
           "postcode": "NR4 6DP",
+          "address": [
+            "Hall Road",
+            "Norwich"
+          ],
+          "phone": "01603 964246",
           "miles": 5.6,
           "supermarket": true,
           "role": "direct",
@@ -71,6 +104,12 @@
           "nodeId": "8e436da1d04a4fe80dc9e3a547fa70ed8f006b7ad6710ac71a27f625c2ad5ceb",
           "label": "BP Norwich South",
           "postcode": "NR1 2RT",
+          "address": [
+            "Junction Hall Road",
+            "Barrett Road Norwich",
+            "Norfolk"
+          ],
+          "phone": "01603 511543",
           "miles": 5.8,
           "supermarket": false,
           "role": "direct",
@@ -84,6 +123,13 @@
           "nodeId": "7e54b71d4fc9e3cd9d0f87e6ff69184eb7001a3de05c085565c92028a6f368ef",
           "label": "Shell Hales",
           "postcode": "NR14 6SR",
+          "address": [
+            "Hales Service Station",
+            "Beccles Road",
+            "Hales",
+            "Norwich"
+          ],
+          "phone": "01508 548966",
           "miles": 5.8,
           "supermarket": false,
           "role": "direct",
@@ -97,6 +143,12 @@
           "nodeId": "1d9c183ad31040585e1513e1b76d5a65f5fd3a9431f3b977e7c1672cddee9ccb",
           "label": "Shell Ipswich Road",
           "postcode": "NR4 6LA",
+          "address": [
+            "Ipswich Road",
+            "Norwich",
+            "Norfolk"
+          ],
+          "phone": "01603 504047",
           "miles": 6,
           "supermarket": false,
           "role": "direct",
@@ -110,6 +162,11 @@
           "nodeId": "b2b99cc5942e1d768c817dfe9906b7953cad11dad6950110bd3cdf2b1e96bbfe",
           "label": "Sainsbury's Pound Lane",
           "postcode": "NR7 0SR",
+          "address": [
+            "Pound Lane",
+            "Norwich"
+          ],
+          "phone": "0330 013 8045",
           "miles": 6.1,
           "supermarket": true,
           "role": "direct",
@@ -123,6 +180,12 @@
           "nodeId": "9413600ac2534b2d02b6927a2b8edafc482b6d5add45b8bd8c6f15a672373911",
           "label": "Morrisons Albion Way",
           "postcode": "NR1 1WU",
+          "address": [
+            "Albion Way",
+            "Norwich",
+            "Norfolk"
+          ],
+          "phone": "01603 515563",
           "miles": 6.2,
           "supermarket": true,
           "role": "direct",
@@ -136,6 +199,11 @@
           "nodeId": "ed341c6c89e1896b15fc7cefd913a381e4c833488cac0115910411cb7d1b4688",
           "label": "Sainsbury's Queens Road",
           "postcode": "NR1 3RX",
+          "address": [
+            "1 Brazen Gate",
+            "Norwich"
+          ],
+          "phone": "0330 013 8049",
           "miles": 6.3,
           "supermarket": true,
           "role": "direct",
@@ -149,19 +217,31 @@
           "nodeId": "fd07fad71453cf5a6827fc43c377e7991cc6c6f0b5d0b9994dce580f32626c26",
           "label": "Shell Co-op Brundall",
           "postcode": "NR13 5AR",
+          "address": [
+            "Yarmouth Road",
+            "Norwich",
+            "Norfolk"
+          ],
+          "phone": "01603 713734",
           "miles": 6.7,
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 176.9,
+          "unleaded": 178.9,
           "diesel": 202.9,
           "premiumUnleaded": 204.9,
-          "lastUpdated": "2026-10-07T16:23:03.000Z"
+          "lastUpdated": "2026-10-08T15:19:03.000Z"
         },
         {
           "nodeId": "e88be1df777d3a4ae04edc3827f6f9ab83fb01a24a4f53506cda06fdfebc7ba0",
           "label": "Jet Castle Service Station",
           "postcode": "NR1 1PN",
+          "address": [
+            "Castle Service Station",
+            "No.02 Rose Lane",
+            "Norwich"
+          ],
+          "phone": null,
           "miles": 6.7,
           "supermarket": true,
           "role": "direct",
@@ -175,6 +255,12 @@
           "nodeId": "3a84eeda3951eed9a28fca74be208b8dcfeb591df0429087e5af73ab55982432",
           "label": "Esso Plumstead Road",
           "postcode": "NR1 4JT",
+          "address": [
+            "Plumstead Road",
+            "Norwich",
+            "Norfolk"
+          ],
+          "phone": "01603 511528",
           "miles": 6.8,
           "supermarket": false,
           "role": "direct",
@@ -188,6 +274,13 @@
           "nodeId": "536e7657ccc01318e5a2e6a540247df774cd58c9be3a6a91ca887e6f84d9c244",
           "label": "Shell Stratton Motor Co (Long Stratton)",
           "postcode": "NR15 2XJ",
+          "address": [
+            "Stratton Motor Co",
+            "The Street",
+            "Long Stratton",
+            "Norwich"
+          ],
+          "phone": "01508 536274",
           "miles": 6.8,
           "supermarket": false,
           "role": "direct",
@@ -201,6 +294,13 @@
           "nodeId": "04dbf02f9ac114bfc8e89e96f7172b5b87a5b58f3d8dfed947ac242be4e741f5",
           "label": "Jet Thunder Lane",
           "postcode": "NR7 9NQ",
+          "address": [
+            "Londis Supermarket",
+            "Thunder Lane Garage",
+            "160 Plumstead Road East",
+            "Norwich"
+          ],
+          "phone": "01603 433848",
           "miles": 7,
           "supermarket": true,
           "role": "direct",
@@ -214,6 +314,11 @@
           "nodeId": "0687d5320b931821d20be87679773dda76e009d9fa88aea1661c6401d1c430db",
           "label": "Co-op Bungay",
           "postcode": "NR35 1RX",
+          "address": [
+            "Hillside East Road",
+            "Bungay"
+          ],
+          "phone": "01986 895738",
           "miles": 7.2,
           "supermarket": true,
           "role": "direct",
@@ -227,6 +332,12 @@
           "nodeId": "048856cd1dff44eaca3cc04ef14d7f14e74a60054135eef278d33b088dbbfd77",
           "label": "Esso St Benedicts",
           "postcode": "NR2 4HX",
+          "address": [
+            "9 Dereham Road",
+            "Norwich",
+            "Norfolk"
+          ],
+          "phone": "01603 511545",
           "miles": 7.2,
           "supermarket": false,
           "role": "direct",
@@ -240,19 +351,31 @@
           "nodeId": "cfd6698944cf2fe3f95e079a2301ff12a1668c804e05af28de1f1f66467f16bd",
           "label": "Shell Cringleford",
           "postcode": "NR9 3AU",
+          "address": [
+            "Norwich Road",
+            "Norwich",
+            "Norfolk"
+          ],
+          "phone": "01603 507460",
           "miles": 7.5,
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 177.9,
+          "unleaded": 179.9,
           "diesel": 199.9,
           "premiumUnleaded": 199.9,
-          "lastUpdated": "2026-10-03T13:22:03.000Z"
+          "lastUpdated": "2026-10-08T15:20:03.000Z"
         },
         {
           "nodeId": "b568fa532e2cac4b9cbd15a3942f2e7109eeb1f4af2e2542b45d4fe2a1aeda7a",
           "label": "BP Mousehold Lane",
           "postcode": "NR7 8HA",
+          "address": [
+            "58 Mousehold Lane",
+            "Norwich",
+            "Norfolk"
+          ],
+          "phone": "01603 408611",
           "miles": 7.7,
           "supermarket": false,
           "role": "direct",
@@ -266,6 +389,12 @@
           "nodeId": "bdc5697fd7922eb4f036ba6933219a10aa875ff36a238b8ab7c0b956c1ebfd6a",
           "label": "Tesco Earlham Road Express",
           "postcode": "NR4 7TF",
+          "address": [
+            "Earlham Rd",
+            "Earlham",
+            "Norwich"
+          ],
+          "phone": "0800 323 4040",
           "miles": 7.9,
           "supermarket": true,
           "role": "direct",
@@ -279,6 +408,12 @@
           "nodeId": "c317976db9d4b99ec0d9f1fa26388c310f9bd78a4406271d998c49c28cfb863b",
           "label": "Esso Broadside",
           "postcode": "NR3 2HJ",
+          "address": [
+            "174 Aylsham Road",
+            "Norwich",
+            "Norfolk"
+          ],
+          "phone": "01603 511529",
           "miles": 8.1,
           "supermarket": false,
           "role": "direct",
@@ -292,6 +427,12 @@
           "nodeId": "1e0cda47058e422fef06ed34f513aa4e4608e893449149cb8576881bc2c1ac34",
           "label": "Tesco Norwich Extra",
           "postcode": "NR7 8AB",
+          "address": [
+            "Tesco Stores Ltd",
+            "Blue Boar Lane",
+            "Norwich"
+          ],
+          "phone": "0800 323 4040",
           "miles": 8.3,
           "supermarket": true,
           "role": "direct",
@@ -305,6 +446,13 @@
           "nodeId": "d0c26f4feaf419fcd0e3c07846737ab53b33a90b5105e553d683b4c072cf3ce8",
           "label": "Harvest Energy (Progress Fuels)",
           "postcode": "NR6 7QN",
+          "address": [
+            "Progress Fuels",
+            "171 North Walsham Road",
+            "Norwich",
+            "Broadland"
+          ],
+          "phone": "01603 416566",
           "miles": 8.6,
           "supermarket": false,
           "role": "direct",
@@ -318,6 +466,12 @@
           "nodeId": "a0c2787bcbee40249bf506dfa254c426e5365218e4f1454dee556b54c1bfaf97",
           "label": "Shell Co-op Beccles",
           "postcode": "NR34 0ED",
+          "address": [
+            "A143/A146 Roundabout",
+            "Beccles",
+            "Norfolk"
+          ],
+          "phone": "01502 717267",
           "miles": 8.7,
           "supermarket": false,
           "role": "direct",
@@ -331,6 +485,12 @@
           "nodeId": "3ec68782dadfdf32cb5bc7d5f06cd4b2f01276d09553bcb6573c8a8c9e6f9351",
           "label": "Esso Ring",
           "postcode": "NR6 6SH",
+          "address": [
+            "Mile Cross Lane",
+            "Norwich",
+            "Norfolk"
+          ],
+          "phone": "01603 511546",
           "miles": 8.8,
           "supermarket": false,
           "role": "direct",
@@ -344,6 +504,11 @@
           "nodeId": "ccfb60753197614dcdc4eca32b7125a53e846dc4b10788cf51c5508a89b4efe3",
           "label": "Asda Sweet Briar Express (Esso)",
           "postcode": "NR6 5AL",
+          "address": [
+            "Sweet Briar Road",
+            "Norwich"
+          ],
+          "phone": "01603 510707",
           "miles": 8.8,
           "supermarket": false,
           "role": "direct",
@@ -357,6 +522,11 @@
           "nodeId": "60c0b8586b396f86bbbe0d8d9804026bf3291f479b7ae65d6e1d6696f7738838",
           "label": "Asda Norwich Superstore",
           "postcode": "NR6 5DT",
+          "address": [
+            "Drayton High Road",
+            "Hellesdon"
+          ],
+          "phone": "01603 787384",
           "miles": 8.9,
           "supermarket": true,
           "role": "direct",
@@ -370,6 +540,12 @@
           "nodeId": "10db311a51182bd42771ad326b1d2f930265a24c6f8bbab5698fde99f0cf64eb",
           "label": "BP Oval",
           "postcode": "NR5 0SY",
+          "address": [
+            "Dereham Road",
+            "New Costessey",
+            "Norwich"
+          ],
+          "phone": "01603 511530",
           "miles": 8.9,
           "supermarket": false,
           "role": "direct",
@@ -383,6 +559,12 @@
           "nodeId": "32c0cae9f7bdf46f21d10411158d3be533d82bd067c20c8888a6124f396856ef",
           "label": "EG On The Move Norwich",
           "postcode": "NR6 6XA",
+          "address": [
+            "Cromer Road",
+            "Norwich",
+            "Norfolk"
+          ],
+          "phone": "01603 337027",
           "miles": 9.5,
           "supermarket": false,
           "role": "direct",
@@ -396,6 +578,12 @@
           "nodeId": "53b28468e07172ef5def62f64cc642dfcb3f73794df1d6078bd45230b45c718a",
           "label": "Jet A&F Motors",
           "postcode": "NR6 5NQ",
+          "address": [
+            "Jet",
+            "57 Middletons Lane",
+            "Norwich"
+          ],
+          "phone": "01603 424784",
           "miles": 9.6,
           "supermarket": false,
           "role": "direct",
@@ -409,6 +597,12 @@
           "nodeId": "e44701c4606125946ba3e910d7d4f37743c8e70651d5f221dc33516714063701",
           "label": "Asda Norwich Express",
           "postcode": "NR5 0SE",
+          "address": [
+            "403 Dereham Road",
+            "New Costessey",
+            "Norwich"
+          ],
+          "phone": "01603 511698",
           "miles": 9.8,
           "supermarket": false,
           "role": "direct",
@@ -422,6 +616,12 @@
           "nodeId": "127544094681fa89a9dce0a4d20a345e6151e53d89acb49555b6aec6ccd7da24",
           "label": "Morrisons Beccles",
           "postcode": "NR34 9BJ",
+          "address": [
+            "George Westwood Way",
+            "Beccles",
+            "Norfolk"
+          ],
+          "phone": "01502 441016",
           "miles": 10,
           "supermarket": true,
           "role": "direct",
@@ -437,7 +637,7 @@
           "ours": 168.9,
           "cheapest": 170.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 175.1,
+          "average": 175.2,
           "rank": 1,
           "of": 33,
           "excluded": []
@@ -472,7 +672,7 @@
         "unleaded": {
           "ours": 168.9,
           "cheapest": 170.9,
-          "average": 175.1
+          "average": 175.2
         },
         "diesel": {
           "ours": 196.9,
