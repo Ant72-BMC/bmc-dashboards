@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-09T07:01:36.016Z",
-  "changedAt": "2026-10-09T00:31:15.132Z",
+  "checkedAt": "2026-10-09T07:43:07.821Z",
+  "changedAt": "2026-10-09T07:43:07.821Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -587,10 +587,13 @@
           "miles": 9.6,
           "supermarket": false,
           "role": "direct",
+          "ignore": [
+            "premiumUnleaded"
+          ],
           "found": true,
           "unleaded": 175.9,
           "diesel": 199.9,
-          "premiumUnleaded": 171.9,
+          "premiumUnleaded": null,
           "lastUpdated": "2026-09-22T14:51:09.000Z"
         },
         {
@@ -658,9 +661,7 @@
           "average": 192.5,
           "rank": 1,
           "of": 30,
-          "excluded": [
-            "Jet A&F Motors"
-          ]
+          "excluded": []
         }
       }
     }
