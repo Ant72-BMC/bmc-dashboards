@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-08T23:01:26.921Z",
-  "changedAt": "2026-10-08T23:01:26.921Z",
+  "checkedAt": "2026-10-09T00:31:15.132Z",
+  "changedAt": "2026-10-09T00:31:15.132Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -96,9 +96,9 @@
           "role": "direct",
           "found": true,
           "unleaded": 172.7,
-          "diesel": 197.7,
+          "diesel": 196.7,
           "premiumUnleaded": null,
-          "lastUpdated": "2026-10-02T20:31:39.000Z"
+          "lastUpdated": "2026-10-08T23:32:10.000Z"
         },
         {
           "nodeId": "8e436da1d04a4fe80dc9e3a547fa70ed8f006b7ad6710ac71a27f625c2ad5ceb",
@@ -644,10 +644,10 @@
         },
         "diesel": {
           "ours": 196.9,
-          "cheapest": 196.9,
-          "cheapestLabel": "Sainsbury's Queens Road",
+          "cheapest": 196.7,
+          "cheapestLabel": "Asda Hall Road",
           "average": 200.8,
-          "rank": 1,
+          "rank": 2,
           "of": 33,
           "excluded": []
         },
@@ -694,7 +694,7 @@
         },
         "diesel": {
           "ours": 196.9,
-          "cheapest": 196.9,
+          "cheapest": 196.7,
           "average": 200.8
         },
         "premiumUnleaded": {
