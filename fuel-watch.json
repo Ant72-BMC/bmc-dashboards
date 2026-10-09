@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-09T14:01:21.174Z",
-  "changedAt": "2026-10-09T07:43:07.821Z",
+  "checkedAt": "2026-10-09T14:30:55.541Z",
+  "changedAt": "2026-10-09T14:30:55.541Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -154,9 +154,9 @@
           "role": "direct",
           "found": true,
           "unleaded": 176.9,
-          "diesel": 201.9,
+          "diesel": 203.9,
           "premiumUnleaded": 194.9,
-          "lastUpdated": "2026-10-08T15:35:03.000Z"
+          "lastUpdated": "2026-10-09T14:05:03.000Z"
         },
         {
           "nodeId": "b2b99cc5942e1d768c817dfe9906b7953cad11dad6950110bd3cdf2b1e96bbfe",
@@ -228,9 +228,9 @@
           "role": "direct",
           "found": true,
           "unleaded": 178.9,
-          "diesel": 202.9,
+          "diesel": 204.9,
           "premiumUnleaded": 204.9,
-          "lastUpdated": "2026-10-08T15:19:03.000Z"
+          "lastUpdated": "2026-10-09T14:06:03.000Z"
         },
         {
           "nodeId": "e88be1df777d3a4ae04edc3827f6f9ab83fb01a24a4f53506cda06fdfebc7ba0",
@@ -361,10 +361,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 179.9,
-          "diesel": 199.9,
+          "unleaded": 178.9,
+          "diesel": 202.9,
           "premiumUnleaded": 199.9,
-          "lastUpdated": "2026-10-08T15:20:03.000Z"
+          "lastUpdated": "2026-10-09T14:06:03.000Z"
         },
         {
           "nodeId": "b568fa532e2cac4b9cbd15a3942f2e7109eeb1f4af2e2542b45d4fe2a1aeda7a",
@@ -477,9 +477,9 @@
           "role": "direct",
           "found": true,
           "unleaded": 178.9,
-          "diesel": 203.9,
+          "diesel": 204.9,
           "premiumUnleaded": 199.9,
-          "lastUpdated": "2026-10-07T11:09:03.000Z"
+          "lastUpdated": "2026-10-09T14:07:03.000Z"
         },
         {
           "nodeId": "3ec68782dadfdf32cb5bc7d5f06cd4b2f01276d09553bcb6573c8a8c9e6f9351",
@@ -649,7 +649,7 @@
           "ours": 196.9,
           "cheapest": 196.7,
           "cheapestLabel": "Asda Hall Road",
-          "average": 200.8,
+          "average": 201,
           "rank": 2,
           "of": 33,
           "excluded": []
@@ -696,7 +696,7 @@
         "diesel": {
           "ours": 196.9,
           "cheapest": 196.7,
-          "average": 200.8
+          "average": 201
         },
         "premiumUnleaded": {
           "ours": 178.9,
