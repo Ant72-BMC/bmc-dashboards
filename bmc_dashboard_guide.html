@@ -335,7 +335,7 @@
     <div class="panel-body">
       <div class="what-block">
         <div class="what-label">What it does</div>
-        <div class="what-text">The VPS (Virtual Private Server) is a DigitalOcean server hosted at IP address 159.65.17.84. It runs the bmc-sync script and the reactivation cron, which together keep Sanity matched to Autotrader. Without the VPS the stock on the BMC website would go out of date. This card checks that the server itself is reachable and that DigitalOcean's platform is operational — it does not confirm the sync job actually completed successfully. That is what the batch sync's own Healthchecks.io heartbeat and the Stock Reconciliation card on the Business Insights — Car Sales dashboard are for.</div>
+        <div class="what-text">The VPS (Virtual Private Server) is a DigitalOcean server hosted at IP address 159.65.17.84. It runs the bmc-sync scheduled jobs, including the stock reconciliation check (three times a day), which work alongside the website's real-time Autotrader webhook to keep Sanity matched to Autotrader. Without the VPS the stock on the BMC website would go out of date. This card checks that the server itself is reachable and that DigitalOcean's platform is operational — it does not confirm the sync job actually completed successfully. That is what the batch sync's own Healthchecks.io heartbeat and the Stock Reconciliation card on the Business Insights — Car Sales dashboard are for.</div>
       </div>
       <div class="lookout">
         <div class="lookout-title">What to look out for</div>
