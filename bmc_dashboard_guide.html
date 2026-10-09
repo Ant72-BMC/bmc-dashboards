@@ -104,6 +104,7 @@
   .panel-badge.metrics { background: rgba(59,130,246,0.12); color: var(--blue); }
   .panel-badge.business { background: rgba(245,158,11,0.12); color: var(--amber); }
   .panel-badge.both { background: rgba(168,85,247,0.12); color: var(--purple); }
+  .panel-badge.petrol { background: rgba(204,32,32,0.14); color: #ef4444; }
   .panel-chevron { color: var(--text-dim); font-size: 12px; transition: transform 0.2s; }
   .panel-chevron.open { transform: rotate(180deg); }
   .panel-body { padding: 20px; display: none; }
@@ -188,8 +189,8 @@
 <div style="max-width:1200px;margin:0 auto">
   <div class="hero">
     <div class="hero-eyebrow">Documentation · Updated for live production</div>
-    <h2 class="hero-title">Your three dashboards,<br><span>explained simply.</span></h2>
-    <p class="hero-desc">BMC Group runs on a connected set of services — the website, Sanity CMS, the Autotrader stock pipeline, and fuel-price sync — plus a Business Insights layer covering stock accuracy and reservation follow-ups. This guide explains what each panel is checking, what good looks like, and what to do when something goes wrong. Panels covering services now monitored elsewhere (Stripe, Resend, CookieYes) or superseded by better checks (the old simple Autotrader reachability check) have been retired from the dashboards themselves — this guide has been updated to match.</p>
+    <h2 class="hero-title">Your four dashboards,<br><span>explained simply.</span></h2>
+    <p class="hero-desc">BMC Group runs on a connected set of services — the website, Sanity CMS, the Autotrader stock pipeline, and fuel-price sync — plus two Business Insights dashboards: Car Sales (stock accuracy, reservation follow-ups and sales trends) and Petrol Stations (Brooke Garage fuel prices against local competitors). This guide explains what each panel is checking, what good looks like, and what to do when something goes wrong. Panels covering services now monitored elsewhere (Stripe, Resend, CookieYes) or superseded by better checks (the old simple Autotrader reachability check) have been retired from the dashboards themselves — this guide has been updated to match.</p>
   </div>
 </div>
 
@@ -207,13 +208,13 @@
   </div>
   <div class="dash-card">
     <div class="dash-card-num">Dashboard 02</div>
-    <div class="dash-card-title">Business Insights Dashboard</div>
-    <div class="dash-card-desc">Whether Autotrader and Sanity stock counts agree, a staff follow-up list for £99 deposit reservations, and sold-vehicle trends by price band and by make/model.</div>
+    <div class="dash-card-title">Business Insights — Car Sales Dashboard</div>
+    <div class="dash-card-desc">Whether Autotrader and Sanity stock counts agree, a staff follow-up list for £99 deposit reservations, sold-vehicle trends by price band, make/model and branch, total stock value, and sales over time.</div>
     <div class="dash-card-tags">
       <span class="tag">bmc_business.html</span>
       <span class="tag">Live checks</span>
       <span class="tag">Stock, reservations &amp; sales</span>
-      <span class="tag">4 panels</span>
+      <span class="tag">6 panels + chart</span>
     </div>
   </div>
   <div class="dash-card">
@@ -225,6 +226,17 @@
       <span class="tag">Speeds & counts</span>
       <span class="tag">Today / 7d / 30d</span>
       <span class="tag">All live data</span>
+    </div>
+  </div>
+  <div class="dash-card">
+    <div class="dash-card-num">Dashboard 04</div>
+    <div class="dash-card-title">Business Insights — Petrol Stations Dashboard</div>
+    <div class="dash-card-desc">Brooke Garage's unleaded, super unleaded and diesel prices against every fuel station within 10 miles: where we rank, the cheapest nearby, the local average, each station's prices and address, and a 30-day trend.</div>
+    <div class="dash-card-tags">
+      <span class="tag">bmc_petrol.html</span>
+      <span class="tag">Government Fuel Finder data</span>
+      <span class="tag">32 stations · 10 miles</span>
+      <span class="tag">Checked every 30 min</span>
     </div>
   </div>
 </div>
@@ -323,11 +335,11 @@
     <div class="panel-body">
       <div class="what-block">
         <div class="what-label">What it does</div>
-        <div class="what-text">The VPS (Virtual Private Server) is a DigitalOcean server hosted at IP address 159.65.17.84. It runs the bmc-sync script and the reactivation cron, which together keep Sanity matched to Autotrader. Without the VPS the stock on the BMC website would go out of date. This card checks that the server itself is reachable and that DigitalOcean's platform is operational — it does not confirm the sync job actually completed successfully. That is what the batch sync's own Healthchecks.io heartbeat and the Stock Reconciliation card on the Business Insights dashboard are for.</div>
+        <div class="what-text">The VPS (Virtual Private Server) is a DigitalOcean server hosted at IP address 159.65.17.84. It runs the bmc-sync script and the reactivation cron, which together keep Sanity matched to Autotrader. Without the VPS the stock on the BMC website would go out of date. This card checks that the server itself is reachable and that DigitalOcean's platform is operational — it does not confirm the sync job actually completed successfully. That is what the batch sync's own Healthchecks.io heartbeat and the Stock Reconciliation card on the Business Insights — Car Sales dashboard are for.</div>
       </div>
       <div class="lookout">
         <div class="lookout-title">What to look out for</div>
-        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Green — server reachable</div><div class="lookout-action">The server itself is up. Combine with the Stock Reconciliation card on the Business Insights dashboard to confirm the sync is actually keeping stock current.</div></div></div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Green — server reachable</div><div class="lookout-action">The server itself is up. Combine with the Stock Reconciliation card on the Business Insights — Car Sales dashboard to confirm the sync is actually keeping stock current.</div></div></div>
         <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — server unreachable</div><div class="lookout-action">The Autotrader sync has almost certainly stopped. Stock will go stale. Check the DigitalOcean dashboard (cloud.digitalocean.com) — the droplet may need restarting.</div></div></div>
       </div>
     </div>
@@ -335,12 +347,12 @@
 
   <div class="divider"></div>
 
-  <!-- DASHBOARD 2 — BUSINESS INSIGHTS (NEW) -->
+  <!-- DASHBOARD 2 — BUSINESS INSIGHTS: CAR SALES -->
   <div class="section-header">
     <div class="section-num">2</div>
     <div>
-      <div class="section-title">Business Insights Dashboard — Panel by Panel</div>
-      <div class="section-sub">bmc_business.html — stock accuracy and reservation follow-ups, not infrastructure health</div>
+      <div class="section-title">Business Insights — Car Sales Dashboard — Panel by Panel</div>
+      <div class="section-sub">bmc_business.html — stock accuracy, reservation follow-ups and sales trends, not infrastructure health</div>
     </div>
   </div>
 
@@ -349,21 +361,21 @@
     <div class="panel-head" onclick="toggle(this)">
       <div class="panel-icon">🔄</div>
       <div class="panel-title">Stock Reconciliation</div>
-      <span class="panel-badge business">Business Insights</span>
+      <span class="panel-badge business">Car Sales</span>
       <span class="panel-chevron">▼</span>
     </div>
     <div class="panel-body">
       <div class="what-block">
         <div class="what-label">What it does</div>
-        <div class="what-text">This card replaced the old simple "Autotrader Sync" reachability check. Rather than just confirming the Autotrader API responds, it does something far more useful: it compares Autotrader's stock count against Sanity's active-vehicle count, per advertiser (Brooke 833349 and Norwich 10043362), and confirms they actually match. If they don't, it lists the specific registration(s) causing the mismatch — whether that's a vehicle sitting active in Sanity but not currently live on Autotrader, or the reverse — so a discrepancy is actionable straight from the dashboard rather than needing a manual export/diff each time. It also surfaces any currently outstanding failedSync trace documents — vehicles whose last content write to Sanity failed and hasn't yet self-corrected. A scheduled check refreshes all of this roughly every 15 minutes (not a live, on-page-load query).</div>
+        <div class="what-text">This card replaced the old simple "Autotrader Sync" reachability check. Rather than just confirming the Autotrader API responds, it does something far more useful: it compares Autotrader's stock count against Sanity's active-vehicle count, per advertiser (Brooke 833349 and Norwich 10043362), and confirms they actually match. If they don't, it lists the specific registration(s) causing the mismatch — whether that's a vehicle sitting active in Sanity but not currently live on Autotrader, or the reverse — so a discrepancy is actionable straight from the dashboard rather than needing a manual export/diff each time. It also surfaces any currently outstanding failedSync trace documents — vehicles whose last content write to Sanity failed and hasn't yet self-corrected. A scheduled check on the sync server refreshes all of this three times a day, at 9am, 1pm and 5pm (not a live, on-page-load query).</div>
       </div>
       <div class="lookout">
         <div class="lookout-title">What to look out for</div>
         <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Green — counts match, zero failedSync records</div><div class="lookout-action">Autotrader and Sanity agree for both Brooke and Norwich. No action needed.</div></div></div>
         <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Amber — small count mismatch</div><div class="lookout-action">A handful of vehicles are out of step, most often a transfer between Brooke and Norwich still working through, or the batch sync's next run hasn't caught it yet. Check the failedSync record list before assuming anything is broken — many mismatches self-correct within the hour.</div></div></div>
-        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — status file unreachable, or a large/persistent mismatch</div><div class="lookout-action">If the status file itself can't be loaded, the scheduled reconciliation check has stopped running — check the GitHub Actions workflow run history via the card's link. If the file loads but shows a large or growing mismatch, check the failedSync records for the affected stock IDs, and check whether any vehicle is stuck mid-transfer inside Autotrader's own system (a known limitation — see the Technical Architecture Document, Section 5.3).</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — status file unreachable, or a large/persistent mismatch</div><div class="lookout-action">If the status file itself can't be loaded, the scheduled reconciliation check on the sync server (reconcile.mjs) has stopped running. Check its Healthchecks.io status and the server's logs. If the file loads but shows a large or growing mismatch, check the failedSync records for the affected stock IDs, and check whether any vehicle is stuck mid-transfer inside Autotrader's own system (a known limitation — see the Technical Architecture Document, Section 5.3).</div></div></div>
       </div>
-      <div class="known-issue"><strong>Reads from a committed status file, not a live query</strong>This card doesn't query Autotrader or Sanity directly from the browser — it reads reconcile-status.json, a file the scheduled check commits back to the repository each run. If Netlify is serving a stale cached copy, the card fetches the file from raw.githubusercontent.com directly to guarantee it's current. If this card looks frozen (the timestamp inside the linked JSON isn't advancing), the workflow itself has likely stopped running rather than the site being wrong.</div>
+      <div class="known-issue"><strong>Reads from a committed status file, not a live query</strong>This card doesn't query Autotrader or Sanity directly from the browser — it reads reconcile-status.json, a file the scheduled check commits back to the repository each run. If Netlify is serving a stale cached copy, the card fetches the file from raw.githubusercontent.com directly to guarantee it's current. If this card looks frozen (the timestamp inside the linked JSON isn't advancing), the scheduled check itself has likely stopped running rather than the site being wrong.</div>
     </div>
   </div>
 
@@ -372,7 +384,7 @@
     <div class="panel-head" onclick="toggle(this)">
       <div class="panel-icon">⏱</div>
       <div class="panel-title">Reservation Alerts</div>
-      <span class="panel-badge business">Business Insights</span>
+      <span class="panel-badge business">Car Sales</span>
       <span class="panel-chevron">▼</span>
     </div>
     <div class="panel-body">
@@ -395,7 +407,7 @@
     <div class="panel-head" onclick="toggle(this)">
       <div class="panel-icon">💷</div>
       <div class="panel-title">Sales by Price Band</div>
-      <span class="panel-badge business">Business Insights</span>
+      <span class="panel-badge business">Car Sales</span>
       <span class="panel-chevron">▼</span>
     </div>
     <div class="panel-body">
@@ -416,18 +428,76 @@
     <div class="panel-head" onclick="toggle(this)">
       <div class="panel-icon">🚗</div>
       <div class="panel-title">Sales by Make &amp; Model</div>
-      <span class="panel-badge business">Business Insights</span>
+      <span class="panel-badge business">Car Sales</span>
       <span class="panel-chevron">▼</span>
     </div>
     <div class="panel-body">
       <div class="what-block">
         <div class="what-label">What it does</div>
-        <div class="what-text">Groups every recorded sale by make and model, ranked from the highest-selling combination down to the lowest, with the average days-to-sell shown for each. Ties (equal sale counts) are broken alphabetically for a stable, predictable order. Same as the price band card, this is purely informational.</div>
+        <div class="what-text">Shows the top 5 selling makes ranked by volume, with every other make grouped under "Others". Click a make (or Others) to drill down into its individual models and counts, with average days-to-sell. Ties (equal sale counts) are broken alphabetically for a stable, predictable order. Same as the price band card, this is purely informational.</div>
       </div>
       <div class="lookout">
         <div class="lookout-title">What to expect</div>
         <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Always green</div><div class="lookout-action">Only ever red if the query itself fails — not for having little data. Builds up the same way as the price band card, from zero, starting the day the tracking was switched on.</div></div></div>
       </div>
+    </div>
+  </div>
+
+
+  <!-- SALES BY BMC BRANCH -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">📍</div>
+      <div class="panel-title">Sales by BMC Branch</div>
+      <span class="panel-badge business">Car Sales</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Groups every recorded sale by the branch the vehicle sold from, ranked from the highest-selling branch to the lowest. Like the other sales cards, it covers vehicles sold on or after 29/07/2026, when sale tracking began, and is purely informational.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to expect</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Always green</div><div class="lookout-action">Only ever red if the query itself fails. A sale with no branch recorded is shown as "Unknown" rather than dropped.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOTAL STOCK VALUE -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">💰</div>
+      <div class="panel-title">Total Stock Value</div>
+      <span class="panel-badge business">Car Sales</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Adds up the advertised price of every vehicle currently in stock (on the forecourt or due in), broken down by branch. It includes vehicles deliberately kept off the public website, so the total can be higher than what customers see listed online.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to expect</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Always green</div><div class="lookout-action">Informational only. It's red only if the query fails to load.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SALES OVER TIME -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">📈</div>
+      <div class="panel-title">Sales Over Time (chart)</div>
+      <span class="panel-badge business">Car Sales</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">A line chart at the bottom of the page showing monthly vehicle sales, as a total and per branch, from when sale tracking began (29/07/2026) to the current month. Months with no sales still appear as a point at zero, so gaps are visible rather than skipped.</div>
+      </div>
+      <div class="known-issue"><strong>Early months look sparse</strong>The first months will look thin purely because tracking started recently. The note under the chart says how many sales have been recorded so far. It's informational, not a fault indicator.</div>
     </div>
   </div>
 
@@ -500,8 +570,8 @@
       </div>
       <div class="lookout">
         <div class="lookout-title">What to look out for</div>
-        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Count matches your Autotrader portal</div><div class="lookout-action">If the vehicle count on the dashboard matches what you see in the Autotrader dealer portal, the sync is working correctly. The Stock Reconciliation card on the Business Insights dashboard checks this automatically per advertiser, so it's usually the faster place to confirm this rather than counting by eye here.</div></div></div>
-        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Count significantly lower than Autotrader</div><div class="lookout-action">The Autotrader sync may have stopped, or a batch of vehicles has a dropped content write. Check the Stock Reconciliation card on the Business Insights dashboard and the VPS Sync Server card on IT Service Status.</div></div></div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Count matches your Autotrader portal</div><div class="lookout-action">If the vehicle count on the dashboard matches what you see in the Autotrader dealer portal, the sync is working correctly. The Stock Reconciliation card on the Business Insights — Car Sales dashboard checks this automatically per advertiser, so it's usually the faster place to confirm this rather than counting by eye here.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Count significantly lower than Autotrader</div><div class="lookout-action">The Autotrader sync may have stopped, or a batch of vehicles has a dropped content write. Check the Stock Reconciliation card on the Business Insights — Car Sales dashboard and the VPS Sync Server card on IT Service Status.</div></div></div>
       </div>
     </div>
   </div>
@@ -530,6 +600,121 @@
 
   <div class="divider"></div>
 
+  <!-- DASHBOARD 4 — BUSINESS INSIGHTS: PETROL STATIONS -->
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div>
+      <div class="section-title">Business Insights — Petrol Stations Dashboard — Panel by Panel</div>
+      <div class="section-sub">bmc_petrol.html — Brooke Garage's fuel prices against every station within 10 miles</div>
+    </div>
+  </div>
+
+  <!-- HOW THE DATA GETS HERE -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">⛽</div>
+      <div class="panel-title">Where the prices come from</div>
+      <span class="panel-badge petrol">Petrol Stations</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Every UK forecourt must report its prices to the government's Fuel Finder scheme within 30 minutes of a change. This is the same data Google Maps and Waze show drivers. Every 30 minutes, the website's fuel price job reads the whole national feed once. It updates Brooke Garage's prices on the website and picks out the 32 stations within 10 miles (straight-line) of Brooke Garage. It then saves a small data file (fuel-watch.json) for this dashboard, but only when something has changed, plus a heartbeat every 6 hours. Competitor data never goes into Sanity, so it doesn't add any website rebuilds or cost.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What to look out for</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">"Feed checked" under 8 hours ago</div><div class="lookout-action">Normal. With no price changes the file is only re-saved every 6 hours, so "checked 4 hrs ago" is fine.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red status bar: "Price feed not checked for X hours"</div><div class="lookout-action">The fuel price job hasn't saved anything for 8+ hours. Fuel Finder itself has periodic outages, often evenings and weekends, so this usually clears on its own. If it lasts more than a day, check the Vercel logs for /api/cron/fuel-prices and search for "fuel-watch".</div></div></div>
+      </div>
+      <div class="known-issue"><strong>Prices are self-reported by each forecourt</strong>Fuel Finder shows what each station reports, so occasional mistakes happen. For example, on 9 Oct 2026 A&amp;F Motors was listed with a super unleaded price although it doesn't sell it. A known-bad entry can be ignored in the website's lib/fuel-watch.config.ts, and the error can be reported via GOV.UK ("Report an error in fuel prices or forecourt details").</div>
+    </div>
+  </div>
+
+  <!-- STATUS BAR + FUEL CARDS -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">🏷</div>
+      <div class="panel-title">Status bar and fuel cards (Unleaded, Super Unleaded, Diesel)</div>
+      <span class="panel-badge petrol">Petrol Stations</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">One card per fuel shows our price, where we rank (for example "1st cheapest of 33"), the cheapest nearby station and its price, the local average, and our gap to both. The status bar at the top sums up unleaded and diesel. Prices that look unreliable are left out of the rankings and averages and named in a note on the card: anything unchanged for over 30 days, or more than 15p from the local median.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">What each colour means (the same rule applies to every gap figure)</div>
+        <div class="lookout-item green"><div class="lookout-dot green"></div><div class="lookout-content"><div class="lookout-signal">Green — "Cheapest": we're cheaper than every station nearby</div><div class="lookout-action">No action needed.</div></div></div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Amber — "Joint cheapest": we're level with the cheapest station</div><div class="lookout-action">Worth keeping an eye on. A 0.1p move by the other station would put them ahead.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red — "Undercut": a nearby station is cheaper than us</div><div class="lookout-action">The card names the cheapest station and shows how far behind we are. Whether to change price is a business decision; the dashboard just shows the facts.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEARBY STATIONS TABLE -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">📋</div>
+      <div class="panel-title">Nearby stations table</div>
+      <span class="panel-badge petrol">Petrol Stations</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">Lists each nearby station with its distance and its unleaded, super unleaded and diesel prices, plus when its price last changed. Our own row is highlighted. It shows the 10 cheapest plus Poringland (our nearest competitor) by default. Use "Show all 32 stations" for the full list, and the E10 / E5 / B7 / Distance buttons to re-sort. Click any station's name to see its full address, phone number (where reported) and a Google Maps link.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">Reading the prices</div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">Red price — cheaper than us</div><div class="lookout-action">This station is undercutting us on that fuel.</div></div></div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Amber price — the same as us</div><div class="lookout-action">Level pricing.</div></div></div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Struck-through grey price — left out</div><div class="lookout-action">Unchanged for over 30 days, or far from the local median and likely a reporting error. It's shown for reference but not counted.</div></div></div>
+      </div>
+      <div class="known-issue"><strong>"Price updated" can be weeks old, and that's normal</strong>Stations only report when they change a price, so an older date usually just means the price hasn't moved. Distances are straight-line, not by road.</div>
+    </div>
+  </div>
+
+  <!-- 30-DAY TREND -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">📉</div>
+      <div class="panel-title">30-day trend (chart)</div>
+      <span class="panel-badge petrol">Petrol Stations</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">One point per day showing our price (red), the cheapest nearby (green) and the local average (dashed grey) for whichever fuel is selected. It builds up from 8 Oct 2026, when tracking started, to a rolling 30 days.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PUBLIC WEBSITE -->
+  <div class="panel">
+    <div class="panel-head" onclick="toggle(this)">
+      <div class="panel-icon">🌐</div>
+      <div class="panel-title">What customers see on the website ("Compare Our Prices")</div>
+      <span class="panel-badge petrol">Petrol Stations</span>
+      <span class="panel-chevron">▼</span>
+    </div>
+    <div class="panel-body">
+      <div class="what-block">
+        <div class="what-label">What it does</div>
+        <div class="what-text">The Petrol Stations page on the website has a Compare Our Prices button that opens a customer-friendly version of this data. It shows only our prices and claims that are true on the day, such as "Cheapest within 10 miles" and "6.3p below the local average". It never names competitors or shows their prices. Its rules are stricter than this dashboard's: it counts every competitor price, including ones this dashboard sets aside as possible errors, so a public claim is never stronger than the raw government data. The figures refresh at most every 30 minutes.</div>
+      </div>
+      <div class="lookout">
+        <div class="lookout-title">Why the website and this dashboard can differ</div>
+        <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">A claim is missing on the website</div><div class="lookout-action">Expected when it isn't true today (for example a station is 0.2p cheaper on diesel), or when a price this dashboard ignores as an outlier would make the claim doubtful.</div></div></div>
+        <div class="lookout-item red"><div class="lookout-dot red"></div><div class="lookout-content"><div class="lookout-signal">The button doesn't appear at all</div><div class="lookout-action">By design, the button hides itself when the price data is more than 24 hours old, so customers never see out-of-date comparisons. If this dashboard's status bar also says the feed hasn't been checked, it's the same cause.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
   <!-- QUICK REFERENCE -->
   <div class="quick-ref">
     <div class="quick-ref-title">Quick Reference — What the Colours Mean</div>
@@ -553,6 +738,12 @@
         <div class="qr-row"><div class="qr-dot red"></div><span class="qr-text">Red — cleared in the last 24h, worth a follow-up call</span></div>
       </div>
       <div class="qr-item">
+        <div class="qr-label">Petrol Stations (our price vs nearby)</div>
+        <div class="qr-row"><div class="qr-dot green"></div><span class="qr-text">Green — we're the cheapest within 10 miles</span></div>
+        <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Amber — joint cheapest (level with another station)</span></div>
+        <div class="qr-row"><div class="qr-dot red"></div><span class="qr-text">Red — a nearby station is cheaper, or the feed hasn't been checked for 8+ hours</span></div>
+      </div>
+      <div class="qr-item">
         <div class="qr-label">Known Ongoing Conditions</div>
         <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Fuel Finder — Government API is intermittently unreliable</span></div>
         <div class="qr-row"><div class="qr-dot amber"></div><span class="qr-text">Stock Reconciliation — small, short-lived mismatches during transfers are normal</span></div>
@@ -570,14 +761,14 @@
       <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Stripe Reservations (status &amp; metrics)</div><div class="lookout-action">A simple "is the Stripe API reachable" check told us nothing about whether payments were actually processing. Real payment and webhook health is monitored directly in the Stripe Dashboard.</div></div></div>
       <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Resend Emails (status &amp; metrics)</div><div class="lookout-action">Same issue — an API reachability check doesn't confirm delivery. Email delivery, bounces and failures are monitored in the Resend Dashboard.</div></div></div>
       <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">CookieYes</div><div class="lookout-action">Whether the consent banner is loading and gating tracking correctly is easily checked by visiting the live site directly — a dashboard card added little.</div></div></div>
-      <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Autotrader Sync (old simple version)</div><div class="lookout-action">Replaced entirely by the Stock Reconciliation card (now on the Business Insights dashboard), which checks actual stock-count agreement rather than just whether the API responds — a far more meaningful signal.</div></div></div>
+      <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Autotrader Sync (old simple version)</div><div class="lookout-action">Replaced entirely by the Stock Reconciliation card (now on the Business Insights — Car Sales dashboard), which checks actual stock-count agreement rather than just whether the API responds — a far more meaningful signal.</div></div></div>
       <div class="lookout-item amber"><div class="lookout-dot amber"></div><div class="lookout-content"><div class="lookout-signal">Enquiry Form Submissions (metrics)</div><div class="lookout-action">This panel showed simulated data pending a server-side connection that was never built out; it was removed rather than leave a permanently-simulated card in place.</div></div></div>
     </div>
   </div>
 
 </div>
 
-<footer>BMC Group Dashboard Guide · v4 · July 2026 · Added Sales by Price Band and Sales by Make &amp; Model to Business Insights · Prepared by Ant Hewett</footer>
+<footer>BMC Group Dashboard Guide · v5 · October 2026 · Added the Business Insights — Petrol Stations dashboard; Business Insights renamed to Car Sales and its newer panels documented · Prepared by Ant Hewett</footer>
 
 <script>
 function toggle(head) {
