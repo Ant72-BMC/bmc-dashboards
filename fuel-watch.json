@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-13T15:01:38.475Z",
-  "changedAt": "2026-10-13T15:01:38.475Z",
+  "checkedAt": "2026-10-13T18:01:31.683Z",
+  "changedAt": "2026-10-13T18:01:31.683Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -95,10 +95,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 172.7,
-          "diesel": 196.7,
+          "unleaded": 171.7,
+          "diesel": 195.7,
           "premiumUnleaded": null,
-          "lastUpdated": "2026-10-08T23:32:10.000Z"
+          "lastUpdated": "2026-10-13T17:53:04.000Z"
         },
         {
           "nodeId": "8e436da1d04a4fe80dc9e3a547fa70ed8f006b7ad6710ac71a27f625c2ad5ceb",
@@ -531,10 +531,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 172.7,
-          "diesel": 197.7,
+          "unleaded": 171.7,
+          "diesel": 196.7,
           "premiumUnleaded": null,
-          "lastUpdated": "2026-10-05T14:00:47.000Z"
+          "lastUpdated": "2026-10-13T17:55:22.000Z"
         },
         {
           "nodeId": "10db311a51182bd42771ad326b1d2f930265a24c6f8bbab5698fde99f0cf64eb",
@@ -640,17 +640,17 @@
           "ours": 171.9,
           "cheapest": 170.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 175.3,
-          "rank": 3,
+          "average": 175.2,
+          "rank": 5,
           "of": 33,
           "excluded": []
         },
         "diesel": {
           "ours": 196.9,
-          "cheapest": 195.9,
-          "cheapestLabel": "Sainsbury's Queens Road",
-          "average": 200.4,
-          "rank": 3,
+          "cheapest": 195.7,
+          "cheapestLabel": "Asda Hall Road",
+          "average": 200.3,
+          "rank": 4,
           "of": 33,
           "excluded": []
         },
@@ -763,12 +763,12 @@
         "unleaded": {
           "ours": 171.9,
           "cheapest": 170.9,
-          "average": 175.3
+          "average": 175.2
         },
         "diesel": {
           "ours": 196.9,
-          "cheapest": 195.9,
-          "average": 200.4
+          "cheapest": 195.7,
+          "average": 200.3
         },
         "premiumUnleaded": {
           "ours": 178.9,
