@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-14T05:01:33.808Z",
-  "changedAt": "2026-10-13T23:01:26.869Z",
+  "checkedAt": "2026-10-14T07:31:00.365Z",
+  "changedAt": "2026-10-14T07:31:00.365Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -247,9 +247,9 @@
           "role": "direct",
           "found": true,
           "unleaded": 170.9,
-          "diesel": 196.9,
+          "diesel": 195.9,
           "premiumUnleaded": 183.9,
-          "lastUpdated": "2026-10-03T12:16:57.000Z"
+          "lastUpdated": "2026-10-14T07:21:47.000Z"
         },
         {
           "nodeId": "3a84eeda3951eed9a28fca74be208b8dcfeb591df0429087e5af73ab55982432",
@@ -650,7 +650,7 @@
           "cheapest": 195.7,
           "cheapestLabel": "Asda Hall Road",
           "average": 200.3,
-          "rank": 4,
+          "rank": 5,
           "of": 33,
           "excluded": []
         },
