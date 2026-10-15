@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-15T11:31:20.791Z",
-  "changedAt": "2026-10-15T11:31:20.791Z",
+  "checkedAt": "2026-10-15T12:01:28.174Z",
+  "changedAt": "2026-10-15T12:01:28.174Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -77,10 +77,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 174.9,
-          "diesel": 201.9,
+          "unleaded": 175.9,
+          "diesel": 202.9,
           "premiumUnleaded": 195.9,
-          "lastUpdated": "2026-10-07T10:10:47.000Z"
+          "lastUpdated": "2026-10-15T11:36:53.000Z"
         },
         {
           "nodeId": "e718d546c14d35bafc3c12b50fef7186e4f4752495164553663ae07ddd55040d",
@@ -114,10 +114,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 174.9,
-          "diesel": 201.9,
+          "unleaded": 175.9,
+          "diesel": 202.9,
           "premiumUnleaded": 195.9,
-          "lastUpdated": "2026-10-07T10:05:42.000Z"
+          "lastUpdated": "2026-10-15T11:34:53.000Z"
         },
         {
           "nodeId": "7e54b71d4fc9e3cd9d0f87e6ff69184eb7001a3de05c085565c92028a6f368ef",
@@ -458,9 +458,9 @@
           "role": "direct",
           "found": true,
           "unleaded": 171.7,
-          "diesel": 197.7,
+          "diesel": 196.7,
           "premiumUnleaded": 182.7,
-          "lastUpdated": "2026-10-03T11:35:33.000Z"
+          "lastUpdated": "2026-10-15T11:45:59.000Z"
         },
         {
           "nodeId": "a0c2787bcbee40249bf506dfa254c426e5365218e4f1454dee556b54c1bfaf97",
@@ -649,8 +649,8 @@
           "ours": 196.9,
           "cheapest": 195.7,
           "cheapestLabel": "Asda Hall Road",
-          "average": 200.3,
-          "rank": 5,
+          "average": 200.4,
+          "rank": 6,
           "of": 33,
           "excluded": []
         },
@@ -804,7 +804,7 @@
         "diesel": {
           "ours": 196.9,
           "cheapest": 195.7,
-          "average": 200.3
+          "average": 200.4
         },
         "premiumUnleaded": {
           "ours": 178.9,
