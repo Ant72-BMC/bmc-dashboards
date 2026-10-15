@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-15T08:31:04.309Z",
-  "changedAt": "2026-10-15T08:31:04.309Z",
+  "checkedAt": "2026-10-15T11:31:20.791Z",
+  "changedAt": "2026-10-15T11:31:20.791Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -343,9 +343,9 @@
           "role": "direct",
           "found": true,
           "unleaded": 174.9,
-          "diesel": 201.9,
+          "diesel": 202.9,
           "premiumUnleaded": 195.9,
-          "lastUpdated": "2026-09-28T14:28:05.000Z"
+          "lastUpdated": "2026-10-15T11:24:05.000Z"
         },
         {
           "nodeId": "cfd6698944cf2fe3f95e079a2301ff12a1668c804e05af28de1f1f66467f16bd",
@@ -418,10 +418,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 175.9,
+          "unleaded": 176.9,
           "diesel": 199.9,
           "premiumUnleaded": 195.9,
-          "lastUpdated": "2026-10-13T14:17:35.000Z"
+          "lastUpdated": "2026-10-15T11:24:41.000Z"
         },
         {
           "nodeId": "1e0cda47058e422fef06ed34f513aa4e4608e893449149cb8576881bc2c1ac34",
@@ -640,7 +640,7 @@
           "ours": 171.9,
           "cheapest": 170.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 175,
+          "average": 175.1,
           "rank": 5,
           "of": 33,
           "excluded": []
@@ -799,7 +799,7 @@
         "unleaded": {
           "ours": 171.9,
           "cheapest": 170.9,
-          "average": 175
+          "average": 175.1
         },
         "diesel": {
           "ours": 196.9,
