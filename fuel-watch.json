@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-15T07:31:07.788Z",
-  "changedAt": "2026-10-15T07:31:07.788Z",
+  "checkedAt": "2026-10-15T08:31:04.309Z",
+  "changedAt": "2026-10-15T08:31:04.309Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -285,10 +285,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 184.6,
-          "diesel": 204.1,
-          "premiumUnleaded": 199.5,
-          "lastUpdated": "2026-10-08T08:18:44.000Z"
+          "unleaded": 181.3,
+          "diesel": 208.1,
+          "premiumUnleaded": 196.3,
+          "lastUpdated": "2026-10-15T08:01:31.000Z"
         },
         {
           "nodeId": "04dbf02f9ac114bfc8e89e96f7172b5b87a5b58f3d8dfed947ac242be4e741f5",
@@ -640,7 +640,7 @@
           "ours": 171.9,
           "cheapest": 170.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 175.2,
+          "average": 175,
           "rank": 5,
           "of": 33,
           "excluded": []
@@ -649,7 +649,7 @@
           "ours": 196.9,
           "cheapest": 195.7,
           "cheapestLabel": "Asda Hall Road",
-          "average": 200.2,
+          "average": 200.3,
           "rank": 5,
           "of": 33,
           "excluded": []
@@ -658,7 +658,7 @@
           "ours": 178.9,
           "cheapest": 182.7,
           "cheapestLabel": "Harvest Energy (Progress Fuels)",
-          "average": 192.7,
+          "average": 192.6,
           "rank": 1,
           "of": 30,
           "excluded": []
@@ -799,17 +799,17 @@
         "unleaded": {
           "ours": 171.9,
           "cheapest": 170.9,
-          "average": 175.2
+          "average": 175
         },
         "diesel": {
           "ours": 196.9,
           "cheapest": 195.7,
-          "average": 200.2
+          "average": 200.3
         },
         "premiumUnleaded": {
           "ours": 178.9,
           "cheapest": 182.7,
-          "average": 192.7
+          "average": 192.6
         }
       }
     ]
