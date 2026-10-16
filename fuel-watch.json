@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-16T05:01:35.481Z",
-  "changedAt": "2026-10-15T23:01:32.587Z",
+  "checkedAt": "2026-10-16T11:01:30.590Z",
+  "changedAt": "2026-10-16T11:01:30.590Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -190,10 +190,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 172.9,
-          "diesel": 196.9,
+          "unleaded": 171.9,
+          "diesel": 195.9,
           "premiumUnleaded": 189.9,
-          "lastUpdated": "2026-10-13T14:31:40.000Z"
+          "lastUpdated": "2026-10-16T10:48:05.000Z"
         },
         {
           "nodeId": "ed341c6c89e1896b15fc7cefd913a381e4c833488cac0115910411cb7d1b4688",
@@ -640,7 +640,7 @@
           "ours": 171.9,
           "cheapest": 170.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 175.1,
+          "average": 175,
           "rank": 5,
           "of": 33,
           "excluded": []
@@ -650,7 +650,7 @@
           "cheapest": 195.7,
           "cheapestLabel": "Asda Hall Road",
           "average": 200.3,
-          "rank": 6,
+          "rank": 7,
           "of": 33,
           "excluded": []
         },
@@ -817,7 +817,7 @@
         "unleaded": {
           "ours": 171.9,
           "cheapest": 170.9,
-          "average": 175.1
+          "average": 175
         },
         "diesel": {
           "ours": 196.9,
