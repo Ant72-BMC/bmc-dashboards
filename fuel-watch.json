@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-18T11:30:52.207Z",
-  "changedAt": "2026-10-17T23:01:26.402Z",
+  "checkedAt": "2026-10-18T13:01:38.090Z",
+  "changedAt": "2026-10-18T13:01:38.090Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -95,10 +95,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 171.7,
-          "diesel": 195.7,
+          "unleaded": 172.7,
+          "diesel": 196.7,
           "premiumUnleaded": null,
-          "lastUpdated": "2026-10-13T17:53:04.000Z"
+          "lastUpdated": "2026-10-18T12:47:32.000Z"
         },
         {
           "nodeId": "8e436da1d04a4fe80dc9e3a547fa70ed8f006b7ad6710ac71a27f625c2ad5ceb",
@@ -531,10 +531,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 171.7,
+          "unleaded": 172.7,
           "diesel": 196.7,
           "premiumUnleaded": null,
-          "lastUpdated": "2026-10-13T17:55:22.000Z"
+          "lastUpdated": "2026-10-18T12:49:50.000Z"
         },
         {
           "nodeId": "10db311a51182bd42771ad326b1d2f930265a24c6f8bbab5698fde99f0cf64eb",
@@ -641,14 +641,14 @@
           "cheapest": 170.9,
           "cheapestLabel": "Jet Castle Service Station",
           "average": 175.1,
-          "rank": 5,
+          "rank": 3,
           "of": 33,
           "excluded": []
         },
         "diesel": {
           "ours": 196.9,
-          "cheapest": 195.7,
-          "cheapestLabel": "Asda Hall Road",
+          "cheapest": 195.9,
+          "cheapestLabel": "Morrisons Albion Way",
           "average": 200.3,
           "rank": 7,
           "of": 33,
@@ -857,7 +857,7 @@
         },
         "diesel": {
           "ours": 196.9,
-          "cheapest": 195.7,
+          "cheapest": 195.9,
           "average": 200.3
         },
         "premiumUnleaded": {
