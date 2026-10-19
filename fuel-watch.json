@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-19T12:30:56.785Z",
-  "changedAt": "2026-10-19T12:30:56.785Z",
+  "checkedAt": "2026-10-19T14:01:11.430Z",
+  "changedAt": "2026-10-19T14:01:11.430Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -418,10 +418,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 176.9,
+          "unleaded": 175.9,
           "diesel": 199.9,
           "premiumUnleaded": 195.9,
-          "lastUpdated": "2026-10-15T11:24:41.000Z"
+          "lastUpdated": "2026-10-19T13:48:16.000Z"
         },
         {
           "nodeId": "1e0cda47058e422fef06ed34f513aa4e4608e893449149cb8576881bc2c1ac34",
@@ -640,7 +640,7 @@
           "ours": 171.9,
           "cheapest": 169.9,
           "cheapestLabel": "Shell Hales",
-          "average": 174.9,
+          "average": 174.8,
           "rank": 4,
           "of": 33,
           "excluded": []
@@ -871,7 +871,7 @@
         "unleaded": {
           "ours": 171.9,
           "cheapest": 169.9,
-          "average": 174.9
+          "average": 174.8
         },
         "diesel": {
           "ours": 196.9,
