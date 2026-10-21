@@ -94,6 +94,11 @@ body { background: var(--bg); color: var(--text); font-family: var(--font); min-
 .our-price { font-size: 32px; font-weight: 700; font-family: var(--mono); letter-spacing: -1px; margin-bottom: 4px; }
 .our-price small { font-size: 13px; color: var(--text-dim); font-weight: 500; letter-spacing: 0; margin-left: 4px; }
 .our-rank { font-size: 12px; color: var(--text-dim); margin-bottom: 14px; }
+.our-rank .cnt-red { color: var(--red-status); font-weight: 600; }
+.our-rank .cnt-amber { color: var(--amber); font-weight: 600; }
+.our-rank .cnt-of { color: #666; }
+.fuel-card { cursor: pointer; }
+.check-label .sub.wrap { white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.4; }
 .checks { display: flex; flex-direction: column; gap: 8px; }
 .check { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--surface2); border-radius: 7px; }
 .check-label { font-size: 12px; color: var(--text-dim); flex: 1; min-width: 0; }
@@ -237,7 +242,8 @@ const FUELS = [
   { key: 'diesel', name: 'Diesel', code: 'B7', icon: '🛢️' },
 ];
 const STALE_CHECK_HOURS = 8;  // cron heartbeat is 6-hourly; warn after 8h
-const OLD_PRICE_DAYS = 30;    // matches lib/fuel-watch.ts
+const OLD_PRICE_DAYS = 30;
+const OWN_PRICE_NOTE_DAYS = 21; // stations only report changes, so a quiet week is normal    // matches lib/fuel-watch.ts
 const DEFAULT_ROWS = 10;
 
 let data = null;
@@ -360,6 +366,14 @@ function render() {
   renderTable();
   renderChart();
   renderFooter();
+  // Clicking a fuel card sorts the table by that fuel and brings it into view.
+  document.querySelectorAll('.fuel-card').forEach(card => {
+    card.onclick = () => {
+      tableSort = card.dataset.fuel;
+      renderTable();
+      document.getElementById('tbody').closest('.card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+  });
 }
 
 function fuelCard(site, f) {
@@ -368,15 +382,33 @@ function fuelCard(site, f) {
   const gapCheapest = st.ours != null && st.cheapest != null ? st.ours - st.cheapest : null;
   const gapAvg = st.ours != null && st.average != null ? st.ours - st.average : null;
   const signed = (n) => n == null ? '—' : (n > 0 ? '+' : n < 0 ? '−' : '±') + Math.abs(n).toFixed(1) + 'p';
-  const tied = st.ours != null && site.competitors.some(c =>
-    c.found && c.role === 'direct' && c[f.key] === st.ours && !(st.excluded || []).includes(c.label));
-  const rankText = st.rank == null ? 'Not ranked' :
-    `${tied ? 'Joint ' + ordinal(st.rank) : ordinal(st.rank)} cheapest of ${st.of}`;
+  // Count stations cheaper / same / dearer than us, using the same stations the
+  // figures use (direct competitors with a price, minus any left out as old/outliers),
+  // so the line can be checked straight against the red/amber prices in the table.
+  const excl = new Set(st.excluded || []);
+  const counted = site.competitors.filter(c =>
+    c.found && c.role === 'direct' && c[f.key] != null && !excl.has(c.label));
+  const cheaper = st.ours == null ? 0 : counted.filter(c => c[f.key] < st.ours - EPS).length;
+  const same = st.ours == null ? 0 : counted.filter(c => Math.abs(c[f.key] - st.ours) <= EPS).length;
+  const dearer = counted.length - cheaper - same;
+  const rankText = st.ours == null ? 'Not ranked' :
+    `<span class="${cheaper ? 'cnt-red' : ''}">${cheaper} cheaper</span> · ` +
+    `<span class="${same ? 'cnt-amber' : ''}">${same} same price</span> · ` +
+    `${dearer} dearer <span class="cnt-of">(of ${counted.length} stations)</span>`;
+  // Every station at the cheapest price, not just the first one found.
+  const lowest = counted.filter(c => st.cheapest != null && Math.abs(c[f.key] - st.cheapest) <= EPS)
+    .sort((a, b) => a.miles - b.miles).map(c => c.label);
+  const cheapestWho = lowest.length === 0 ? (st.cheapestLabel || '—')
+    : lowest.length === 1 ? lowest[0]
+    : lowest.length <= 3 ? `${lowest.length} stations: ${lowest.join(', ')}`
+    : `${lowest.length} stations: ${lowest.slice(0, 2).join(', ')} and ${lowest.length - 2} others`;
   const excluded = st.excluded && st.excluded.length
     ? `<div class="card-note info">Left out of the figures: ${st.excluded.map(esc).join(', ')} — price unchanged for over ${OLD_PRICE_DAYS} days, or more than 15p from the local median (likely a reporting error).</div>` : '';
   const ownStale = ageDays(site.own.lastUpdated);
+  const ownSince = site.own.lastUpdated
+    ? new Date(site.own.lastUpdated).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : '';
   return `
-  <div class="card ${status}">
+  <div class="card ${status} fuel-card" data-fuel="${f.key}" title="Click to sort the table below by ${f.name.toLowerCase()} price">
     <div class="card-head">
       <div class="card-icon">${f.icon}</div>
       <div class="status-badge ${status}"><span class="badge-dot"></span>${STATUS_TEXT[status]}</div>
@@ -387,7 +419,7 @@ function fuelCard(site, f) {
     <div class="our-rank">${rankText}</div>
     <div class="checks">
       <div class="check">
-        <div class="check-label">Cheapest nearby<span class="sub">${esc(st.cheapestLabel || '—')}</span></div>
+        <div class="check-label">Cheapest nearby<span class="sub wrap">${esc(cheapestWho)}</span></div>
         <div class="check-value">${pp(st.cheapest)}</div>
       </div>
       <div class="check">
@@ -403,8 +435,8 @@ function fuelCard(site, f) {
         <div class="check-value ${gapColour(gapAvg)}">${signed(gapAvg)}</div>
       </div>
     </div>
-    ${ownStale != null && ownStale > 7 && f.key === 'unleaded'
-      ? `<div class="card-note">Our own price hasn't been updated on Fuel Finder for ${Math.floor(ownStale)} days — check it matches the pumps (Google Maps shows what we report).</div>` : ''}
+    ${ownStale != null && ownStale > OWN_PRICE_NOTE_DAYS && f.key === 'unleaded'
+      ? `<div class="card-note">Our price hasn't changed on Fuel Finder since ${ownSince}. If the pumps have changed since then, the new price may not have been reported (Google Maps shows what we report).</div>` : ''}
     ${excluded}
   </div>`;
 }
