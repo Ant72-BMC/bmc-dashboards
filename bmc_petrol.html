@@ -370,7 +370,9 @@ function render() {
   document.querySelectorAll('.fuel-card').forEach(card => {
     card.onclick = () => {
       tableSort = card.dataset.fuel;
+      chartFuel = card.dataset.fuel;
       renderTable();
+      renderChart();
       document.getElementById('tbody').closest('.card').scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
   });
@@ -408,7 +410,7 @@ function fuelCard(site, f) {
   const ownSince = site.own.lastUpdated
     ? new Date(site.own.lastUpdated).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : '';
   return `
-  <div class="card ${status} fuel-card" data-fuel="${f.key}" title="Click to sort the table below by ${f.name.toLowerCase()} price">
+  <div class="card ${status} fuel-card" data-fuel="${f.key}" title="Click to show ${f.name.toLowerCase()} in the table and trend chart below">
     <div class="card-head">
       <div class="card-icon">${f.icon}</div>
       <div class="status-badge ${status}"><span class="badge-dot"></span>${STATUS_TEXT[status]}</div>
