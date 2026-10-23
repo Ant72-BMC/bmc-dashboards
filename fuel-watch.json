@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-23T14:31:09.566Z",
-  "changedAt": "2026-10-23T14:31:09.566Z",
+  "checkedAt": "2026-10-23T15:01:41.375Z",
+  "changedAt": "2026-10-23T15:01:41.375Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -114,10 +114,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 175.9,
-          "diesel": 202.9,
+          "unleaded": 173.9,
+          "diesel": 201.9,
           "premiumUnleaded": 195.9,
-          "lastUpdated": "2026-10-15T11:34:53.000Z"
+          "lastUpdated": "2026-10-23T14:43:06.000Z"
         },
         {
           "nodeId": "7e54b71d4fc9e3cd9d0f87e6ff69184eb7001a3de05c085565c92028a6f368ef",
@@ -265,10 +265,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 175.9,
+          "unleaded": 173.9,
           "diesel": 201.9,
           "premiumUnleaded": 195.9,
-          "lastUpdated": "2026-10-13T14:32:32.000Z"
+          "lastUpdated": "2026-10-23T14:44:43.000Z"
         },
         {
           "nodeId": "536e7657ccc01318e5a2e6a540247df774cd58c9be3a6a91ca887e6f84d9c244",
@@ -342,10 +342,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 174.9,
-          "diesel": 202.9,
+          "unleaded": 172.9,
+          "diesel": 201.9,
           "premiumUnleaded": 195.9,
-          "lastUpdated": "2026-10-15T11:24:05.000Z"
+          "lastUpdated": "2026-10-23T14:43:26.000Z"
         },
         {
           "nodeId": "cfd6698944cf2fe3f95e079a2301ff12a1668c804e05af28de1f1f66467f16bd",
@@ -495,10 +495,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 175.9,
-          "diesel": 201.9,
+          "unleaded": 174.9,
+          "diesel": 199.9,
           "premiumUnleaded": 195.9,
-          "lastUpdated": "2026-10-12T14:38:42.000Z"
+          "lastUpdated": "2026-10-23T14:45:13.000Z"
         },
         {
           "nodeId": "ccfb60753197614dcdc4eca32b7125a53e846dc4b10788cf51c5508a89b4efe3",
@@ -640,7 +640,7 @@
           "ours": 169.9,
           "cheapest": 168.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 174,
+          "average": 173.8,
           "rank": 3,
           "of": 33,
           "excluded": []
@@ -649,7 +649,7 @@
           "ours": 198.9,
           "cheapest": 195.9,
           "cheapestLabel": "Morrisons Albion Way",
-          "average": 199.9,
+          "average": 199.8,
           "rank": 11,
           "of": 33,
           "excluded": []
@@ -943,12 +943,12 @@
         "unleaded": {
           "ours": 169.9,
           "cheapest": 168.9,
-          "average": 174
+          "average": 173.8
         },
         "diesel": {
           "ours": 198.9,
           "cheapest": 195.9,
-          "average": 199.9
+          "average": 199.8
         },
         "premiumUnleaded": {
           "ours": 178.9,
