@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-22T23:31:30.254Z",
-  "changedAt": "2026-10-22T23:31:30.254Z",
+  "checkedAt": "2026-10-23T06:31:30.735Z",
+  "changedAt": "2026-10-23T06:31:30.735Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -18,10 +18,10 @@
       "phone": "01508 550241",
       "radiusMiles": 10,
       "own": {
-        "unleaded": 171.9,
-        "diesel": 196.9,
+        "unleaded": 169.9,
+        "diesel": 198.9,
         "premiumUnleaded": 178.9,
-        "lastUpdated": "2026-10-12T05:59:38.000Z"
+        "lastUpdated": "2026-10-23T05:32:22.000Z"
       },
       "competitors": [
         {
@@ -171,10 +171,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 174.9,
+          "unleaded": 172.9,
           "diesel": 198.9,
           "premiumUnleaded": 186.9,
-          "lastUpdated": "2026-10-17T06:11:15.000Z"
+          "lastUpdated": "2026-10-23T06:08:00.000Z"
         },
         {
           "nodeId": "9413600ac2534b2d02b6927a2b8edafc482b6d5add45b8bd8c6f15a672373911",
@@ -246,10 +246,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 170.9,
+          "unleaded": 168.9,
           "diesel": 195.9,
           "premiumUnleaded": 183.9,
-          "lastUpdated": "2026-10-14T07:21:47.000Z"
+          "lastUpdated": "2026-10-23T06:06:00.000Z"
         },
         {
           "nodeId": "3a84eeda3951eed9a28fca74be208b8dcfeb591df0429087e5af73ab55982432",
@@ -637,20 +637,20 @@
       ],
       "stats": {
         "unleaded": {
-          "ours": 171.9,
-          "cheapest": 169.7,
-          "cheapestLabel": "Harvest Energy (Progress Fuels)",
-          "average": 174.5,
-          "rank": 4,
+          "ours": 169.9,
+          "cheapest": 168.9,
+          "cheapestLabel": "Jet Castle Service Station",
+          "average": 174.4,
+          "rank": 3,
           "of": 33,
           "excluded": []
         },
         "diesel": {
-          "ours": 196.9,
+          "ours": 198.9,
           "cheapest": 195.9,
           "cheapestLabel": "Morrisons Albion Way",
           "average": 200.1,
-          "rank": 6,
+          "rank": 11,
           "of": 33,
           "excluded": []
         },
@@ -941,12 +941,12 @@
       {
         "date": "2026-10-23",
         "unleaded": {
-          "ours": 171.9,
-          "cheapest": 169.7,
-          "average": 174.5
+          "ours": 169.9,
+          "cheapest": 168.9,
+          "average": 174.4
         },
         "diesel": {
-          "ours": 196.9,
+          "ours": 198.9,
           "cheapest": 195.9,
           "average": 200.1
         },
