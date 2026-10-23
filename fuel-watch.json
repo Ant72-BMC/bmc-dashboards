@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-23T15:01:41.375Z",
-  "changedAt": "2026-10-23T15:01:41.375Z",
+  "checkedAt": "2026-10-23T15:31:25.421Z",
+  "changedAt": "2026-10-23T15:31:25.421Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -77,10 +77,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 175.9,
-          "diesel": 202.9,
+          "unleaded": 173.9,
+          "diesel": 201.9,
           "premiumUnleaded": 195.9,
-          "lastUpdated": "2026-10-15T11:36:53.000Z"
+          "lastUpdated": "2026-10-23T15:09:50.000Z"
         },
         {
           "nodeId": "e718d546c14d35bafc3c12b50fef7186e4f4752495164553663ae07ddd55040d",
@@ -550,10 +550,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 175.9,
-          "diesel": 201.9,
+          "unleaded": 174.9,
+          "diesel": 199.9,
           "premiumUnleaded": 195.9,
-          "lastUpdated": "2026-10-20T10:47:13.000Z"
+          "lastUpdated": "2026-10-23T15:01:49.000Z"
         },
         {
           "nodeId": "32c0cae9f7bdf46f21d10411158d3be533d82bd067c20c8888a6124f396856ef",
@@ -640,7 +640,7 @@
           "ours": 169.9,
           "cheapest": 168.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 173.8,
+          "average": 173.7,
           "rank": 3,
           "of": 33,
           "excluded": []
@@ -649,7 +649,7 @@
           "ours": 198.9,
           "cheapest": 195.9,
           "cheapestLabel": "Morrisons Albion Way",
-          "average": 199.8,
+          "average": 199.7,
           "rank": 11,
           "of": 33,
           "excluded": []
@@ -943,12 +943,12 @@
         "unleaded": {
           "ours": 169.9,
           "cheapest": 168.9,
-          "average": 173.8
+          "average": 173.7
         },
         "diesel": {
           "ours": 198.9,
           "cheapest": 195.9,
-          "average": 199.8
+          "average": 199.7
         },
         "premiumUnleaded": {
           "ours": 178.9,
