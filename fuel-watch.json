@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-24T06:31:16.101Z",
-  "changedAt": "2026-10-24T06:31:16.101Z",
+  "checkedAt": "2026-10-24T11:31:25.841Z",
+  "changedAt": "2026-10-24T11:31:25.841Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -305,10 +305,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 173.9,
+          "unleaded": 171.9,
           "diesel": 199.9,
-          "premiumUnleaded": 191.9,
-          "lastUpdated": "2026-10-15T22:10:36.000Z"
+          "premiumUnleaded": 189.9,
+          "lastUpdated": "2026-10-24T10:40:32.000Z"
         },
         {
           "nodeId": "0687d5320b931821d20be87679773dda76e009d9fa88aea1661c6401d1c430db",
@@ -658,7 +658,7 @@
           "ours": 178.9,
           "cheapest": 182.7,
           "cheapestLabel": "Harvest Energy (Progress Fuels)",
-          "average": 192.2,
+          "average": 192.1,
           "rank": 1,
           "of": 30,
           "excluded": []
@@ -971,7 +971,7 @@
         "premiumUnleaded": {
           "ours": 178.9,
           "cheapest": 182.7,
-          "average": 192.2
+          "average": 192.1
         }
       }
     ]
