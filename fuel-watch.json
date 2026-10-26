@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-26T15:31:12.733Z",
-  "changedAt": "2026-10-26T15:31:12.733Z",
+  "checkedAt": "2026-10-26T17:01:35.841Z",
+  "changedAt": "2026-10-26T17:01:35.841Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -380,10 +380,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 174.9,
+          "unleaded": 173.9,
           "diesel": 199.9,
-          "premiumUnleaded": 195.9,
-          "lastUpdated": "2026-10-23T15:30:13.000Z"
+          "premiumUnleaded": 194.9,
+          "lastUpdated": "2026-10-26T16:30:01.000Z"
         },
         {
           "nodeId": "bdc5697fd7922eb4f036ba6933219a10aa875ff36a238b8ab7c0b956c1ebfd6a",
