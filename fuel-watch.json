@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-26T11:01:34.669Z",
-  "changedAt": "2026-10-26T11:01:34.669Z",
+  "checkedAt": "2026-10-26T12:31:10.281Z",
+  "changedAt": "2026-10-26T12:31:10.281Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -305,10 +305,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 171.9,
-          "diesel": 199.9,
-          "premiumUnleaded": 189.9,
-          "lastUpdated": "2026-10-24T10:40:32.000Z"
+          "unleaded": 170.9,
+          "diesel": 197.9,
+          "premiumUnleaded": 188.9,
+          "lastUpdated": "2026-10-26T12:15:56.000Z"
         },
         {
           "nodeId": "0687d5320b931821d20be87679773dda76e009d9fa88aea1661c6401d1c430db",
@@ -649,8 +649,8 @@
           "ours": 198.9,
           "cheapest": 195.9,
           "cheapestLabel": "Morrisons Albion Way",
-          "average": 199.6,
-          "rank": 11,
+          "average": 199.5,
+          "rank": 12,
           "of": 33,
           "excluded": []
         },
@@ -658,7 +658,7 @@
           "ours": 178.9,
           "cheapest": 182.7,
           "cheapestLabel": "Harvest Energy (Progress Fuels)",
-          "average": 192.1,
+          "average": 192,
           "rank": 1,
           "of": 30,
           "excluded": []
@@ -1002,12 +1002,12 @@
         "diesel": {
           "ours": 198.9,
           "cheapest": 195.9,
-          "average": 199.6
+          "average": 199.5
         },
         "premiumUnleaded": {
           "ours": 178.9,
           "cheapest": 182.7,
-          "average": 192.1
+          "average": 192
         }
       }
     ]
