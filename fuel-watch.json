@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-27T15:01:38.455Z",
-  "changedAt": "2026-10-27T15:01:38.455Z",
+  "checkedAt": "2026-10-27T18:31:12.666Z",
+  "changedAt": "2026-10-27T18:31:12.666Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -513,10 +513,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 175.9,
-          "diesel": 203.9,
-          "premiumUnleaded": 194.9,
-          "lastUpdated": "2026-10-07T17:06:27.000Z"
+          "unleaded": 173.9,
+          "diesel": 199.9,
+          "premiumUnleaded": 192.9,
+          "lastUpdated": "2026-10-27T18:08:48.000Z"
         },
         {
           "nodeId": "60c0b8586b396f86bbbe0d8d9804026bf3291f479b7ae65d6e1d6696f7738838",
@@ -640,7 +640,7 @@
           "ours": 169.9,
           "cheapest": 168.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 173.2,
+          "average": 173.1,
           "rank": 3,
           "of": 33,
           "excluded": []
@@ -649,7 +649,7 @@
           "ours": 198.9,
           "cheapest": 195.9,
           "cheapestLabel": "Morrisons Albion Way",
-          "average": 199.2,
+          "average": 199.1,
           "rank": 12,
           "of": 33,
           "excluded": []
@@ -658,7 +658,7 @@
           "ours": 178.9,
           "cheapest": 182.7,
           "cheapestLabel": "Harvest Energy (Progress Fuels)",
-          "average": 191.9,
+          "average": 191.8,
           "rank": 1,
           "of": 30,
           "excluded": []
@@ -1015,17 +1015,17 @@
         "unleaded": {
           "ours": 169.9,
           "cheapest": 168.9,
-          "average": 173.2
+          "average": 173.1
         },
         "diesel": {
           "ours": 198.9,
           "cheapest": 195.9,
-          "average": 199.2
+          "average": 199.1
         },
         "premiumUnleaded": {
           "ours": 178.9,
           "cheapest": 182.7,
-          "average": 191.9
+          "average": 191.8
         }
       }
     ]
