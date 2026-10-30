@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-30T12:31:36.515Z",
-  "changedAt": "2026-10-30T12:31:36.515Z",
+  "checkedAt": "2026-10-30T13:00:34.730Z",
+  "changedAt": "2026-10-30T13:00:34.730Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -18,10 +18,10 @@
       "phone": "01508 550241",
       "radiusMiles": 10,
       "own": {
-        "unleaded": 169.9,
-        "diesel": 198.9,
-        "premiumUnleaded": 178.9,
-        "lastUpdated": "2026-10-23T05:32:22.000Z"
+        "unleaded": null,
+        "diesel": null,
+        "premiumUnleaded": null,
+        "lastUpdated": null
       },
       "competitors": [
         {
@@ -38,11 +38,11 @@
           "miles": 2.6,
           "supermarket": false,
           "role": "direct",
-          "found": true,
-          "unleaded": 169.9,
-          "diesel": 199.9,
-          "premiumUnleaded": 183.9,
-          "lastUpdated": "2026-10-27T07:52:55.382Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "795fc4e49ca36fdea8146dbd7be98b95412f4dfcd9a8c77c2a5fd4e1c3779543",
@@ -57,11 +57,11 @@
           "miles": 5.3,
           "supermarket": true,
           "role": "direct",
-          "found": true,
-          "unleaded": 169.9,
-          "diesel": 196.9,
-          "premiumUnleaded": 179.9,
-          "lastUpdated": "2026-10-29T13:45:10.406Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "a082bec907ca589d877f3d62626e9e630f8cbd94c7326c9a2e6bd97ff30f7853",
@@ -76,11 +76,11 @@
           "miles": 5.6,
           "supermarket": false,
           "role": "direct",
-          "found": true,
-          "unleaded": 171.9,
-          "diesel": 199.9,
-          "premiumUnleaded": 195.9,
-          "lastUpdated": "2026-10-29T14:42:21.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "e718d546c14d35bafc3c12b50fef7186e4f4752495164553663ae07ddd55040d",
@@ -94,11 +94,11 @@
           "miles": 5.6,
           "supermarket": true,
           "role": "direct",
-          "found": true,
-          "unleaded": 169.7,
-          "diesel": 196.7,
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
           "premiumUnleaded": null,
-          "lastUpdated": "2026-10-29T20:12:31.000Z"
+          "lastUpdated": null
         },
         {
           "nodeId": "8e436da1d04a4fe80dc9e3a547fa70ed8f006b7ad6710ac71a27f625c2ad5ceb",
@@ -113,11 +113,11 @@
           "miles": 5.8,
           "supermarket": false,
           "role": "direct",
-          "found": true,
-          "unleaded": 171.9,
-          "diesel": 199.9,
-          "premiumUnleaded": 195.9,
-          "lastUpdated": "2026-10-29T14:41:44.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "7e54b71d4fc9e3cd9d0f87e6ff69184eb7001a3de05c085565c92028a6f368ef",
@@ -133,11 +133,11 @@
           "miles": 5.8,
           "supermarket": false,
           "role": "direct",
-          "found": true,
-          "unleaded": 169.9,
-          "diesel": 199.9,
-          "premiumUnleaded": 199.9,
-          "lastUpdated": "2026-10-19T12:07:30.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "1d9c183ad31040585e1513e1b76d5a65f5fd3a9431f3b977e7c1672cddee9ccb",
@@ -152,11 +152,11 @@
           "miles": 6,
           "supermarket": false,
           "role": "direct",
-          "found": true,
-          "unleaded": 174.9,
-          "diesel": 199.9,
-          "premiumUnleaded": 199.9,
-          "lastUpdated": "2026-10-26T13:32:03.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "b2b99cc5942e1d768c817dfe9906b7953cad11dad6950110bd3cdf2b1e96bbfe",
@@ -170,11 +170,11 @@
           "miles": 6.1,
           "supermarket": true,
           "role": "direct",
-          "found": true,
-          "unleaded": 171.9,
-          "diesel": 198.9,
-          "premiumUnleaded": 183.9,
-          "lastUpdated": "2026-10-27T06:02:02.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "9413600ac2534b2d02b6927a2b8edafc482b6d5add45b8bd8c6f15a672373911",
@@ -189,11 +189,11 @@
           "miles": 6.2,
           "supermarket": true,
           "role": "direct",
-          "found": true,
-          "unleaded": 168.9,
-          "diesel": 195.9,
-          "premiumUnleaded": 189.9,
-          "lastUpdated": "2026-10-28T12:51:37.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "ed341c6c89e1896b15fc7cefd913a381e4c833488cac0115910411cb7d1b4688",
@@ -207,11 +207,11 @@
           "miles": 6.3,
           "supermarket": true,
           "role": "direct",
-          "found": true,
-          "unleaded": 169.9,
-          "diesel": 196.9,
-          "premiumUnleaded": 181.9,
-          "lastUpdated": "2026-10-29T05:56:37.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "fd07fad71453cf5a6827fc43c377e7991cc6c6f0b5d0b9994dce580f32626c26",
@@ -226,11 +226,11 @@
           "miles": 6.7,
           "supermarket": false,
           "role": "direct",
-          "found": true,
-          "unleaded": 175.9,
-          "diesel": 201.9,
-          "premiumUnleaded": 204.9,
-          "lastUpdated": "2026-10-23T11:37:03.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "e88be1df777d3a4ae04edc3827f6f9ab83fb01a24a4f53506cda06fdfebc7ba0",
@@ -245,11 +245,11 @@
           "miles": 6.7,
           "supermarket": true,
           "role": "direct",
-          "found": true,
-          "unleaded": 167.9,
-          "diesel": 194.9,
-          "premiumUnleaded": 184.9,
-          "lastUpdated": "2026-10-28T14:08:48.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "3a84eeda3951eed9a28fca74be208b8dcfeb591df0429087e5af73ab55982432",
@@ -304,11 +304,11 @@
           "miles": 7,
           "supermarket": true,
           "role": "direct",
-          "found": true,
-          "unleaded": 170.9,
-          "diesel": 197.9,
-          "premiumUnleaded": 188.9,
-          "lastUpdated": "2026-10-26T12:15:56.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "0687d5320b931821d20be87679773dda76e009d9fa88aea1661c6401d1c430db",
@@ -322,11 +322,11 @@
           "miles": 7.2,
           "supermarket": true,
           "role": "direct",
-          "found": true,
-          "unleaded": 172.9,
-          "diesel": 198.9,
-          "premiumUnleaded": 184.9,
-          "lastUpdated": "2026-10-21T23:26:31.190Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "048856cd1dff44eaca3cc04ef14d7f14e74a60054135eef278d33b088dbbfd77",
@@ -360,11 +360,11 @@
           "miles": 7.5,
           "supermarket": false,
           "role": "direct",
-          "found": true,
-          "unleaded": 177.9,
-          "diesel": 201.9,
-          "premiumUnleaded": 199.9,
-          "lastUpdated": "2026-10-23T11:39:04.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "b568fa532e2cac4b9cbd15a3942f2e7109eeb1f4af2e2542b45d4fe2a1aeda7a",
@@ -379,11 +379,11 @@
           "miles": 7.7,
           "supermarket": false,
           "role": "direct",
-          "found": true,
-          "unleaded": 172.9,
-          "diesel": 199.9,
-          "premiumUnleaded": 193.9,
-          "lastUpdated": "2026-10-29T16:30:04.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "bdc5697fd7922eb4f036ba6933219a10aa875ff36a238b8ab7c0b956c1ebfd6a",
@@ -398,11 +398,11 @@
           "miles": 7.9,
           "supermarket": true,
           "role": "direct",
-          "found": true,
-          "unleaded": 169.9,
-          "diesel": 196.9,
-          "premiumUnleaded": 179.9,
-          "lastUpdated": "2026-10-29T13:48:10.541Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "c317976db9d4b99ec0d9f1fa26388c310f9bd78a4406271d998c49c28cfb863b",
@@ -436,11 +436,11 @@
           "miles": 8.3,
           "supermarket": true,
           "role": "direct",
-          "found": true,
-          "unleaded": 172.9,
-          "diesel": 197.9,
-          "premiumUnleaded": 183.9,
-          "lastUpdated": "2026-10-02T15:56:14.137Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "d0c26f4feaf419fcd0e3c07846737ab53b33a90b5105e553d683b4c072cf3ce8",
@@ -456,11 +456,11 @@
           "miles": 8.6,
           "supermarket": false,
           "role": "direct",
-          "found": true,
-          "unleaded": 168.7,
-          "diesel": 195.7,
-          "premiumUnleaded": 184.7,
-          "lastUpdated": "2026-10-29T09:20:00.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "a0c2787bcbee40249bf506dfa254c426e5365218e4f1454dee556b54c1bfaf97",
@@ -475,11 +475,11 @@
           "miles": 8.7,
           "supermarket": false,
           "role": "direct",
-          "found": true,
-          "unleaded": 172.9,
-          "diesel": 199.9,
-          "premiumUnleaded": 194.9,
-          "lastUpdated": "2026-10-26T13:05:03.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "3ec68782dadfdf32cb5bc7d5f06cd4b2f01276d09553bcb6573c8a8c9e6f9351",
@@ -512,11 +512,11 @@
           "miles": 8.8,
           "supermarket": false,
           "role": "direct",
-          "found": true,
-          "unleaded": 173.9,
-          "diesel": 199.9,
-          "premiumUnleaded": 192.9,
-          "lastUpdated": "2026-10-27T18:08:48.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "60c0b8586b396f86bbbe0d8d9804026bf3291f479b7ae65d6e1d6696f7738838",
@@ -530,11 +530,11 @@
           "miles": 8.9,
           "supermarket": true,
           "role": "direct",
-          "found": true,
-          "unleaded": 169.7,
-          "diesel": 196.7,
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
           "premiumUnleaded": null,
-          "lastUpdated": "2026-10-29T20:15:24.000Z"
+          "lastUpdated": null
         },
         {
           "nodeId": "10db311a51182bd42771ad326b1d2f930265a24c6f8bbab5698fde99f0cf64eb",
@@ -549,11 +549,11 @@
           "miles": 8.9,
           "supermarket": false,
           "role": "direct",
-          "found": true,
-          "unleaded": 172.9,
-          "diesel": 199.9,
-          "premiumUnleaded": 195.9,
-          "lastUpdated": "2026-10-28T12:24:45.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "32c0cae9f7bdf46f21d10411158d3be533d82bd067c20c8888a6124f396856ef",
@@ -590,11 +590,11 @@
           "ignore": [
             "premiumUnleaded"
           ],
-          "found": true,
-          "unleaded": 177.9,
-          "diesel": 199.9,
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
           "premiumUnleaded": null,
-          "lastUpdated": "2026-10-29T15:38:03.000Z"
+          "lastUpdated": null
         },
         {
           "nodeId": "e44701c4606125946ba3e910d7d4f37743c8e70651d5f221dc33516714063701",
@@ -609,11 +609,11 @@
           "miles": 9.8,
           "supermarket": false,
           "role": "direct",
-          "found": true,
-          "unleaded": 172.9,
-          "diesel": 198.9,
-          "premiumUnleaded": 188.9,
-          "lastUpdated": "2026-10-29T19:44:03.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         },
         {
           "nodeId": "127544094681fa89a9dce0a4d20a345e6151e53d89acb49555b6aec6ccd7da24",
@@ -628,39 +628,39 @@
           "miles": 10,
           "supermarket": true,
           "role": "direct",
-          "found": true,
-          "unleaded": 169.9,
-          "diesel": 197.9,
-          "premiumUnleaded": 189.9,
-          "lastUpdated": "2026-10-28T12:17:38.000Z"
+          "found": false,
+          "unleaded": null,
+          "diesel": null,
+          "premiumUnleaded": null,
+          "lastUpdated": null
         }
       ],
       "stats": {
         "unleaded": {
-          "ours": 169.9,
-          "cheapest": 167.9,
-          "cheapestLabel": "Jet Castle Service Station",
-          "average": 171.9,
-          "rank": 6,
-          "of": 33,
+          "ours": null,
+          "cheapest": 171.9,
+          "cheapestLabel": "Esso Plumstead Road",
+          "average": 172.1,
+          "rank": null,
+          "of": 6,
           "excluded": []
         },
         "diesel": {
-          "ours": 198.9,
-          "cheapest": 194.9,
-          "cheapestLabel": "Jet Castle Service Station",
-          "average": 199,
-          "rank": 12,
-          "of": 33,
+          "ours": null,
+          "cheapest": 198.9,
+          "cheapestLabel": "Esso St Benedicts",
+          "average": 200.8,
+          "rank": null,
+          "of": 6,
           "excluded": []
         },
         "premiumUnleaded": {
-          "ours": 178.9,
-          "cheapest": 179.9,
-          "cheapestLabel": "Tesco Harford Bridge",
-          "average": 191.1,
-          "rank": 1,
-          "of": 30,
+          "ours": null,
+          "cheapest": 186.8,
+          "cheapestLabel": "Shell Stratton Motor Co (Long Stratton)",
+          "average": 193.9,
+          "rank": null,
+          "of": 6,
           "excluded": []
         }
       }
@@ -1067,19 +1067,19 @@
       {
         "date": "2026-10-30",
         "unleaded": {
-          "ours": 169.9,
-          "cheapest": 167.9,
-          "average": 171.9
+          "ours": null,
+          "cheapest": 171.9,
+          "average": 172.1
         },
         "diesel": {
-          "ours": 198.9,
-          "cheapest": 194.9,
-          "average": 199
+          "ours": null,
+          "cheapest": 198.9,
+          "average": 200.8
         },
         "premiumUnleaded": {
-          "ours": 178.9,
-          "cheapest": 179.9,
-          "average": 191.1
+          "ours": null,
+          "cheapest": 186.8,
+          "average": 193.9
         }
       }
     ]
