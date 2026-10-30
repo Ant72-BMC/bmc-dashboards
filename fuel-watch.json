@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-30T14:31:42.078Z",
-  "changedAt": "2026-10-30T14:31:42.078Z",
+  "checkedAt": "2026-10-30T15:31:36.333Z",
+  "changedAt": "2026-10-30T15:31:36.333Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -436,11 +436,11 @@
           "miles": 8.3,
           "supermarket": true,
           "role": "direct",
-          "found": false,
-          "unleaded": null,
-          "diesel": null,
-          "premiumUnleaded": null,
-          "lastUpdated": null
+          "found": true,
+          "unleaded": 170.9,
+          "diesel": 197.9,
+          "premiumUnleaded": 181.9,
+          "lastUpdated": "2026-10-30T14:33:14.077Z"
         },
         {
           "nodeId": "d0c26f4feaf419fcd0e3c07846737ab53b33a90b5105e553d683b4c072cf3ce8",
@@ -642,7 +642,7 @@
           "cheapestLabel": "Jet Castle Service Station",
           "average": 171.9,
           "rank": 6,
-          "of": 32,
+          "of": 33,
           "excluded": []
         },
         "diesel": {
@@ -650,17 +650,17 @@
           "cheapest": 194.9,
           "cheapestLabel": "Jet Castle Service Station",
           "average": 199,
-          "rank": 11,
-          "of": 32,
+          "rank": 12,
+          "of": 33,
           "excluded": []
         },
         "premiumUnleaded": {
           "ours": 178.9,
           "cheapest": 179.9,
           "cheapestLabel": "Tesco Harford Bridge",
-          "average": 191.4,
+          "average": 191.1,
           "rank": 1,
-          "of": 29,
+          "of": 30,
           "excluded": []
         }
       }
@@ -1079,7 +1079,7 @@
         "premiumUnleaded": {
           "ours": 178.9,
           "cheapest": 179.9,
-          "average": 191.4
+          "average": 191.1
         }
       }
     ]
