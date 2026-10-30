@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-10-30T15:31:36.333Z",
-  "changedAt": "2026-10-30T15:31:36.333Z",
+  "checkedAt": "2026-10-30T16:31:33.128Z",
+  "changedAt": "2026-10-30T16:31:33.128Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -153,10 +153,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 174.9,
+          "unleaded": 172.9,
           "diesel": 199.9,
-          "premiumUnleaded": 199.9,
-          "lastUpdated": "2026-10-26T13:32:03.000Z"
+          "premiumUnleaded": 194.9,
+          "lastUpdated": "2026-10-30T15:39:03.000Z"
         },
         {
           "nodeId": "b2b99cc5942e1d768c817dfe9906b7953cad11dad6950110bd3cdf2b1e96bbfe",
@@ -227,10 +227,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 175.9,
-          "diesel": 201.9,
-          "premiumUnleaded": 204.9,
-          "lastUpdated": "2026-10-23T11:37:03.000Z"
+          "unleaded": 173.9,
+          "diesel": 199.9,
+          "premiumUnleaded": 199.9,
+          "lastUpdated": "2026-10-30T15:36:03.000Z"
         },
         {
           "nodeId": "e88be1df777d3a4ae04edc3827f6f9ab83fb01a24a4f53506cda06fdfebc7ba0",
@@ -380,10 +380,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 172.9,
+          "unleaded": 171.9,
           "diesel": 199.9,
-          "premiumUnleaded": 193.9,
-          "lastUpdated": "2026-10-29T16:30:04.000Z"
+          "premiumUnleaded": 192.9,
+          "lastUpdated": "2026-10-30T15:45:02.000Z"
         },
         {
           "nodeId": "bdc5697fd7922eb4f036ba6933219a10aa875ff36a238b8ab7c0b956c1ebfd6a",
@@ -476,10 +476,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 172.9,
+          "unleaded": 171.9,
           "diesel": 199.9,
           "premiumUnleaded": 194.9,
-          "lastUpdated": "2026-10-26T13:05:03.000Z"
+          "lastUpdated": "2026-10-30T15:34:03.000Z"
         },
         {
           "nodeId": "3ec68782dadfdf32cb5bc7d5f06cd4b2f01276d09553bcb6573c8a8c9e6f9351",
@@ -640,7 +640,7 @@
           "ours": 169.9,
           "cheapest": 167.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 171.9,
+          "average": 171.7,
           "rank": 6,
           "of": 33,
           "excluded": []
@@ -649,7 +649,7 @@
           "ours": 198.9,
           "cheapest": 194.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 199,
+          "average": 198.9,
           "rank": 12,
           "of": 33,
           "excluded": []
@@ -658,7 +658,7 @@
           "ours": 178.9,
           "cheapest": 179.9,
           "cheapestLabel": "Tesco Harford Bridge",
-          "average": 191.1,
+          "average": 190.7,
           "rank": 1,
           "of": 30,
           "excluded": []
@@ -1069,17 +1069,17 @@
         "unleaded": {
           "ours": 169.9,
           "cheapest": 167.9,
-          "average": 171.9
+          "average": 171.7
         },
         "diesel": {
           "ours": 198.9,
           "cheapest": 194.9,
-          "average": 199
+          "average": 198.9
         },
         "premiumUnleaded": {
           "ours": 178.9,
           "cheapest": 179.9,
-          "average": 191.1
+          "average": 190.7
         }
       }
     ]
