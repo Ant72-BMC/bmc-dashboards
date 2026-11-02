@@ -1052,7 +1052,7 @@ async function checkSalesOverTime() {
         },
         scales: {
           x: { ticks: { color: '#888' }, grid: { color: '#2a2a2d' } },
-          y: { beginAtZero: true, ticks: { color: '#888', precision: 0 }, grid: { color: '#2a2a2d' } },
+          y: { beginAtZero: true, grace: '10%', ticks: { color: '#888', precision: 0 }, grid: { color: '#2a2a2d' } },
         },
       },
     });
