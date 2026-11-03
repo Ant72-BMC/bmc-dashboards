@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-03T12:31:35.087Z",
-  "changedAt": "2026-11-03T12:31:35.087Z",
+  "checkedAt": "2026-11-03T16:31:48.720Z",
+  "changedAt": "2026-11-03T16:31:48.720Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -227,10 +227,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 173.9,
-          "diesel": 199.9,
+          "unleaded": 172.9,
+          "diesel": 198.9,
           "premiumUnleaded": 199.9,
-          "lastUpdated": "2026-10-30T15:36:03.000Z"
+          "lastUpdated": "2026-11-03T15:30:03.000Z"
         },
         {
           "nodeId": "e88be1df777d3a4ae04edc3827f6f9ab83fb01a24a4f53506cda06fdfebc7ba0",
@@ -476,10 +476,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 171.9,
+          "unleaded": 169.9,
           "diesel": 199.9,
           "premiumUnleaded": 194.9,
-          "lastUpdated": "2026-10-30T15:34:03.000Z"
+          "lastUpdated": "2026-11-03T15:30:03.000Z"
         },
         {
           "nodeId": "3ec68782dadfdf32cb5bc7d5f06cd4b2f01276d09553bcb6573c8a8c9e6f9351",
@@ -629,10 +629,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 169.9,
+          "unleaded": 168.9,
           "diesel": 197.9,
           "premiumUnleaded": 189.9,
-          "lastUpdated": "2026-10-28T12:17:38.000Z"
+          "lastUpdated": "2026-11-03T15:05:29.000Z"
         }
       ],
       "stats": {
@@ -640,7 +640,7 @@
           "ours": 165.9,
           "cheapest": 166.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 171.3,
+          "average": 171.1,
           "rank": 1,
           "of": 33,
           "excluded": []
@@ -649,7 +649,7 @@
           "ours": 198.9,
           "cheapest": 194.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 198.9,
+          "average": 198.8,
           "rank": 12,
           "of": 33,
           "excluded": []
@@ -1141,12 +1141,12 @@
         "unleaded": {
           "ours": 165.9,
           "cheapest": 166.9,
-          "average": 171.3
+          "average": 171.1
         },
         "diesel": {
           "ours": 198.9,
           "cheapest": 194.9,
-          "average": 198.9
+          "average": 198.8
         },
         "premiumUnleaded": {
           "ours": 178.9,
