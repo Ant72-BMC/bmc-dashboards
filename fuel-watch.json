@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-05T11:31:21.022Z",
-  "changedAt": "2026-11-05T11:31:21.022Z",
+  "checkedAt": "2026-11-05T12:31:05.856Z",
+  "changedAt": "2026-11-05T12:31:05.856Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -380,10 +380,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 171.9,
+          "unleaded": 169.9,
           "diesel": 199.9,
-          "premiumUnleaded": 192.9,
-          "lastUpdated": "2026-10-30T15:45:02.000Z"
+          "premiumUnleaded": 190.9,
+          "lastUpdated": "2026-11-05T12:15:03.000Z"
         },
         {
           "nodeId": "bdc5697fd7922eb4f036ba6933219a10aa875ff36a238b8ab7c0b956c1ebfd6a",
@@ -459,8 +459,8 @@
           "found": true,
           "unleaded": 166.7,
           "diesel": 194.7,
-          "premiumUnleaded": 179.7,
-          "lastUpdated": "2026-11-04T19:52:44.000Z"
+          "premiumUnleaded": 177.7,
+          "lastUpdated": "2026-11-05T12:19:30.000Z"
         },
         {
           "nodeId": "a0c2787bcbee40249bf506dfa254c426e5365218e4f1454dee556b54c1bfaf97",
@@ -569,10 +569,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 171.9,
+          "unleaded": 169.9,
           "diesel": 198.9,
-          "premiumUnleaded": 191.9,
-          "lastUpdated": "2026-11-01T13:58:45.000Z"
+          "premiumUnleaded": 189.9,
+          "lastUpdated": "2026-11-05T11:37:50.000Z"
         },
         {
           "nodeId": "53b28468e07172ef5def62f64cc642dfcb3f73794df1d6078bd45230b45c718a",
@@ -640,7 +640,7 @@
           "ours": 165.9,
           "cheapest": 165.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 170.4,
+          "average": 170.3,
           "rank": 1,
           "of": 33,
           "excluded": []
@@ -656,10 +656,10 @@
         },
         "premiumUnleaded": {
           "ours": 178.9,
-          "cheapest": 178.9,
-          "cheapestLabel": "Tesco Harford Bridge",
-          "average": 190,
-          "rank": 1,
+          "cheapest": 177.7,
+          "cheapestLabel": "Harvest Energy (Progress Fuels)",
+          "average": 189.8,
+          "rank": 2,
           "of": 30,
           "excluded": []
         }
@@ -1177,7 +1177,7 @@
         "unleaded": {
           "ours": 165.9,
           "cheapest": 165.9,
-          "average": 170.4
+          "average": 170.3
         },
         "diesel": {
           "ours": 198.9,
@@ -1186,8 +1186,8 @@
         },
         "premiumUnleaded": {
           "ours": 178.9,
-          "cheapest": 178.9,
-          "average": 190
+          "cheapest": 177.7,
+          "average": 189.8
         }
       }
     ]
