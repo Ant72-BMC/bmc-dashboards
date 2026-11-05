@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-05T15:31:25.563Z",
-  "changedAt": "2026-11-05T15:31:25.563Z",
+  "checkedAt": "2026-11-05T16:31:10.145Z",
+  "changedAt": "2026-11-05T16:31:10.145Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -153,10 +153,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 172.9,
-          "diesel": 199.9,
+          "unleaded": 171.9,
+          "diesel": 198.9,
           "premiumUnleaded": 194.9,
-          "lastUpdated": "2026-10-30T15:39:03.000Z"
+          "lastUpdated": "2026-11-05T16:29:02.000Z"
         },
         {
           "nodeId": "b2b99cc5942e1d768c817dfe9906b7953cad11dad6950110bd3cdf2b1e96bbfe",
@@ -227,10 +227,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 172.9,
+          "unleaded": 171.9,
           "diesel": 198.9,
           "premiumUnleaded": 199.9,
-          "lastUpdated": "2026-11-03T15:30:03.000Z"
+          "lastUpdated": "2026-11-05T15:55:04.000Z"
         },
         {
           "nodeId": "e88be1df777d3a4ae04edc3827f6f9ab83fb01a24a4f53506cda06fdfebc7ba0",
@@ -640,7 +640,7 @@
           "ours": 165.9,
           "cheapest": 165.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 170.2,
+          "average": 170.1,
           "rank": 1,
           "of": 33,
           "excluded": []
@@ -649,7 +649,7 @@
           "ours": 198.9,
           "cheapest": 194.7,
           "cheapestLabel": "Harvest Energy (Progress Fuels)",
-          "average": 198.7,
+          "average": 198.6,
           "rank": 12,
           "of": 33,
           "excluded": []
@@ -1177,12 +1177,12 @@
         "unleaded": {
           "ours": 165.9,
           "cheapest": 165.9,
-          "average": 170.2
+          "average": 170.1
         },
         "diesel": {
           "ours": 198.9,
           "cheapest": 194.7,
-          "average": 198.7
+          "average": 198.6
         },
         "premiumUnleaded": {
           "ours": 178.9,
