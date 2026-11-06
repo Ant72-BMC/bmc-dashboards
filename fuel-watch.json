@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-06T10:31:20.121Z",
-  "changedAt": "2026-11-06T10:31:20.121Z",
+  "checkedAt": "2026-11-06T16:31:25.629Z",
+  "changedAt": "2026-11-06T16:31:25.629Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -95,10 +95,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 168.7,
+          "unleaded": 167.7,
           "diesel": 195.7,
           "premiumUnleaded": null,
-          "lastUpdated": "2026-11-03T17:55:15.000Z"
+          "lastUpdated": "2026-11-06T16:23:24.000Z"
         },
         {
           "nodeId": "8e436da1d04a4fe80dc9e3a547fa70ed8f006b7ad6710ac71a27f625c2ad5ceb",
@@ -153,10 +153,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 171.9,
+          "unleaded": 169.9,
           "diesel": 198.9,
           "premiumUnleaded": 194.9,
-          "lastUpdated": "2026-11-05T16:29:02.000Z"
+          "lastUpdated": "2026-11-06T15:57:03.000Z"
         },
         {
           "nodeId": "b2b99cc5942e1d768c817dfe9906b7953cad11dad6950110bd3cdf2b1e96bbfe",
@@ -550,10 +550,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 171.9,
+          "unleaded": 169.9,
           "diesel": 199.9,
           "premiumUnleaded": 189.9,
-          "lastUpdated": "2026-11-05T14:46:21.000Z"
+          "lastUpdated": "2026-11-06T15:37:11.000Z"
         },
         {
           "nodeId": "32c0cae9f7bdf46f21d10411158d3be533d82bd067c20c8888a6124f396856ef",
@@ -629,10 +629,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 168.9,
+          "unleaded": 167.9,
           "diesel": 197.9,
           "premiumUnleaded": 185.9,
-          "lastUpdated": "2026-11-05T14:52:26.000Z"
+          "lastUpdated": "2026-11-06T15:48:56.000Z"
         }
       ],
       "stats": {
@@ -640,7 +640,7 @@
           "ours": 165.9,
           "cheapest": 164.5,
           "cheapestLabel": "Shell Stratton Motor Co (Long Stratton)",
-          "average": 169.5,
+          "average": 169.3,
           "rank": 2,
           "of": 33,
           "excluded": []
@@ -1195,7 +1195,7 @@
         "unleaded": {
           "ours": 165.9,
           "cheapest": 164.5,
-          "average": 169.5
+          "average": 169.3
         },
         "diesel": {
           "ours": 198.9,
