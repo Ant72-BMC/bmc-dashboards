@@ -1,25 +1,23 @@
 {
-  "timestamp": "2026-11-06T17:00:01.452Z",
+  "timestamp": "2026-11-07T09:00:01.622Z",
   "ok": true,
-  "match": false,
-  "autotraderTotal": 411,
+  "match": true,
+  "autotraderTotal": 410,
   "sanityTotal": 410,
   "onWebsiteTotal": 382,
   "hiddenFromWebsiteTotal": 28,
   "byAdvertiser": {
     "833349": {
       "location": "Brooke",
-      "autotrader": 306,
+      "autotrader": 305,
       "sanity": 305,
       "onWebsite": 278,
       "hiddenFromWebsite": 27,
-      "match": false,
-      "diff": -1,
+      "match": true,
+      "diff": 0,
       "onlyInSanity": [],
       "onlyInSanityTruncated": false,
-      "onlyInAutotrader": [
-        "MJ64LKO"
-      ],
+      "onlyInAutotrader": [],
       "onlyInAutotraderTruncated": false
     },
     "10043362": {
