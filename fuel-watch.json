@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-10T00:31:23.033Z",
-  "changedAt": "2026-11-10T00:31:23.033Z",
+  "checkedAt": "2026-11-10T07:31:23.933Z",
+  "changedAt": "2026-11-10T07:31:23.933Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -18,10 +18,10 @@
       "phone": "01508 550241",
       "radiusMiles": 10,
       "own": {
-        "unleaded": 165.9,
-        "diesel": 198.9,
-        "premiumUnleaded": 178.9,
-        "lastUpdated": "2026-11-02T07:06:57.000Z"
+        "unleaded": 162.9,
+        "diesel": 195.9,
+        "premiumUnleaded": 169.9,
+        "lastUpdated": "2026-11-10T07:12:10.000Z"
       },
       "competitors": [
         {
@@ -637,29 +637,29 @@
       ],
       "stats": {
         "unleaded": {
-          "ours": 165.9,
+          "ours": 162.9,
           "cheapest": 164.5,
           "cheapestLabel": "Shell Stratton Motor Co (Long Stratton)",
           "average": 169,
-          "rank": 2,
+          "rank": 1,
           "of": 33,
           "excluded": []
         },
         "diesel": {
-          "ours": 198.9,
+          "ours": 195.9,
           "cheapest": 194.7,
           "cheapestLabel": "Harvest Energy (Progress Fuels)",
           "average": 198.1,
-          "rank": 16,
+          "rank": 5,
           "of": 33,
           "excluded": []
         },
         "premiumUnleaded": {
-          "ours": 178.9,
+          "ours": 169.9,
           "cheapest": 177.7,
           "cheapestLabel": "Harvest Energy (Progress Fuels)",
           "average": 187.4,
-          "rank": 4,
+          "rank": 1,
           "of": 30,
           "excluded": []
         }
@@ -1193,17 +1193,17 @@
       {
         "date": "2026-11-10",
         "unleaded": {
-          "ours": 165.9,
+          "ours": 162.9,
           "cheapest": 164.5,
           "average": 169
         },
         "diesel": {
-          "ours": 198.9,
+          "ours": 195.9,
           "cheapest": 194.7,
           "average": 198.1
         },
         "premiumUnleaded": {
-          "ours": 178.9,
+          "ours": 169.9,
           "cheapest": 177.7,
           "average": 187.4
         }
