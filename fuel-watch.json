@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-10T15:31:21.166Z",
-  "changedAt": "2026-11-10T15:31:21.166Z",
+  "checkedAt": "2026-11-10T16:31:21.450Z",
+  "changedAt": "2026-11-10T16:31:21.450Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -78,9 +78,9 @@
           "role": "direct",
           "found": true,
           "unleaded": 169.9,
-          "diesel": 199.9,
+          "diesel": 198.9,
           "premiumUnleaded": 189.9,
-          "lastUpdated": "2026-11-05T14:49:57.000Z"
+          "lastUpdated": "2026-11-10T15:49:45.000Z"
         },
         {
           "nodeId": "e718d546c14d35bafc3c12b50fef7186e4f4752495164553663ae07ddd55040d",
@@ -114,10 +114,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 169.9,
-          "diesel": 199.9,
+          "unleaded": 168.9,
+          "diesel": 198.9,
           "premiumUnleaded": 189.9,
-          "lastUpdated": "2026-11-05T14:41:10.000Z"
+          "lastUpdated": "2026-11-10T15:53:07.000Z"
         },
         {
           "nodeId": "7e54b71d4fc9e3cd9d0f87e6ff69184eb7001a3de05c085565c92028a6f368ef",
@@ -495,10 +495,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 169.9,
-          "diesel": 199.9,
+          "unleaded": 168.9,
+          "diesel": 198.9,
           "premiumUnleaded": 189.9,
-          "lastUpdated": "2026-11-05T14:50:14.000Z"
+          "lastUpdated": "2026-11-10T15:59:23.000Z"
         },
         {
           "nodeId": "ccfb60753197614dcdc4eca32b7125a53e846dc4b10788cf51c5508a89b4efe3",
@@ -640,7 +640,7 @@
           "ours": 162.9,
           "cheapest": 164.5,
           "cheapestLabel": "Shell Stratton Motor Co (Long Stratton)",
-          "average": 168.8,
+          "average": 168.7,
           "rank": 1,
           "of": 33,
           "excluded": []
@@ -649,7 +649,7 @@
           "ours": 195.9,
           "cheapest": 192.7,
           "cheapestLabel": "Harvest Energy (Progress Fuels)",
-          "average": 198,
+          "average": 197.9,
           "rank": 7,
           "of": 33,
           "excluded": []
@@ -1195,12 +1195,12 @@
         "unleaded": {
           "ours": 162.9,
           "cheapest": 164.5,
-          "average": 168.8
+          "average": 168.7
         },
         "diesel": {
           "ours": 195.9,
           "cheapest": 192.7,
-          "average": 198
+          "average": 197.9
         },
         "premiumUnleaded": {
           "ours": 169.9,
