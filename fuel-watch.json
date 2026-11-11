@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-11T19:31:13.442Z",
-  "changedAt": "2026-11-11T19:31:13.442Z",
+  "checkedAt": "2026-11-11T22:31:17.444Z",
+  "changedAt": "2026-11-11T22:31:17.444Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -476,10 +476,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 173.9,
+          "unleaded": 172.9,
           "diesel": 199.9,
           "premiumUnleaded": 194.9,
-          "lastUpdated": "2026-11-09T12:50:04.000Z"
+          "lastUpdated": "2026-11-11T22:20:23.000Z"
         },
         {
           "nodeId": "3ec68782dadfdf32cb5bc7d5f06cd4b2f01276d09553bcb6573c8a8c9e6f9351",
@@ -640,7 +640,7 @@
           "ours": 162.9,
           "cheapest": 162.9,
           "cheapestLabel": "Shell Stratton Motor Co (Long Stratton)",
-          "average": 168.4,
+          "average": 168.3,
           "rank": 1,
           "of": 33,
           "excluded": []
@@ -1195,7 +1195,7 @@
         "unleaded": {
           "ours": 162.9,
           "cheapest": 162.9,
-          "average": 168.4
+          "average": 168.3
         },
         "diesel": {
           "ours": 195.9,
