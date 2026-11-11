@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-11T00:31:11.532Z",
-  "changedAt": "2026-11-11T00:31:11.532Z",
+  "checkedAt": "2026-11-11T06:31:23.546Z",
+  "changedAt": "2026-11-11T06:31:23.546Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -171,10 +171,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 168.9,
-          "diesel": 197.9,
-          "premiumUnleaded": 180.9,
-          "lastUpdated": "2026-11-06T06:07:53.000Z"
+          "unleaded": 167.9,
+          "diesel": 195.9,
+          "premiumUnleaded": 179.9,
+          "lastUpdated": "2026-11-11T06:00:43.000Z"
         },
         {
           "nodeId": "9413600ac2534b2d02b6927a2b8edafc482b6d5add45b8bd8c6f15a672373911",
@@ -649,7 +649,7 @@
           "ours": 195.9,
           "cheapest": 192.7,
           "cheapestLabel": "Harvest Energy (Progress Fuels)",
-          "average": 197.9,
+          "average": 197.8,
           "rank": 7,
           "of": 33,
           "excluded": []
@@ -658,7 +658,7 @@
           "ours": 169.9,
           "cheapest": 176.9,
           "cheapestLabel": "Tesco Earlham Road Express",
-          "average": 187.3,
+          "average": 187.2,
           "rank": 1,
           "of": 30,
           "excluded": []
@@ -1200,12 +1200,12 @@
         "diesel": {
           "ours": 195.9,
           "cheapest": 192.7,
-          "average": 197.9
+          "average": 197.8
         },
         "premiumUnleaded": {
           "ours": 169.9,
           "cheapest": 176.9,
-          "average": 187.3
+          "average": 187.2
         }
       }
     ]
