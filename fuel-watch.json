@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-11T09:01:42.718Z",
-  "changedAt": "2026-11-11T09:01:42.718Z",
+  "checkedAt": "2026-11-11T12:31:16.065Z",
+  "changedAt": "2026-11-11T12:31:16.065Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -77,10 +77,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 169.9,
+          "unleaded": 168.9,
           "diesel": 198.9,
           "premiumUnleaded": 189.9,
-          "lastUpdated": "2026-11-10T15:49:45.000Z"
+          "lastUpdated": "2026-11-11T12:24:23.000Z"
         },
         {
           "nodeId": "e718d546c14d35bafc3c12b50fef7186e4f4752495164553663ae07ddd55040d",
@@ -190,10 +190,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 167.9,
+          "unleaded": 166.9,
           "diesel": 195.9,
           "premiumUnleaded": 185.9,
-          "lastUpdated": "2026-11-05T14:54:38.000Z"
+          "lastUpdated": "2026-11-11T12:28:12.000Z"
         },
         {
           "nodeId": "ed341c6c89e1896b15fc7cefd913a381e4c833488cac0115910411cb7d1b4688",
@@ -265,10 +265,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 168.9,
+          "unleaded": 167.9,
           "diesel": 198.9,
           "premiumUnleaded": 189.9,
-          "lastUpdated": "2026-11-09T16:03:00.000Z"
+          "lastUpdated": "2026-11-11T12:24:51.000Z"
         },
         {
           "nodeId": "536e7657ccc01318e5a2e6a540247df774cd58c9be3a6a91ca887e6f84d9c244",
@@ -640,7 +640,7 @@
           "ours": 162.9,
           "cheapest": 162.9,
           "cheapestLabel": "Shell Stratton Motor Co (Long Stratton)",
-          "average": 168.6,
+          "average": 168.5,
           "rank": 1,
           "of": 33,
           "excluded": []
@@ -1195,7 +1195,7 @@
         "unleaded": {
           "ours": 162.9,
           "cheapest": 162.9,
-          "average": 168.6
+          "average": 168.5
         },
         "diesel": {
           "ours": 195.9,
