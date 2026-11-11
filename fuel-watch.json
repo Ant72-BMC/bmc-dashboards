@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-11T14:31:03.245Z",
-  "changedAt": "2026-11-11T14:31:03.245Z",
+  "checkedAt": "2026-11-11T19:31:13.442Z",
+  "changedAt": "2026-11-11T19:31:13.442Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -95,10 +95,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 167.7,
-          "diesel": 195.7,
+          "unleaded": 165.7,
+          "diesel": 194.7,
           "premiumUnleaded": null,
-          "lastUpdated": "2026-11-06T16:23:24.000Z"
+          "lastUpdated": "2026-11-11T19:15:09.000Z"
         },
         {
           "nodeId": "8e436da1d04a4fe80dc9e3a547fa70ed8f006b7ad6710ac71a27f625c2ad5ceb",
@@ -531,10 +531,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 166.7,
-          "diesel": 194.7,
+          "unleaded": 165.7,
+          "diesel": 193.7,
           "premiumUnleaded": null,
-          "lastUpdated": "2026-11-05T22:20:29.000Z"
+          "lastUpdated": "2026-11-11T19:18:41.000Z"
         },
         {
           "nodeId": "10db311a51182bd42771ad326b1d2f930265a24c6f8bbab5698fde99f0cf64eb",
@@ -640,7 +640,7 @@
           "ours": 162.9,
           "cheapest": 162.9,
           "cheapestLabel": "Shell Stratton Motor Co (Long Stratton)",
-          "average": 168.5,
+          "average": 168.4,
           "rank": 1,
           "of": 33,
           "excluded": []
@@ -649,7 +649,7 @@
           "ours": 195.9,
           "cheapest": 192.7,
           "cheapestLabel": "Harvest Energy (Progress Fuels)",
-          "average": 197.6,
+          "average": 197.5,
           "rank": 8,
           "of": 33,
           "excluded": []
@@ -1195,12 +1195,12 @@
         "unleaded": {
           "ours": 162.9,
           "cheapest": 162.9,
-          "average": 168.5
+          "average": 168.4
         },
         "diesel": {
           "ours": 195.9,
           "cheapest": 192.7,
-          "average": 197.6
+          "average": 197.5
         },
         "premiumUnleaded": {
           "ours": 169.9,
