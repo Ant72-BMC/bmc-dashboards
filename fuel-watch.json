@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-11T23:31:19.464Z",
-  "changedAt": "2026-11-11T23:31:19.464Z",
+  "checkedAt": "2026-11-12T00:31:43.990Z",
+  "changedAt": "2026-11-12T00:31:43.990Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -323,10 +323,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 168.9,
+          "unleaded": 167.9,
           "diesel": 197.9,
-          "premiumUnleaded": 180.9,
-          "lastUpdated": "2026-11-10T00:26:30.467Z"
+          "premiumUnleaded": 179.9,
+          "lastUpdated": "2026-11-12T00:26:31.302Z"
         },
         {
           "nodeId": "048856cd1dff44eaca3cc04ef14d7f14e74a60054135eef278d33b088dbbfd77",
@@ -658,7 +658,7 @@
           "ours": 169.9,
           "cheapest": 176.9,
           "cheapestLabel": "Tesco Earlham Road Express",
-          "average": 187.2,
+          "average": 187.1,
           "rank": 1,
           "of": 30,
           "excluded": []
@@ -668,24 +668,6 @@
   ],
   "history": {
     "brooke-garage": [
-      {
-        "date": "2026-10-13",
-        "unleaded": {
-          "ours": 171.9,
-          "cheapest": 170.9,
-          "average": 175.2
-        },
-        "diesel": {
-          "ours": 196.9,
-          "cheapest": 195.7,
-          "average": 200.3
-        },
-        "premiumUnleaded": {
-          "ours": 178.9,
-          "cheapest": 182.7,
-          "average": 192.7
-        }
-      },
       {
         "date": "2026-10-14",
         "unleaded": {
@@ -1206,6 +1188,24 @@
           "ours": 169.9,
           "cheapest": 176.9,
           "average": 187.2
+        }
+      },
+      {
+        "date": "2026-11-12",
+        "unleaded": {
+          "ours": 162.9,
+          "cheapest": 162.9,
+          "average": 168.3
+        },
+        "diesel": {
+          "ours": 195.9,
+          "cheapest": 192.7,
+          "average": 197.5
+        },
+        "premiumUnleaded": {
+          "ours": 169.9,
+          "cheapest": 176.9,
+          "average": 187.1
         }
       }
     ]
