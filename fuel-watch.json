@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-12T07:31:26.602Z",
-  "changedAt": "2026-11-12T07:31:26.602Z",
+  "checkedAt": "2026-11-12T08:31:22.197Z",
+  "changedAt": "2026-11-12T08:31:22.197Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -39,10 +39,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 165.9,
-          "diesel": 197.9,
-          "premiumUnleaded": 179.9,
-          "lastUpdated": "2026-11-06T10:20:55.535Z"
+          "unleaded": 163.9,
+          "diesel": 195.9,
+          "premiumUnleaded": 177.9,
+          "lastUpdated": "2026-11-12T08:23:55.600Z"
         },
         {
           "nodeId": "795fc4e49ca36fdea8146dbd7be98b95412f4dfcd9a8c77c2a5fd4e1c3779543",
@@ -640,7 +640,7 @@
           "ours": 162.9,
           "cheapest": 162.9,
           "cheapestLabel": "Shell Stratton Motor Co (Long Stratton)",
-          "average": 168.3,
+          "average": 168.2,
           "rank": 1,
           "of": 33,
           "excluded": []
@@ -649,7 +649,7 @@
           "ours": 191.9,
           "cheapest": 192.7,
           "cheapestLabel": "Harvest Energy (Progress Fuels)",
-          "average": 197.5,
+          "average": 197.4,
           "rank": 1,
           "of": 33,
           "excluded": []
@@ -1195,12 +1195,12 @@
         "unleaded": {
           "ours": 162.9,
           "cheapest": 162.9,
-          "average": 168.3
+          "average": 168.2
         },
         "diesel": {
           "ours": 191.9,
           "cheapest": 192.7,
-          "average": 197.5
+          "average": 197.4
         },
         "premiumUnleaded": {
           "ours": 169.9,
