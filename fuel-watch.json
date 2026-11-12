@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-12T08:31:22.197Z",
-  "changedAt": "2026-11-12T08:31:22.197Z",
+  "checkedAt": "2026-11-12T11:31:07.656Z",
+  "changedAt": "2026-11-12T11:31:07.656Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -246,10 +246,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 164.9,
-          "diesel": 194.9,
-          "premiumUnleaded": 184.9,
-          "lastUpdated": "2026-11-10T12:06:55.000Z"
+          "unleaded": 162.9,
+          "diesel": 191.9,
+          "premiumUnleaded": 175.9,
+          "lastUpdated": "2026-11-12T11:22:34.000Z"
         },
         {
           "nodeId": "3a84eeda3951eed9a28fca74be208b8dcfeb591df0429087e5af73ab55982432",
@@ -639,7 +639,7 @@
         "unleaded": {
           "ours": 162.9,
           "cheapest": 162.9,
-          "cheapestLabel": "Shell Stratton Motor Co (Long Stratton)",
+          "cheapestLabel": "Jet Castle Service Station",
           "average": 168.2,
           "rank": 1,
           "of": 33,
@@ -647,8 +647,8 @@
         },
         "diesel": {
           "ours": 191.9,
-          "cheapest": 192.7,
-          "cheapestLabel": "Harvest Energy (Progress Fuels)",
+          "cheapest": 191.9,
+          "cheapestLabel": "Jet Castle Service Station",
           "average": 197.4,
           "rank": 1,
           "of": 33,
@@ -656,9 +656,9 @@
         },
         "premiumUnleaded": {
           "ours": 169.9,
-          "cheapest": 176.9,
-          "cheapestLabel": "Tesco Earlham Road Express",
-          "average": 187.1,
+          "cheapest": 175.9,
+          "cheapestLabel": "Jet Castle Service Station",
+          "average": 186.8,
           "rank": 1,
           "of": 30,
           "excluded": []
@@ -1199,13 +1199,13 @@
         },
         "diesel": {
           "ours": 191.9,
-          "cheapest": 192.7,
+          "cheapest": 191.9,
           "average": 197.4
         },
         "premiumUnleaded": {
           "ours": 169.9,
-          "cheapest": 176.9,
-          "average": 187.1
+          "cheapest": 175.9,
+          "average": 186.8
         }
       }
     ]
