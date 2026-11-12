@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-12T19:30:56.316Z",
-  "changedAt": "2026-11-12T19:30:56.316Z",
+  "checkedAt": "2026-11-12T20:31:12.505Z",
+  "changedAt": "2026-11-12T20:31:12.505Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -457,10 +457,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 164.7,
-          "diesel": 192.7,
+          "unleaded": 159.7,
+          "diesel": 189.7,
           "premiumUnleaded": 177.7,
-          "lastUpdated": "2026-11-10T12:52:19.000Z"
+          "lastUpdated": "2026-11-12T19:30:05.000Z"
         },
         {
           "nodeId": "a0c2787bcbee40249bf506dfa254c426e5365218e4f1454dee556b54c1bfaf97",
@@ -629,10 +629,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 166.9,
+          "unleaded": 163.9,
           "diesel": 196.9,
           "premiumUnleaded": 185.9,
-          "lastUpdated": "2026-11-11T12:31:13.000Z"
+          "lastUpdated": "2026-11-12T20:03:53.000Z"
         }
       ],
       "stats": {
@@ -640,8 +640,8 @@
           "ours": 162.9,
           "cheapest": 159.7,
           "cheapestLabel": "Asda Hall Road",
-          "average": 167.8,
-          "rank": 3,
+          "average": 167.5,
+          "rank": 4,
           "of": 33,
           "excluded": []
         },
@@ -649,8 +649,8 @@
           "ours": 191.9,
           "cheapest": 189.7,
           "cheapestLabel": "Asda Hall Road",
-          "average": 197,
-          "rank": 3,
+          "average": 196.9,
+          "rank": 4,
           "of": 33,
           "excluded": []
         },
@@ -1195,12 +1195,12 @@
         "unleaded": {
           "ours": 162.9,
           "cheapest": 159.7,
-          "average": 167.8
+          "average": 167.5
         },
         "diesel": {
           "ours": 191.9,
           "cheapest": 189.7,
-          "average": 197
+          "average": 196.9
         },
         "premiumUnleaded": {
           "ours": 169.9,
