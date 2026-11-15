@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-15T07:01:28.614Z",
-  "changedAt": "2026-11-15T07:01:28.614Z",
+  "checkedAt": "2026-11-15T08:30:53.702Z",
+  "changedAt": "2026-11-15T08:30:53.702Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -171,10 +171,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 167.9,
-          "diesel": 195.9,
-          "premiumUnleaded": 179.9,
-          "lastUpdated": "2026-11-11T06:00:43.000Z"
+          "unleaded": 161.9,
+          "diesel": 192.9,
+          "premiumUnleaded": 173.9,
+          "lastUpdated": "2026-11-15T07:41:25.000Z"
         },
         {
           "nodeId": "9413600ac2534b2d02b6927a2b8edafc482b6d5add45b8bd8c6f15a672373911",
@@ -640,8 +640,8 @@
           "ours": 162.9,
           "cheapest": 158.9,
           "cheapestLabel": "Morrisons Albion Way",
-          "average": 165.5,
-          "rank": 13,
+          "average": 165.4,
+          "rank": 14,
           "of": 33,
           "excluded": []
         },
@@ -658,7 +658,7 @@
           "ours": 169.9,
           "cheapest": 172.9,
           "cheapestLabel": "Sainsbury's Queens Road",
-          "average": 187.7,
+          "average": 187.5,
           "rank": 1,
           "of": 25,
           "excluded": [
@@ -1201,7 +1201,7 @@
         "unleaded": {
           "ours": 162.9,
           "cheapest": 158.9,
-          "average": 165.5
+          "average": 165.4
         },
         "diesel": {
           "ours": 191.9,
@@ -1211,7 +1211,7 @@
         "premiumUnleaded": {
           "ours": 169.9,
           "cheapest": 172.9,
-          "average": 187.7
+          "average": 187.5
         }
       }
     ]
