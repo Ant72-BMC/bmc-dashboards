@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-15T06:30:55.586Z",
-  "changedAt": "2026-11-15T00:01:13.382Z",
+  "checkedAt": "2026-11-15T07:01:28.614Z",
+  "changedAt": "2026-11-15T07:01:28.614Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -208,10 +208,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 167.9,
-          "diesel": 195.9,
-          "premiumUnleaded": 179.9,
-          "lastUpdated": "2026-11-08T07:52:45.000Z"
+          "unleaded": 160.9,
+          "diesel": 190.9,
+          "premiumUnleaded": 172.9,
+          "lastUpdated": "2026-11-15T06:43:43.000Z"
         },
         {
           "nodeId": "fd07fad71453cf5a6827fc43c377e7991cc6c6f0b5d0b9994dce580f32626c26",
@@ -640,8 +640,8 @@
           "ours": 162.9,
           "cheapest": 158.9,
           "cheapestLabel": "Morrisons Albion Way",
-          "average": 165.8,
-          "rank": 12,
+          "average": 165.5,
+          "rank": 13,
           "of": 33,
           "excluded": []
         },
@@ -649,16 +649,16 @@
           "ours": 191.9,
           "cheapest": 188.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 195.9,
-          "rank": 8,
+          "average": 195.7,
+          "rank": 9,
           "of": 33,
           "excluded": []
         },
         "premiumUnleaded": {
           "ours": 169.9,
-          "cheapest": 175.9,
-          "cheapestLabel": "Jet Castle Service Station",
-          "average": 188,
+          "cheapest": 172.9,
+          "cheapestLabel": "Sainsbury's Queens Road",
+          "average": 187.7,
           "rank": 1,
           "of": 25,
           "excluded": [
@@ -1201,17 +1201,17 @@
         "unleaded": {
           "ours": 162.9,
           "cheapest": 158.9,
-          "average": 165.8
+          "average": 165.5
         },
         "diesel": {
           "ours": 191.9,
           "cheapest": 188.9,
-          "average": 195.9
+          "average": 195.7
         },
         "premiumUnleaded": {
           "ours": 169.9,
-          "cheapest": 175.9,
-          "average": 188
+          "cheapest": 172.9,
+          "average": 187.7
         }
       }
     ]
