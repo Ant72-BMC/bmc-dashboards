@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-16T17:01:22.048Z",
-  "changedAt": "2026-11-16T17:01:22.048Z",
+  "checkedAt": "2026-11-16T18:30:50.922Z",
+  "changedAt": "2026-11-16T18:30:50.922Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -79,8 +79,8 @@
           "found": true,
           "unleaded": 162.9,
           "diesel": 195.9,
-          "premiumUnleaded": 189.9,
-          "lastUpdated": "2026-11-16T15:53:19.000Z"
+          "premiumUnleaded": 185.9,
+          "lastUpdated": "2026-11-16T17:33:23.000Z"
         },
         {
           "nodeId": "e718d546c14d35bafc3c12b50fef7186e4f4752495164553663ae07ddd55040d",
@@ -513,10 +513,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 168.9,
-          "diesel": 198.9,
-          "premiumUnleaded": 187.9,
-          "lastUpdated": "2026-11-11T14:03:38.000Z"
+          "unleaded": 167.9,
+          "diesel": 197.9,
+          "premiumUnleaded": 186.9,
+          "lastUpdated": "2026-11-16T18:12:55.000Z"
         },
         {
           "nodeId": "60c0b8586b396f86bbbe0d8d9804026bf3291f479b7ae65d6e1d6696f7738838",
@@ -656,15 +656,13 @@
         },
         "premiumUnleaded": {
           "ours": 169.9,
-          "cheapest": 171.9,
-          "cheapestLabel": "Tesco Norwich Extra",
-          "average": 186.3,
+          "cheapest": 170.9,
+          "cheapestLabel": "Tesco Harford Bridge",
+          "average": 185,
           "rank": 1,
-          "of": 26,
+          "of": 28,
           "excluded": [
             "Poringland Service Station",
-            "Tesco Harford Bridge",
-            "Tesco Earlham Road Express",
             "Harvest Energy (Progress Fuels)"
           ]
         }
@@ -1209,8 +1207,8 @@
         },
         "premiumUnleaded": {
           "ours": 169.9,
-          "cheapest": 171.9,
-          "average": 186.3
+          "cheapest": 170.9,
+          "average": 185
         }
       }
     ]
