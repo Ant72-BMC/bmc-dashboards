@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-16T06:30:54.590Z",
-  "changedAt": "2026-11-16T06:30:54.590Z",
+  "checkedAt": "2026-11-16T08:30:50.880Z",
+  "changedAt": "2026-11-16T08:30:50.880Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -39,10 +39,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 161.9,
-          "diesel": 193.9,
-          "premiumUnleaded": 171.9,
-          "lastUpdated": "2026-11-14T08:48:55.878Z"
+          "unleaded": 159.9,
+          "diesel": 191.9,
+          "premiumUnleaded": 169.9,
+          "lastUpdated": "2026-11-16T08:17:55.686Z"
         },
         {
           "nodeId": "795fc4e49ca36fdea8146dbd7be98b95412f4dfcd9a8c77c2a5fd4e1c3779543",
@@ -640,7 +640,7 @@
           "ours": 162.9,
           "cheapest": 158.9,
           "cheapestLabel": "Morrisons Albion Way",
-          "average": 165.4,
+          "average": 165.3,
           "rank": 14,
           "of": 33,
           "excluded": []
@@ -1201,7 +1201,7 @@
         "unleaded": {
           "ours": 162.9,
           "cheapest": 158.9,
-          "average": 165.4
+          "average": 165.3
         },
         "diesel": {
           "ours": 191.9,
