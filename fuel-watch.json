@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-17T06:01:13.089Z",
-  "changedAt": "2026-11-17T06:01:13.089Z",
+  "checkedAt": "2026-11-17T11:01:27.047Z",
+  "changedAt": "2026-11-17T11:01:27.047Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -246,10 +246,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 157.9,
+          "unleaded": 156.9,
           "diesel": 188.9,
           "premiumUnleaded": 172.9,
-          "lastUpdated": "2026-11-16T10:38:07.000Z"
+          "lastUpdated": "2026-11-17T10:58:31.000Z"
         },
         {
           "nodeId": "3a84eeda3951eed9a28fca74be208b8dcfeb591df0429087e5af73ab55982432",
@@ -638,8 +638,8 @@
       "stats": {
         "unleaded": {
           "ours": 159.9,
-          "cheapest": 157.9,
-          "cheapestLabel": "Morrisons Albion Way",
+          "cheapest": 156.9,
+          "cheapestLabel": "Jet Castle Service Station",
           "average": 163.4,
           "rank": 6,
           "of": 33,
@@ -1197,7 +1197,7 @@
         "date": "2026-11-17",
         "unleaded": {
           "ours": 159.9,
-          "cheapest": 157.9,
+          "cheapest": 156.9,
           "average": 163.4
         },
         "diesel": {
