@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-11-16T17:00:03.207Z",
+  "timestamp": "2026-11-17T09:00:03.300Z",
   "ok": true,
-  "match": false,
-  "autotraderTotal": 404,
+  "match": true,
+  "autotraderTotal": 403,
   "sanityTotal": 403,
   "onWebsiteTotal": 375,
   "hiddenFromWebsiteTotal": 28,
@@ -22,17 +22,15 @@
     },
     "10043362": {
       "location": "Norwich",
-      "autotrader": 104,
+      "autotrader": 103,
       "sanity": 103,
       "onWebsite": 103,
       "hiddenFromWebsite": 0,
-      "match": false,
-      "diff": -1,
+      "match": true,
+      "diff": 0,
       "onlyInSanity": [],
       "onlyInSanityTruncated": false,
-      "onlyInAutotrader": [
-        "LO17VSG"
-      ],
+      "onlyInAutotrader": [],
       "onlyInAutotraderTruncated": false
     }
   },
