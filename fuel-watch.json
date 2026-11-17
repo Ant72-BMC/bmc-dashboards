@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-17T00:01:30.799Z",
-  "changedAt": "2026-11-17T00:01:30.799Z",
+  "checkedAt": "2026-11-17T00:31:11.881Z",
+  "changedAt": "2026-11-17T00:31:11.881Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -323,10 +323,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 167.9,
-          "diesel": 197.9,
-          "premiumUnleaded": 179.9,
-          "lastUpdated": "2026-11-12T00:26:31.302Z"
+          "unleaded": 161.9,
+          "diesel": 191.9,
+          "premiumUnleaded": 173.9,
+          "lastUpdated": "2026-11-17T00:26:30.809Z"
         },
         {
           "nodeId": "048856cd1dff44eaca3cc04ef14d7f14e74a60054135eef278d33b088dbbfd77",
@@ -640,7 +640,7 @@
           "ours": 159.9,
           "cheapest": 157.9,
           "cheapestLabel": "Morrisons Albion Way",
-          "average": 163.6,
+          "average": 163.5,
           "rank": 6,
           "of": 33,
           "excluded": []
@@ -649,7 +649,7 @@
           "ours": 191.9,
           "cheapest": 188.9,
           "cheapestLabel": "Morrisons Albion Way",
-          "average": 194.5,
+          "average": 194.3,
           "rank": 10,
           "of": 33,
           "excluded": []
@@ -658,7 +658,7 @@
           "ours": 169.9,
           "cheapest": 170.9,
           "cheapestLabel": "Tesco Harford Bridge",
-          "average": 184.2,
+          "average": 183.9,
           "rank": 1,
           "of": 28,
           "excluded": [
@@ -1198,17 +1198,17 @@
         "unleaded": {
           "ours": 159.9,
           "cheapest": 157.9,
-          "average": 163.6
+          "average": 163.5
         },
         "diesel": {
           "ours": 191.9,
           "cheapest": 188.9,
-          "average": 194.5
+          "average": 194.3
         },
         "premiumUnleaded": {
           "ours": 169.9,
           "cheapest": 170.9,
-          "average": 184.2
+          "average": 183.9
         }
       }
     ]
