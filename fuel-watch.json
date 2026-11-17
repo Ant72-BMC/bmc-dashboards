@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-17T18:01:22.746Z",
-  "changedAt": "2026-11-17T18:01:22.746Z",
+  "checkedAt": "2026-11-17T21:30:55.346Z",
+  "changedAt": "2026-11-17T21:30:55.346Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -457,10 +457,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 159.7,
-          "diesel": 189.7,
+          "unleaded": 157.7,
+          "diesel": 188.7,
           "premiumUnleaded": 169.7,
-          "lastUpdated": "2026-11-13T12:33:31.000Z"
+          "lastUpdated": "2026-11-17T20:34:06.000Z"
         },
         {
           "nodeId": "a0c2787bcbee40249bf506dfa254c426e5365218e4f1454dee556b54c1bfaf97",
@@ -513,10 +513,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 167.9,
-          "diesel": 197.9,
-          "premiumUnleaded": 186.9,
-          "lastUpdated": "2026-11-16T18:12:55.000Z"
+          "unleaded": 162.9,
+          "diesel": 195.9,
+          "premiumUnleaded": 181.9,
+          "lastUpdated": "2026-11-17T20:50:40.000Z"
         },
         {
           "nodeId": "60c0b8586b396f86bbbe0d8d9804026bf3291f479b7ae65d6e1d6696f7738838",
@@ -640,7 +640,7 @@
           "ours": 159.9,
           "cheapest": 156.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 162.4,
+          "average": 162.2,
           "rank": 6,
           "of": 32,
           "excluded": [
@@ -651,20 +651,20 @@
           "ours": 191.9,
           "cheapest": 188.7,
           "cheapestLabel": "Asda Hall Road",
-          "average": 194,
+          "average": 193.9,
           "rank": 10,
           "of": 33,
           "excluded": []
         },
         "premiumUnleaded": {
           "ours": 169.9,
-          "cheapest": 169.9,
-          "cheapestLabel": "Poringland Service Station",
-          "average": 182.1,
-          "rank": 1,
+          "cheapest": 169.7,
+          "cheapestLabel": "Harvest Energy (Progress Fuels)",
+          "average": 180.8,
+          "rank": 2,
           "of": 29,
           "excluded": [
-            "Harvest Energy (Progress Fuels)"
+            "Shell Cringleford"
           ]
         }
       }
@@ -1199,17 +1199,17 @@
         "unleaded": {
           "ours": 159.9,
           "cheapest": 156.9,
-          "average": 162.4
+          "average": 162.2
         },
         "diesel": {
           "ours": 191.9,
           "cheapest": 188.7,
-          "average": 194
+          "average": 193.9
         },
         "premiumUnleaded": {
           "ours": 169.9,
-          "cheapest": 169.9,
-          "average": 182.1
+          "cheapest": 169.7,
+          "average": 180.8
         }
       }
     ]
