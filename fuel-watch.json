@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-18T07:01:22.561Z",
-  "changedAt": "2026-11-18T07:01:22.561Z",
+  "checkedAt": "2026-11-18T09:30:52.437Z",
+  "changedAt": "2026-11-18T09:30:52.437Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -285,10 +285,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 162.3,
-          "diesel": 195.6,
-          "premiumUnleaded": 186.8,
-          "lastUpdated": "2026-11-14T08:10:41.000Z"
+          "unleaded": 160,
+          "diesel": 193.8,
+          "premiumUnleaded": 176,
+          "lastUpdated": "2026-11-18T09:17:39.000Z"
         },
         {
           "nodeId": "04dbf02f9ac114bfc8e89e96f7172b5b87a5b58f3d8dfed947ac242be4e741f5",
@@ -591,10 +591,10 @@
             "premiumUnleaded"
           ],
           "found": true,
-          "unleaded": 167.9,
+          "unleaded": 162.9,
           "diesel": 197.9,
           "premiumUnleaded": null,
-          "lastUpdated": "2026-11-17T11:01:24.000Z"
+          "lastUpdated": "2026-11-18T09:08:57.000Z"
         },
         {
           "nodeId": "e44701c4606125946ba3e910d7d4f37743c8e70651d5f221dc33516714063701",
@@ -640,7 +640,7 @@
           "ours": 159.9,
           "cheapest": 156.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 162.1,
+          "average": 161.9,
           "rank": 7,
           "of": 32,
           "excluded": [
@@ -660,10 +660,11 @@
           "ours": 169.9,
           "cheapest": 169.7,
           "cheapestLabel": "Harvest Energy (Progress Fuels)",
-          "average": 180.7,
+          "average": 179.7,
           "rank": 2,
-          "of": 29,
+          "of": 28,
           "excluded": [
+            "Shell Hales",
             "Shell Cringleford"
           ]
         }
@@ -1199,7 +1200,7 @@
         "unleaded": {
           "ours": 159.9,
           "cheapest": 156.9,
-          "average": 162.1
+          "average": 161.9
         },
         "diesel": {
           "ours": 191.9,
@@ -1209,7 +1210,7 @@
         "premiumUnleaded": {
           "ours": 169.9,
           "cheapest": 169.7,
-          "average": 180.7
+          "average": 179.7
         }
       }
     ]
