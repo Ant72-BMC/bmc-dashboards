@@ -1,25 +1,23 @@
 {
-  "timestamp": "2026-11-18T13:00:02.733Z",
+  "timestamp": "2026-11-18T17:00:03.035Z",
   "ok": true,
-  "match": false,
-  "autotraderTotal": 398,
-  "sanityTotal": 397,
-  "onWebsiteTotal": 369,
+  "match": true,
+  "autotraderTotal": 396,
+  "sanityTotal": 396,
+  "onWebsiteTotal": 368,
   "hiddenFromWebsiteTotal": 28,
   "byAdvertiser": {
     "833349": {
       "location": "Brooke",
-      "autotrader": 294,
-      "sanity": 293,
-      "onWebsite": 265,
+      "autotrader": 292,
+      "sanity": 292,
+      "onWebsite": 264,
       "hiddenFromWebsite": 28,
-      "match": false,
-      "diff": -1,
+      "match": true,
+      "diff": 0,
       "onlyInSanity": [],
       "onlyInSanityTruncated": false,
-      "onlyInAutotrader": [
-        "AX60EBV"
-      ],
+      "onlyInAutotrader": [],
       "onlyInAutotraderTruncated": false
     },
     "10043362": {
