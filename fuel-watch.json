@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-18T00:30:53.873Z",
-  "changedAt": "2026-11-18T00:30:53.873Z",
+  "checkedAt": "2026-11-18T07:01:22.561Z",
+  "changedAt": "2026-11-18T07:01:22.561Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -171,10 +171,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 161.9,
-          "diesel": 192.9,
-          "premiumUnleaded": 173.9,
-          "lastUpdated": "2026-11-15T07:41:25.000Z"
+          "unleaded": 160.9,
+          "diesel": 191.9,
+          "premiumUnleaded": 172.9,
+          "lastUpdated": "2026-11-18T06:04:30.000Z"
         },
         {
           "nodeId": "9413600ac2534b2d02b6927a2b8edafc482b6d5add45b8bd8c6f15a672373911",
@@ -208,10 +208,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 159.9,
-          "diesel": 189.9,
-          "premiumUnleaded": 171.9,
-          "lastUpdated": "2026-11-17T05:54:16.000Z"
+          "unleaded": 158.9,
+          "diesel": 188.9,
+          "premiumUnleaded": 170.9,
+          "lastUpdated": "2026-11-18T05:57:23.000Z"
         },
         {
           "nodeId": "fd07fad71453cf5a6827fc43c377e7991cc6c6f0b5d0b9994dce580f32626c26",
@@ -640,8 +640,8 @@
           "ours": 159.9,
           "cheapest": 156.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 162.2,
-          "rank": 6,
+          "average": 162.1,
+          "rank": 7,
           "of": 32,
           "excluded": [
             "Shell Cringleford"
@@ -651,7 +651,7 @@
           "ours": 191.9,
           "cheapest": 188.7,
           "cheapestLabel": "Asda Hall Road",
-          "average": 193.9,
+          "average": 193.8,
           "rank": 10,
           "of": 33,
           "excluded": []
@@ -660,7 +660,7 @@
           "ours": 169.9,
           "cheapest": 169.7,
           "cheapestLabel": "Harvest Energy (Progress Fuels)",
-          "average": 180.8,
+          "average": 180.7,
           "rank": 2,
           "of": 29,
           "excluded": [
@@ -1199,17 +1199,17 @@
         "unleaded": {
           "ours": 159.9,
           "cheapest": 156.9,
-          "average": 162.2
+          "average": 162.1
         },
         "diesel": {
           "ours": 191.9,
           "cheapest": 188.7,
-          "average": 193.9
+          "average": 193.8
         },
         "premiumUnleaded": {
           "ours": 169.9,
           "cheapest": 169.7,
-          "average": 180.8
+          "average": 180.7
         }
       }
     ]
