@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-19T00:01:43.616Z",
-  "changedAt": "2026-11-19T00:01:43.616Z",
+  "checkedAt": "2026-11-19T17:31:04.575Z",
+  "changedAt": "2026-11-19T17:31:04.575Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -58,10 +58,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 158.9,
-          "diesel": 190.9,
-          "premiumUnleaded": 168.9,
-          "lastUpdated": "2026-11-18T16:12:09.661Z"
+          "unleaded": 157.9,
+          "diesel": 189.9,
+          "premiumUnleaded": 167.9,
+          "lastUpdated": "2026-11-19T13:24:09.921Z"
         },
         {
           "nodeId": "a082bec907ca589d877f3d62626e9e630f8cbd94c7326c9a2e6bd97ff30f7853",
@@ -77,10 +77,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 161.9,
+          "unleaded": 159.9,
           "diesel": 194.9,
           "premiumUnleaded": 185.9,
-          "lastUpdated": "2026-11-17T15:05:03.000Z"
+          "lastUpdated": "2026-11-19T15:02:33.000Z"
         },
         {
           "nodeId": "e718d546c14d35bafc3c12b50fef7186e4f4752495164553663ae07ddd55040d",
@@ -114,10 +114,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 161.9,
+          "unleaded": 159.9,
           "diesel": 194.9,
           "premiumUnleaded": 185.9,
-          "lastUpdated": "2026-11-17T15:06:33.000Z"
+          "lastUpdated": "2026-11-19T15:01:08.000Z"
         },
         {
           "nodeId": "7e54b71d4fc9e3cd9d0f87e6ff69184eb7001a3de05c085565c92028a6f368ef",
@@ -399,10 +399,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 158.9,
-          "diesel": 190.9,
-          "premiumUnleaded": 168.9,
-          "lastUpdated": "2026-11-18T16:00:10.133Z"
+          "unleaded": 157.9,
+          "diesel": 189.9,
+          "premiumUnleaded": 167.9,
+          "lastUpdated": "2026-11-19T13:30:10.442Z"
         },
         {
           "nodeId": "c317976db9d4b99ec0d9f1fa26388c310f9bd78a4406271d998c49c28cfb863b",
@@ -437,10 +437,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 160.9,
+          "unleaded": 159.9,
           "diesel": 190.9,
-          "premiumUnleaded": 171.9,
-          "lastUpdated": "2026-11-13T17:27:11.886Z"
+          "premiumUnleaded": 170.9,
+          "lastUpdated": "2026-11-19T13:27:13.980Z"
         },
         {
           "nodeId": "d0c26f4feaf419fcd0e3c07846737ab53b33a90b5105e553d683b4c072cf3ce8",
@@ -569,10 +569,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 164.7,
-          "diesel": 196.9,
-          "premiumUnleaded": 184.7,
-          "lastUpdated": "2026-11-18T11:54:08.000Z"
+          "unleaded": 163.9,
+          "diesel": 195.9,
+          "premiumUnleaded": 183.9,
+          "lastUpdated": "2026-11-19T11:11:32.000Z"
         },
         {
           "nodeId": "53b28468e07172ef5def62f64cc642dfcb3f73794df1d6078bd45230b45c718a",
@@ -640,7 +640,7 @@
           "ours": 159.9,
           "cheapest": 156.9,
           "cheapestLabel": "Morrisons Albion Way",
-          "average": 161.4,
+          "average": 161.1,
           "rank": 9,
           "of": 32,
           "excluded": [
@@ -651,16 +651,16 @@
           "ours": 191.9,
           "cheapest": 188.7,
           "cheapestLabel": "Asda Hall Road",
-          "average": 193.5,
+          "average": 193.4,
           "rank": 11,
           "of": 33,
           "excluded": []
         },
         "premiumUnleaded": {
           "ours": 169.9,
-          "cheapest": 168.9,
+          "cheapest": 167.9,
           "cheapestLabel": "Tesco Harford Bridge",
-          "average": 179.3,
+          "average": 179.2,
           "rank": 4,
           "of": 28,
           "excluded": [
@@ -1200,17 +1200,17 @@
         "unleaded": {
           "ours": 159.9,
           "cheapest": 156.9,
-          "average": 161.4
+          "average": 161.1
         },
         "diesel": {
           "ours": 191.9,
           "cheapest": 188.7,
-          "average": 193.5
+          "average": 193.4
         },
         "premiumUnleaded": {
           "ours": 169.9,
-          "cheapest": 168.9,
-          "average": 179.3
+          "cheapest": 167.9,
+          "average": 179.2
         }
       }
     ]
