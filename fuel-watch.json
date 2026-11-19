@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-18T18:01:08.708Z",
-  "changedAt": "2026-11-18T18:01:08.708Z",
+  "checkedAt": "2026-11-19T00:01:43.616Z",
+  "changedAt": "2026-11-19T00:01:43.616Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -674,24 +674,6 @@
   "history": {
     "brooke-garage": [
       {
-        "date": "2026-10-20",
-        "unleaded": {
-          "ours": 171.9,
-          "cheapest": 169.9,
-          "average": 174.6
-        },
-        "diesel": {
-          "ours": 196.9,
-          "cheapest": 195.9,
-          "average": 200.1
-        },
-        "premiumUnleaded": {
-          "ours": 178.9,
-          "cheapest": 182.7,
-          "average": 192.5
-        }
-      },
-      {
         "date": "2026-10-21",
         "unleaded": {
           "ours": 171.9,
@@ -1197,6 +1179,24 @@
       },
       {
         "date": "2026-11-18",
+        "unleaded": {
+          "ours": 159.9,
+          "cheapest": 156.9,
+          "average": 161.4
+        },
+        "diesel": {
+          "ours": 191.9,
+          "cheapest": 188.7,
+          "average": 193.5
+        },
+        "premiumUnleaded": {
+          "ours": 169.9,
+          "cheapest": 168.9,
+          "average": 179.3
+        }
+      },
+      {
+        "date": "2026-11-19",
         "unleaded": {
           "ours": 159.9,
           "cheapest": 156.9,
