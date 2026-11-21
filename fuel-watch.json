@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-20T11:31:26.082Z",
-  "changedAt": "2026-11-20T11:31:26.082Z",
+  "checkedAt": "2026-11-21T02:31:13.822Z",
+  "changedAt": "2026-11-21T02:31:13.822Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -78,9 +78,9 @@
           "role": "direct",
           "found": true,
           "unleaded": 159.9,
-          "diesel": 194.9,
+          "diesel": 193.9,
           "premiumUnleaded": 185.9,
-          "lastUpdated": "2026-11-19T15:02:33.000Z"
+          "lastUpdated": "2026-11-20T15:10:20.000Z"
         },
         {
           "nodeId": "e718d546c14d35bafc3c12b50fef7186e4f4752495164553663ae07ddd55040d",
@@ -95,10 +95,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 156.7,
-          "diesel": 188.7,
+          "unleaded": 155.7,
+          "diesel": 187.7,
           "premiumUnleaded": null,
-          "lastUpdated": "2026-11-19T17:47:55.000Z"
+          "lastUpdated": "2026-11-20T17:53:39.000Z"
         },
         {
           "nodeId": "8e436da1d04a4fe80dc9e3a547fa70ed8f006b7ad6710ac71a27f625c2ad5ceb",
@@ -115,9 +115,9 @@
           "role": "direct",
           "found": true,
           "unleaded": 159.9,
-          "diesel": 194.9,
+          "diesel": 193.9,
           "premiumUnleaded": 185.9,
-          "lastUpdated": "2026-11-19T15:01:08.000Z"
+          "lastUpdated": "2026-11-20T15:29:55.000Z"
         },
         {
           "nodeId": "7e54b71d4fc9e3cd9d0f87e6ff69184eb7001a3de05c085565c92028a6f368ef",
@@ -190,10 +190,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 156.9,
-          "diesel": 188.9,
+          "unleaded": 155.9,
+          "diesel": 187.9,
           "premiumUnleaded": 175.9,
-          "lastUpdated": "2026-11-18T15:56:47.000Z"
+          "lastUpdated": "2026-11-20T15:32:47.000Z"
         },
         {
           "nodeId": "ed341c6c89e1896b15fc7cefd913a381e4c833488cac0115910411cb7d1b4688",
@@ -265,10 +265,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 161.9,
-          "diesel": 195.9,
+          "unleaded": 159.9,
+          "diesel": 194.9,
           "premiumUnleaded": 185.9,
-          "lastUpdated": "2026-11-18T15:56:00.000Z"
+          "lastUpdated": "2026-11-20T15:53:21.000Z"
         },
         {
           "nodeId": "536e7657ccc01318e5a2e6a540247df774cd58c9be3a6a91ca887e6f84d9c244",
@@ -342,10 +342,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 161.9,
-          "diesel": 194.9,
+          "unleaded": 159.9,
+          "diesel": 193.9,
           "premiumUnleaded": 185.9,
-          "lastUpdated": "2026-11-18T15:56:11.000Z"
+          "lastUpdated": "2026-11-20T15:30:27.000Z"
         },
         {
           "nodeId": "cfd6698944cf2fe3f95e079a2301ff12a1668c804e05af28de1f1f66467f16bd",
@@ -380,10 +380,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 161.9,
-          "diesel": 195.9,
-          "premiumUnleaded": 182.9,
-          "lastUpdated": "2026-11-18T16:45:02.000Z"
+          "unleaded": 159.9,
+          "diesel": 194.9,
+          "premiumUnleaded": 180.9,
+          "lastUpdated": "2026-11-20T16:00:01.000Z"
         },
         {
           "nodeId": "bdc5697fd7922eb4f036ba6933219a10aa875ff36a238b8ab7c0b956c1ebfd6a",
@@ -418,10 +418,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 161.9,
-          "diesel": 194.9,
+          "unleaded": 159.9,
+          "diesel": 193.9,
           "premiumUnleaded": 185.9,
-          "lastUpdated": "2026-11-18T15:55:50.000Z"
+          "lastUpdated": "2026-11-20T14:58:01.000Z"
         },
         {
           "nodeId": "1e0cda47058e422fef06ed34f513aa4e4608e893449149cb8576881bc2c1ac34",
@@ -437,10 +437,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 159.9,
+          "unleaded": 158.9,
           "diesel": 190.9,
-          "premiumUnleaded": 170.9,
-          "lastUpdated": "2026-11-19T13:27:13.980Z"
+          "premiumUnleaded": 169.9,
+          "lastUpdated": "2026-11-20T14:24:09.750Z"
         },
         {
           "nodeId": "d0c26f4feaf419fcd0e3c07846737ab53b33a90b5105e553d683b4c072cf3ce8",
@@ -457,10 +457,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 157.7,
+          "unleaded": 156.7,
           "diesel": 188.7,
-          "premiumUnleaded": 169.7,
-          "lastUpdated": "2026-11-17T20:34:06.000Z"
+          "premiumUnleaded": 165.7,
+          "lastUpdated": "2026-11-20T17:06:55.000Z"
         },
         {
           "nodeId": "a0c2787bcbee40249bf506dfa254c426e5365218e4f1454dee556b54c1bfaf97",
@@ -476,10 +476,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 167.9,
+          "unleaded": 165.9,
           "diesel": 195.9,
           "premiumUnleaded": 189.9,
-          "lastUpdated": "2026-11-17T13:03:22.000Z"
+          "lastUpdated": "2026-11-20T17:50:32.000Z"
         },
         {
           "nodeId": "3ec68782dadfdf32cb5bc7d5f06cd4b2f01276d09553bcb6573c8a8c9e6f9351",
@@ -495,10 +495,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 161.9,
-          "diesel": 195.9,
+          "unleaded": 159.9,
+          "diesel": 194.9,
           "premiumUnleaded": 185.9,
-          "lastUpdated": "2026-11-18T15:59:50.000Z"
+          "lastUpdated": "2026-11-20T15:37:23.000Z"
         },
         {
           "nodeId": "ccfb60753197614dcdc4eca32b7125a53e846dc4b10788cf51c5508a89b4efe3",
@@ -513,10 +513,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 162.9,
-          "diesel": 195.9,
-          "premiumUnleaded": 181.9,
-          "lastUpdated": "2026-11-17T20:50:40.000Z"
+          "unleaded": 161.9,
+          "diesel": 194.9,
+          "premiumUnleaded": 180.9,
+          "lastUpdated": "2026-11-20T18:23:53.000Z"
         },
         {
           "nodeId": "60c0b8586b396f86bbbe0d8d9804026bf3291f479b7ae65d6e1d6696f7738838",
@@ -531,10 +531,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 157.7,
-          "diesel": 188.7,
+          "unleaded": 155.7,
+          "diesel": 187.7,
           "premiumUnleaded": null,
-          "lastUpdated": "2026-11-19T17:50:47.000Z"
+          "lastUpdated": "2026-11-20T17:57:31.000Z"
         },
         {
           "nodeId": "10db311a51182bd42771ad326b1d2f930265a24c6f8bbab5698fde99f0cf64eb",
@@ -550,10 +550,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 161.9,
-          "diesel": 194.9,
+          "unleaded": 159.9,
+          "diesel": 193.9,
           "premiumUnleaded": 185.9,
-          "lastUpdated": "2026-11-18T15:56:56.000Z"
+          "lastUpdated": "2026-11-20T15:31:35.000Z"
         },
         {
           "nodeId": "32c0cae9f7bdf46f21d10411158d3be533d82bd067c20c8888a6124f396856ef",
@@ -610,10 +610,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 160.9,
+          "unleaded": 155.9,
           "diesel": 193.9,
-          "premiumUnleaded": 176.9,
-          "lastUpdated": "2026-11-19T20:52:43.000Z"
+          "premiumUnleaded": 171.9,
+          "lastUpdated": "2026-11-20T17:37:40.000Z"
         },
         {
           "nodeId": "127544094681fa89a9dce0a4d20a345e6151e53d89acb49555b6aec6ccd7da24",
@@ -638,18 +638,18 @@
       "stats": {
         "unleaded": {
           "ours": 159.9,
-          "cheapest": 155.9,
-          "cheapestLabel": "Jet Castle Service Station",
-          "average": 160.8,
-          "rank": 10,
+          "cheapest": 155.7,
+          "cheapestLabel": "Asda Hall Road",
+          "average": 160,
+          "rank": 12,
           "of": 33,
           "excluded": []
         },
         "diesel": {
           "ours": 191.9,
-          "cheapest": 187.9,
-          "cheapestLabel": "Jet Castle Service Station",
-          "average": 192.9,
+          "cheapest": 187.7,
+          "cheapestLabel": "Asda Hall Road",
+          "average": 192.6,
           "rank": 13,
           "of": 33,
           "excluded": []
@@ -658,11 +658,12 @@
           "ours": 169.9,
           "cheapest": 167.9,
           "cheapestLabel": "Poringland Service Station",
-          "average": 179.1,
-          "rank": 5,
-          "of": 29,
+          "average": 179.2,
+          "rank": 4,
+          "of": 28,
           "excluded": [
-            "Shell Hales"
+            "Shell Hales",
+            "Harvest Energy (Progress Fuels)"
           ]
         }
       }
@@ -670,24 +671,6 @@
   ],
   "history": {
     "brooke-garage": [
-      {
-        "date": "2026-10-22",
-        "unleaded": {
-          "ours": 171.9,
-          "cheapest": 169.7,
-          "average": 174.5
-        },
-        "diesel": {
-          "ours": 196.9,
-          "cheapest": 195.9,
-          "average": 200.1
-        },
-        "premiumUnleaded": {
-          "ours": 178.9,
-          "cheapest": 182.7,
-          "average": 192.5
-        }
-      },
       {
         "date": "2026-10-23",
         "unleaded": {
@@ -1208,6 +1191,24 @@
           "ours": 169.9,
           "cheapest": 167.9,
           "average": 179.1
+        }
+      },
+      {
+        "date": "2026-11-21",
+        "unleaded": {
+          "ours": 159.9,
+          "cheapest": 155.7,
+          "average": 160
+        },
+        "diesel": {
+          "ours": 191.9,
+          "cheapest": 187.7,
+          "average": 192.6
+        },
+        "premiumUnleaded": {
+          "ours": 169.9,
+          "cheapest": 167.9,
+          "average": 179.2
         }
       }
     ]
