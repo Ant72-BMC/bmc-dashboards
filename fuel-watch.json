@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-21T10:31:02.285Z",
-  "changedAt": "2026-11-21T10:31:02.285Z",
+  "checkedAt": "2026-11-21T21:31:19.021Z",
+  "changedAt": "2026-11-21T21:31:19.021Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -77,10 +77,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 159.9,
+          "unleaded": 158.9,
           "diesel": 193.9,
           "premiumUnleaded": 185.9,
-          "lastUpdated": "2026-11-20T15:10:20.000Z"
+          "lastUpdated": "2026-11-21T12:31:00.000Z"
         },
         {
           "nodeId": "e718d546c14d35bafc3c12b50fef7186e4f4752495164553663ae07ddd55040d",
@@ -190,10 +190,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 155.9,
+          "unleaded": 154.9,
           "diesel": 187.9,
           "premiumUnleaded": 175.9,
-          "lastUpdated": "2026-11-20T15:32:47.000Z"
+          "lastUpdated": "2026-11-21T12:43:16.000Z"
         },
         {
           "nodeId": "ed341c6c89e1896b15fc7cefd913a381e4c833488cac0115910411cb7d1b4688",
@@ -569,10 +569,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 162.9,
-          "diesel": 194.9,
-          "premiumUnleaded": 182.9,
-          "lastUpdated": "2026-11-20T10:07:26.000Z"
+          "unleaded": 161.9,
+          "diesel": 193.9,
+          "premiumUnleaded": 181.9,
+          "lastUpdated": "2026-11-21T16:00:05.000Z"
         },
         {
           "nodeId": "53b28468e07172ef5def62f64cc642dfcb3f73794df1d6078bd45230b45c718a",
@@ -639,9 +639,9 @@
         "unleaded": {
           "ours": 159.9,
           "cheapest": 154.9,
-          "cheapestLabel": "Jet Castle Service Station",
-          "average": 159.7,
-          "rank": 13,
+          "cheapestLabel": "Morrisons Albion Way",
+          "average": 159.6,
+          "rank": 14,
           "of": 33,
           "excluded": []
         },
@@ -1198,7 +1198,7 @@
         "unleaded": {
           "ours": 159.9,
           "cheapest": 154.9,
-          "average": 159.7
+          "average": 159.6
         },
         "diesel": {
           "ours": 191.9,
