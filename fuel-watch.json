@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-22T10:31:08.689Z",
-  "changedAt": "2026-11-22T10:31:08.689Z",
+  "checkedAt": "2026-11-22T22:31:11.625Z",
+  "changedAt": "2026-11-22T22:31:11.625Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -95,10 +95,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 155.7,
-          "diesel": 187.7,
+          "unleaded": 154.7,
+          "diesel": 186.7,
           "premiumUnleaded": null,
-          "lastUpdated": "2026-11-20T17:53:39.000Z"
+          "lastUpdated": "2026-11-22T12:17:57.000Z"
         },
         {
           "nodeId": "8e436da1d04a4fe80dc9e3a547fa70ed8f006b7ad6710ac71a27f625c2ad5ceb",
@@ -114,10 +114,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 159.9,
+          "unleaded": 158.9,
           "diesel": 193.9,
           "premiumUnleaded": 185.9,
-          "lastUpdated": "2026-11-20T15:29:55.000Z"
+          "lastUpdated": "2026-11-22T11:41:20.000Z"
         },
         {
           "nodeId": "7e54b71d4fc9e3cd9d0f87e6ff69184eb7001a3de05c085565c92028a6f368ef",
@@ -265,10 +265,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 159.9,
-          "diesel": 194.9,
+          "unleaded": 158.9,
+          "diesel": 193.9,
           "premiumUnleaded": 185.9,
-          "lastUpdated": "2026-11-20T15:53:21.000Z"
+          "lastUpdated": "2026-11-22T11:18:25.000Z"
         },
         {
           "nodeId": "536e7657ccc01318e5a2e6a540247df774cd58c9be3a6a91ca887e6f84d9c244",
@@ -361,10 +361,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 160.9,
+          "unleaded": 159.9,
           "diesel": 192.9,
           "premiumUnleaded": 184.9,
-          "lastUpdated": "2026-11-21T09:49:02.000Z"
+          "lastUpdated": "2026-11-22T12:41:54.000Z"
         },
         {
           "nodeId": "b568fa532e2cac4b9cbd15a3942f2e7109eeb1f4af2e2542b45d4fe2a1aeda7a",
@@ -640,16 +640,16 @@
           "ours": 159.9,
           "cheapest": 153.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 159.5,
-          "rank": 15,
+          "average": 159.3,
+          "rank": 17,
           "of": 33,
           "excluded": []
         },
         "diesel": {
           "ours": 191.9,
-          "cheapest": 186.9,
-          "cheapestLabel": "Jet Castle Service Station",
-          "average": 192.3,
+          "cheapest": 186.7,
+          "cheapestLabel": "Asda Hall Road",
+          "average": 192.2,
           "rank": 15,
           "of": 33,
           "excluded": []
@@ -1198,12 +1198,12 @@
         "unleaded": {
           "ours": 159.9,
           "cheapest": 153.9,
-          "average": 159.5
+          "average": 159.3
         },
         "diesel": {
           "ours": 191.9,
-          "cheapest": 186.9,
-          "average": 192.3
+          "cheapest": 186.7,
+          "average": 192.2
         },
         "premiumUnleaded": {
           "ours": 169.9,
