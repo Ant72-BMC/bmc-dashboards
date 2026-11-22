@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-22T01:31:12.532Z",
-  "changedAt": "2026-11-22T01:31:12.532Z",
+  "checkedAt": "2026-11-22T10:31:08.689Z",
+  "changedAt": "2026-11-22T10:31:08.689Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -171,10 +171,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 158.9,
+          "unleaded": 157.9,
           "diesel": 190.9,
-          "premiumUnleaded": 170.9,
-          "lastUpdated": "2026-11-21T06:07:38.000Z"
+          "premiumUnleaded": 169.9,
+          "lastUpdated": "2026-11-22T07:38:16.000Z"
         },
         {
           "nodeId": "9413600ac2534b2d02b6927a2b8edafc482b6d5add45b8bd8c6f15a672373911",
@@ -208,10 +208,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 156.9,
-          "diesel": 188.9,
-          "premiumUnleaded": 168.9,
-          "lastUpdated": "2026-11-21T05:59:35.000Z"
+          "unleaded": 155.9,
+          "diesel": 187.9,
+          "premiumUnleaded": 167.9,
+          "lastUpdated": "2026-11-22T06:48:48.000Z"
         },
         {
           "nodeId": "fd07fad71453cf5a6827fc43c377e7991cc6c6f0b5d0b9994dce580f32626c26",
@@ -227,10 +227,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 162.9,
+          "unleaded": 161.9,
           "diesel": 194.9,
           "premiumUnleaded": 189.9,
-          "lastUpdated": "2026-11-21T09:50:02.000Z"
+          "lastUpdated": "2026-11-22T09:50:03.000Z"
         },
         {
           "nodeId": "e88be1df777d3a4ae04edc3827f6f9ab83fb01a24a4f53506cda06fdfebc7ba0",
@@ -246,10 +246,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 154.9,
+          "unleaded": 153.9,
           "diesel": 186.9,
           "premiumUnleaded": 167.9,
-          "lastUpdated": "2026-11-21T10:11:01.000Z"
+          "lastUpdated": "2026-11-22T10:04:17.000Z"
         },
         {
           "nodeId": "3a84eeda3951eed9a28fca74be208b8dcfeb591df0429087e5af73ab55982432",
@@ -285,10 +285,10 @@
           "supermarket": false,
           "role": "direct",
           "found": true,
-          "unleaded": 160,
-          "diesel": 193.8,
+          "unleaded": 159.5,
+          "diesel": 191.7,
           "premiumUnleaded": 176,
-          "lastUpdated": "2026-11-18T09:17:39.000Z"
+          "lastUpdated": "2026-11-22T10:26:35.000Z"
         },
         {
           "nodeId": "04dbf02f9ac114bfc8e89e96f7172b5b87a5b58f3d8dfed947ac242be4e741f5",
@@ -638,10 +638,10 @@
       "stats": {
         "unleaded": {
           "ours": 159.9,
-          "cheapest": 154.9,
-          "cheapestLabel": "Morrisons Albion Way",
-          "average": 159.6,
-          "rank": 14,
+          "cheapest": 153.9,
+          "cheapestLabel": "Jet Castle Service Station",
+          "average": 159.5,
+          "rank": 15,
           "of": 33,
           "excluded": []
         },
@@ -649,8 +649,8 @@
           "ours": 191.9,
           "cheapest": 186.9,
           "cheapestLabel": "Jet Castle Service Station",
-          "average": 192.4,
-          "rank": 14,
+          "average": 192.3,
+          "rank": 15,
           "of": 33,
           "excluded": []
         },
@@ -658,7 +658,7 @@
           "ours": 169.9,
           "cheapest": 167.9,
           "cheapestLabel": "Poringland Service Station",
-          "average": 178.8,
+          "average": 178.7,
           "rank": 6,
           "of": 28,
           "excluded": [
@@ -1197,18 +1197,18 @@
         "date": "2026-11-22",
         "unleaded": {
           "ours": 159.9,
-          "cheapest": 154.9,
-          "average": 159.6
+          "cheapest": 153.9,
+          "average": 159.5
         },
         "diesel": {
           "ours": 191.9,
           "cheapest": 186.9,
-          "average": 192.4
+          "average": 192.3
         },
         "premiumUnleaded": {
           "ours": 169.9,
           "cheapest": 167.9,
-          "average": 178.8
+          "average": 178.7
         }
       }
     ]
