@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-22T22:31:11.625Z",
-  "changedAt": "2026-11-22T22:31:11.625Z",
+  "checkedAt": "2026-11-23T04:31:10.102Z",
+  "changedAt": "2026-11-23T04:31:10.102Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -305,10 +305,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 159.9,
-          "diesel": 193.9,
-          "premiumUnleaded": 177.9,
-          "lastUpdated": "2026-11-21T23:00:31.000Z"
+          "unleaded": 157.9,
+          "diesel": 190.9,
+          "premiumUnleaded": 175.9,
+          "lastUpdated": "2026-11-22T23:00:59.000Z"
         },
         {
           "nodeId": "0687d5320b931821d20be87679773dda76e009d9fa88aea1661c6401d1c430db",
@@ -641,7 +641,7 @@
           "cheapest": 153.9,
           "cheapestLabel": "Jet Castle Service Station",
           "average": 159.3,
-          "rank": 17,
+          "rank": 18,
           "of": 33,
           "excluded": []
         },
@@ -650,7 +650,7 @@
           "cheapest": 186.7,
           "cheapestLabel": "Asda Hall Road",
           "average": 192.2,
-          "rank": 15,
+          "rank": 16,
           "of": 33,
           "excluded": []
         },
@@ -658,7 +658,7 @@
           "ours": 169.9,
           "cheapest": 167.9,
           "cheapestLabel": "Poringland Service Station",
-          "average": 178.7,
+          "average": 178.6,
           "rank": 6,
           "of": 28,
           "excluded": [
@@ -671,24 +671,6 @@
   ],
   "history": {
     "brooke-garage": [
-      {
-        "date": "2026-10-24",
-        "unleaded": {
-          "ours": 169.9,
-          "cheapest": 168.9,
-          "average": 173.6
-        },
-        "diesel": {
-          "ours": 198.9,
-          "cheapest": 195.9,
-          "average": 199.7
-        },
-        "premiumUnleaded": {
-          "ours": 178.9,
-          "cheapest": 182.7,
-          "average": 192.1
-        }
-      },
       {
         "date": "2026-10-25",
         "unleaded": {
@@ -1209,6 +1191,24 @@
           "ours": 169.9,
           "cheapest": 167.9,
           "average": 178.7
+        }
+      },
+      {
+        "date": "2026-11-23",
+        "unleaded": {
+          "ours": 159.9,
+          "cheapest": 153.9,
+          "average": 159.3
+        },
+        "diesel": {
+          "ours": 191.9,
+          "cheapest": 186.7,
+          "average": 192.2
+        },
+        "premiumUnleaded": {
+          "ours": 169.9,
+          "cheapest": 167.9,
+          "average": 178.6
         }
       }
     ]
