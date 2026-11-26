@@ -1,8 +1,8 @@
 {
   "version": 1,
   "source": "Fuel Finder",
-  "checkedAt": "2026-11-26T00:31:14.636Z",
-  "changedAt": "2026-11-26T00:31:14.636Z",
+  "checkedAt": "2026-11-26T06:31:33.112Z",
+  "changedAt": "2026-11-26T06:31:33.112Z",
   "sites": [
     {
       "key": "brooke-garage",
@@ -171,10 +171,10 @@
           "supermarket": true,
           "role": "direct",
           "found": true,
-          "unleaded": 156.9,
-          "diesel": 189.9,
-          "premiumUnleaded": 168.9,
-          "lastUpdated": "2026-11-24T06:02:55.000Z"
+          "unleaded": 154.9,
+          "diesel": 188.9,
+          "premiumUnleaded": 166.9,
+          "lastUpdated": "2026-11-26T06:00:36.000Z"
         },
         {
           "nodeId": "9413600ac2534b2d02b6927a2b8edafc482b6d5add45b8bd8c6f15a672373911",
@@ -640,7 +640,7 @@
           "ours": 154.9,
           "cheapest": 151.9,
           "cheapestLabel": "Morrisons Albion Way",
-          "average": 156.3,
+          "average": 156.2,
           "rank": 10,
           "of": 33,
           "excluded": []
@@ -649,7 +649,7 @@
           "ours": 187.9,
           "cheapest": 185.7,
           "cheapestLabel": "Asda Hall Road",
-          "average": 189.5,
+          "average": 189.4,
           "rank": 10,
           "of": 33,
           "excluded": []
@@ -1198,12 +1198,12 @@
         "unleaded": {
           "ours": 154.9,
           "cheapest": 151.9,
-          "average": 156.3
+          "average": 156.2
         },
         "diesel": {
           "ours": 187.9,
           "cheapest": 185.7,
-          "average": 189.5
+          "average": 189.4
         },
         "premiumUnleaded": {
           "ours": 169.9,
